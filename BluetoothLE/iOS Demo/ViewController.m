@@ -18,8 +18,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[BluetoothLE shared] initBluetooth];
-    [[BluetoothLE shared] scanBluetooth];
+    [[BLE shared] scan];
+    [[BLE shared] whenFindBluetoothAll:^(NSDictionary *peripheralDict) {
+        [[BLE shared] connect:peripheralDict.allValues.firstObject];
+    }];
+    [[BLE shared] whenConnectSuccess:^{
+        
+    }];
 }
 
 
