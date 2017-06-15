@@ -72,7 +72,7 @@ typedef void(^UnconnectBlock)();
 /**
  *  取消连接蓝牙设备
  */
-- (void)unconnect:(CBPeripheral *)peripheral;
+- (void)unconnect;
 
 /* 发现新蓝牙（同一个蓝牙如果状态更新会被重复发现），仅用于快速连接 */
 - (void)whenFindBluetooth:(FindBluetoothBlock)bluetoothBlock;

@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		817F485D1EF22F8D0013AEC3 /* BLE+Delegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 817F485B1EF22F8D0013AEC3 /* BLE+Delegate.h */; };
+		817F485D1EF22F8D0013AEC3 /* BLE+Delegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 817F485B1EF22F8D0013AEC3 /* BLE+Delegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		817F485E1EF22F8D0013AEC3 /* BLE+Delegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 817F485C1EF22F8D0013AEC3 /* BLE+Delegate.m */; };
-		817F48611EF239830013AEC3 /* BLE+SendData.h in Headers */ = {isa = PBXBuildFile; fileRef = 817F485F1EF239830013AEC3 /* BLE+SendData.h */; };
+		817F48611EF239830013AEC3 /* BLE+SendData.h in Headers */ = {isa = PBXBuildFile; fileRef = 817F485F1EF239830013AEC3 /* BLE+SendData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		817F48621EF239830013AEC3 /* BLE+SendData.m in Sources */ = {isa = PBXBuildFile; fileRef = 817F48601EF239830013AEC3 /* BLE+SendData.m */; };
 		81A18ACA1EEE42AC00BA8293 /* BluetoothLE.h in Headers */ = {isa = PBXBuildFile; fileRef = 81A18AC81EEE42AC00BA8293 /* BluetoothLE.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		81A18AD21EEE42C600BA8293 /* BLE.h in Headers */ = {isa = PBXBuildFile; fileRef = 81A18AD01EEE42C600BA8293 /* BLE.h */; settings = {ATTRIBUTES = (Public, ); }; };

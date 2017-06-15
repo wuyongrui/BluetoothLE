@@ -44,10 +44,10 @@ static BLE *instance = nil;
     [_centralManager stopScan];
 }
 
-- (void)unconnect:(CBPeripheral *)peripheral {
+- (void)unconnect {
     
-    if (peripheral) {
-        [self.centralManager cancelPeripheralConnection:peripheral];
+    if (_peripheral) {
+        [self.centralManager cancelPeripheralConnection:_peripheral];
     }
 }
 
