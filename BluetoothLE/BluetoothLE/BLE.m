@@ -9,34 +9,41 @@
 #import "BLE+Delegate.h"
 #import "BLE+SendData.h"
 
-@interface BLE ()
-
-@end
 
 @implementation BLE
 
-static BLE *instance = nil;
 + (BLE *)shared
 {
-    if (instance == nil) {
-        instance = [[BLE alloc] init];
-    }
+    static BLE *instance = nil;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        instance = [[self alloc] init];
+    });
     return instance;
+}
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _MTU = 20;
+        _deviceDict = [[NSMutableDictionary alloc] init];
+        _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];//创建CBCentralManager对象
+    }
+    return self;
 }
 
 //扫描蓝牙
 - (void)scan {
     
-    _MTU = 20;
-    _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];//创建CBCentralManager对象
     // 设置 NO 表示不发现重复设备
     NSDictionary *optionDic = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
     [_centralManager scanForPeripheralsWithServices:nil options:optionDic];//将第一个参数设置为nil，Central Manager就会开始寻找所有的服务。
 }
 
-- (void)connect:(CBPeripheral *)peripheral {
-    
-    [_centralManager connectPeripheral:peripheral options:nil];
+- (void)connect:(BLEDevice *)device {
+    if (device.peripheral) {
+        _currentDevice = device;
+        [_centralManager connectPeripheral:device.peripheral options:nil];
+    }
 }
 
 - (void)stopScan {
@@ -46,8 +53,8 @@ static BLE *instance = nil;
 
 - (void)unconnect {
     
-    if (_peripheral) {
-        [self.centralManager cancelPeripheralConnection:_peripheral];
+    if (_currentDevice.peripheral) {
+        [self.centralManager cancelPeripheralConnection:_currentDevice.peripheral];
     }
 }
 

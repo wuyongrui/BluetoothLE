@@ -10,4 +10,6 @@
 
 @interface BLE (Delegate)
 
+- (void)centralManagerDidUpdateState:(CBCentralManager *)central;
+
 @end

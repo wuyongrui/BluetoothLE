@@ -14,7 +14,7 @@
     
     self.isSendFinish = NO;
     self.dataOffset = 0;
-    if (self.peripheral && data) {
+    if (self.currentDevice.peripheral && data) {
         self.sendData = data;
         int dataSize = (int)self.sendData.length;
         if (dataSize < self.MTU) {
@@ -23,12 +23,12 @@
             self.isSendFinish = YES;
             self.sendData = nil;
         }else {
-            [self sendNextData:self.sendData];
+            [self sendNext:self.sendData];
         }
     }
 }
 
-- (void)sendNextData:(NSData *)data {
+- (void)sendNext:(NSData *)data {
     float dataSize = (float)data.length;
     NSData *subData;
     if (data.length - self.dataOffset <= self.MTU) { // 剩余数据量可以一次性发送完（最后一次发送）
@@ -59,7 +59,7 @@
 - (void)writeFinal:(NSData *)data {
     
     if (self.characteristicWrite && data) {
-        [self.peripheral writeValue:data forCharacteristic:self.characteristicWrite type:CBCharacteristicWriteWithResponse];
+        [self.currentDevice.peripheral writeValue:data forCharacteristic:self.characteristicWrite type:CBCharacteristicWriteWithResponse];
     }
 }
 

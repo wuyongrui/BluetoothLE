@@ -21,11 +21,10 @@
     [[BLE shared] scan];
     [[BLE shared] whenFindBluetooth:^(CBPeripheral *peripheral) {
         // 扫描的的蓝牙
+        NSLog(@"发现蓝牙：%@",peripheral.identifier);
     }];
     [[BLE shared] whenFindBluetoothAll:^(NSDictionary *peripheralDict) {
         // 扫描到的蓝牙列表
-        // 连接蓝牙
-        [[BLE shared] connect:peripheralDict.allValues.firstObject];
     }];
     [[BLE shared] whenConnectSuccess:^{
         // 连接成功

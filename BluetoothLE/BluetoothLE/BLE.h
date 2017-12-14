@@ -7,10 +7,11 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "BLEDevice.h"
 
 /** 发现新蓝牙 */
-typedef void(^FindBluetoothBlock)(CBPeripheral *peripheral);
-typedef void(^FindBluetoothAllBlock)(NSDictionary *peripheralDict);
+typedef void(^FindBluetoothBlock)(BLEDevice *device);
+typedef void(^FindBluetoothAllBlock)(NSDictionary *deviceDict);
 
 /** 连接成功、失败 */
 typedef void(^ConnectSuccessBlock)();
@@ -44,8 +45,8 @@ typedef void(^UnconnectBlock)();
 @property(copy,nonatomic,readwrite) UnconnectBlock          unconnectBlock;
 
 @property(strong,nonatomic,readwrite) CBCentralManager *centralManager;
-@property(strong,nonatomic,readwrite) CBPeripheral *peripheral;
-@property(strong,nonatomic,readwrite) NSMutableDictionary *peripheralDict;
+@property(strong,nonatomic,readwrite) BLEDevice *currentDevice;
+@property(strong,nonatomic,readwrite) NSMutableDictionary<NSString *, BLEDevice *> *deviceDict;
 @property(strong,nonatomic,readwrite) CBCharacteristic *characteristicWrite;
 @property(strong,nonatomic,readwrite) NSData *sendData;
 @property(copy,nonatomic,readwrite) NSString *writeCharacteristic;
@@ -67,7 +68,7 @@ typedef void(^UnconnectBlock)();
  *
  *  @param peripheral 将要连接的 CBPeripheral 对象
  */
-- (void)connect:(CBPeripheral *)peripheral;
+- (void)connect:(BLEDevice *)device;
 
 /**
  *  取消连接蓝牙设备

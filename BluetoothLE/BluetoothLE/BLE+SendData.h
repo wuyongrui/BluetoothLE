@@ -14,6 +14,6 @@
  * 发送数据
  */
 - (void)send:(NSData *)data;
-- (void)sendNextData:(NSData *)data;
+- (void)sendNext:(NSData *)data;
 
 @end

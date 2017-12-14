@@ -12,38 +12,42 @@
 @implementation BLE (Delegate)
 
 #pragma mark CBCentralManagerDelegate
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central {
     
     NSLog(@"centralManagerDidUpdateState:%ld",(long)central.state);
     switch (central.state) {
-        case CBCentralManagerStateUnknown:      NSLog(@"CBCentralStateUnknown");     break;
-        case CBCentralManagerStateResetting:    NSLog(@"CBCentralStateResetting");   break;
-        case CBCentralManagerStateUnsupported:  NSLog(@"CBCentralStateUnsupported"); break;
-        case CBCentralManagerStateUnauthorized: NSLog(@"CBCentralStateUnauthorized");break;
-        case CBCentralManagerStatePoweredOff:   NSLog(@"CBCentralStatePoweredOff");  break;
-        case CBCentralManagerStatePoweredOn:    [self scan];                       break;//蓝牙打开，开始扫描。
+        case CBManagerStateUnknown:      NSLog(@"CBManagerStateUnknown");     break;
+        case CBManagerStateResetting:    NSLog(@"CBManagerStateResetting");   break;
+        case CBManagerStateUnsupported:  NSLog(@"CBManagerStateUnsupported"); break;
+        case CBManagerStateUnauthorized: NSLog(@"CBManagerStateUnauthorized");break;
+        case CBManagerStatePoweredOff:   NSLog(@"CBManagerStatePoweredOff");  break;
+        case CBManagerStatePoweredOn:    [self scan];                       break;//蓝牙打开，开始扫描。
         default:                         NSLog(@"蓝牙未工作在正确状态");                 break;
     }
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI {
     NSString *uuid = [peripheral.identifier UUIDString];
-    if (!self.peripheralDict[uuid]) {
+    BLEDevice *device = [[BLEDevice alloc] init];
+    device.peripheral = peripheral;
+    device.advertisementData = advertisementData;
+    if (!self.deviceDict[uuid]) {
+        self.deviceDict[uuid] = device;
         if (self.findBluetoothAllBlock) {
-            self.findBluetoothAllBlock(self.peripheralDict);
+            self.findBluetoothAllBlock(self.deviceDict);
         }
     }
     if (self.findBluetoothBlock) {
-        self.findBluetoothBlock(peripheral);
+        self.findBluetoothBlock(device);
     }
 }
 
 //连接外设成功，扫描外设中的服务和特征
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     
-    self.peripheral = peripheral;
-    self.peripheral.delegate = self;
+    self.currentDevice.peripheral.delegate = self;
     
     if (self.connectSuccessBlock) {
         self.connectSuccessBlock();
@@ -58,7 +62,7 @@
     if (self.unconnectBlock) {
         self.unconnectBlock();
     }
-    self.peripheral = nil;
+    self.currentDevice = nil;
 }
 
 //连接外设失败
@@ -98,12 +102,13 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     if ((self.isSendFinish == NO) && ( self.dataOffset != 0)) {
-        [self sendNextData:self.sendData];
+        [self sendNext:self.sendData];
     } else {
         if (self.sendSuccessBlock) {
             self.sendSuccessBlock();
         }
     }
 }
+#pragma clang diagnostic pop
 
 @end

@@ -23,5 +23,6 @@ FOUNDATION_EXPORT const unsigned char BluetoothLEVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <BluetoothLE/PublicHeader.h>
 
 #import <BluetoothLE/BLE.h>
+#import <BluetoothLE/BLEDevice.h>
 #import <BluetoothLE/BLE+Delegate.h>
 #import <BluetoothLE/BLE+SendData.h>
