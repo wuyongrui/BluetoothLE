@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
-#import <BluetoothLE/BluetoothLE.h>
+//#import <BluetoothLE/BluetoothLE.h>
+#import <BluetoothLE_Mac/BluetoothLE_Mac.h>
 #import "LockManager.h"
 
 @implementation ViewController
@@ -17,7 +18,7 @@
 
     [LockManager lock];
     [[BLE shared] scan];
-    sleep(10);
+    sleep(5);
     [LockManager unlock:@"mtdp"];
     [[BLE shared] whenFindBluetooth:^(BLEDevice *BLE) {
         // 扫描的的蓝牙

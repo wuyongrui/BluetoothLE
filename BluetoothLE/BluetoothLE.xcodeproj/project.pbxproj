@@ -10,6 +10,16 @@
 		311C098B1FE244330054E828 /* BLEDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 311C09891FE244330054E828 /* BLEDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		311C098C1FE244330054E828 /* BLEDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C098A1FE244330054E828 /* BLEDevice.m */; };
 		311C098F1FE248A80054E828 /* LockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C098E1FE248A80054E828 /* LockManager.m */; };
+		311C09991FE361870054E828 /* BluetoothLE_Mac.h in Headers */ = {isa = PBXBuildFile; fileRef = 311C09971FE361870054E828 /* BluetoothLE_Mac.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		311C09A21FE361D30054E828 /* BLEDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 311C09891FE244330054E828 /* BLEDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		311C09A31FE361D30054E828 /* BLE.h in Headers */ = {isa = PBXBuildFile; fileRef = 81A18AD01EEE42C600BA8293 /* BLE.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		311C09A41FE361D30054E828 /* BLE+Delegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 817F485B1EF22F8D0013AEC3 /* BLE+Delegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		311C09A51FE361D30054E828 /* BLE+SendData.h in Headers */ = {isa = PBXBuildFile; fileRef = 817F485F1EF239830013AEC3 /* BLE+SendData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		311C09A81FE364280054E828 /* BluetoothLE_Mac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311C09951FE361870054E828 /* BluetoothLE_Mac.framework */; };
+		311C09AA1FE3645F0054E828 /* BLEDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C098A1FE244330054E828 /* BLEDevice.m */; };
+		311C09AB1FE3645F0054E828 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A18AD11EEE42C600BA8293 /* BLE.m */; };
+		311C09AC1FE3645F0054E828 /* BLE+Delegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 817F485C1EF22F8D0013AEC3 /* BLE+Delegate.m */; };
+		311C09AD1FE3645F0054E828 /* BLE+SendData.m in Sources */ = {isa = PBXBuildFile; fileRef = 817F48601EF239830013AEC3 /* BLE+SendData.m */; };
 		817F485D1EF22F8D0013AEC3 /* BLE+Delegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 817F485B1EF22F8D0013AEC3 /* BLE+Delegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		817F485E1EF22F8D0013AEC3 /* BLE+Delegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 817F485C1EF22F8D0013AEC3 /* BLE+Delegate.m */; };
 		817F48611EF239830013AEC3 /* BLE+SendData.h in Headers */ = {isa = PBXBuildFile; fileRef = 817F485F1EF239830013AEC3 /* BLE+SendData.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -29,7 +39,6 @@
 		81A18B0C1EEE436600BA8293 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81A18B0B1EEE436600BA8293 /* Assets.xcassets */; };
 		81A18B0F1EEE436600BA8293 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81A18B0D1EEE436600BA8293 /* Main.storyboard */; };
 		81A18B141EEE444A00BA8293 /* BluetoothLE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81A18AC51EEE42AC00BA8293 /* BluetoothLE.framework */; };
-		81A18B151EEE445000BA8293 /* BluetoothLE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81A18AC51EEE42AC00BA8293 /* BluetoothLE.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +63,9 @@
 		311C098A1FE244330054E828 /* BLEDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLEDevice.m; sourceTree = "<group>"; };
 		311C098D1FE248A80054E828 /* LockManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockManager.h; sourceTree = "<group>"; };
 		311C098E1FE248A80054E828 /* LockManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LockManager.m; sourceTree = "<group>"; };
+		311C09951FE361870054E828 /* BluetoothLE_Mac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BluetoothLE_Mac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		311C09971FE361870054E828 /* BluetoothLE_Mac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BluetoothLE_Mac.h; sourceTree = "<group>"; };
+		311C09981FE361870054E828 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		817F485B1EF22F8D0013AEC3 /* BLE+Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BLE+Delegate.h"; sourceTree = "<group>"; };
 		817F485C1EF22F8D0013AEC3 /* BLE+Delegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BLE+Delegate.m"; sourceTree = "<group>"; };
 		817F485F1EF239830013AEC3 /* BLE+SendData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BLE+SendData.h"; sourceTree = "<group>"; };
@@ -85,6 +97,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		311C09911FE361870054E828 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		81A18AC11EEE42AC00BA8293 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -104,20 +123,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81A18B151EEE445000BA8293 /* BluetoothLE.framework in Frameworks */,
+				311C09A81FE364280054E828 /* BluetoothLE_Mac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		311C09961FE361870054E828 /* BluetoothLE-Mac */ = {
+			isa = PBXGroup;
+			children = (
+				311C09971FE361870054E828 /* BluetoothLE_Mac.h */,
+				311C09981FE361870054E828 /* Info.plist */,
+			);
+			path = "BluetoothLE-Mac";
+			sourceTree = "<group>";
+		};
+		311C09A61FE362180054E828 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		81A18ABB1EEE42AC00BA8293 = {
 			isa = PBXGroup;
 			children = (
 				81A18AC71EEE42AC00BA8293 /* BluetoothLE */,
+				311C09961FE361870054E828 /* BluetoothLE-Mac */,
 				81A18AE61EEE434B00BA8293 /* iOS Demo */,
 				81A18B011EEE436600BA8293 /* macOS Demo */,
 				81A18AC61EEE42AC00BA8293 /* Products */,
+				311C09A61FE362180054E828 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,6 +164,7 @@
 				81A18AC51EEE42AC00BA8293 /* BluetoothLE.framework */,
 				81A18AE51EEE434B00BA8293 /* iOS Demo.app */,
 				81A18B001EEE436600BA8293 /* macOS Demo.app */,
+				311C09951FE361870054E828 /* BluetoothLE_Mac.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -200,6 +238,18 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		311C09921FE361870054E828 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				311C09991FE361870054E828 /* BluetoothLE_Mac.h in Headers */,
+				311C09A21FE361D30054E828 /* BLEDevice.h in Headers */,
+				311C09A31FE361D30054E828 /* BLE.h in Headers */,
+				311C09A41FE361D30054E828 /* BLE+Delegate.h in Headers */,
+				311C09A51FE361D30054E828 /* BLE+SendData.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		81A18AC21EEE42AC00BA8293 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -215,6 +265,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		311C09941FE361870054E828 /* BluetoothLE-Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 311C09A01FE361870054E828 /* Build configuration list for PBXNativeTarget "BluetoothLE-Mac" */;
+			buildPhases = (
+				311C09901FE361870054E828 /* Sources */,
+				311C09911FE361870054E828 /* Frameworks */,
+				311C09921FE361870054E828 /* Headers */,
+				311C09931FE361870054E828 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "BluetoothLE-Mac";
+			productName = "BluetoothLE-Mac";
+			productReference = 311C09951FE361870054E828 /* BluetoothLE_Mac.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		81A18AC41EEE42AC00BA8293 /* BluetoothLE */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 81A18ACD1EEE42AC00BA8293 /* Build configuration list for PBXNativeTarget "BluetoothLE" */;
@@ -278,6 +346,11 @@
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = midmirror;
 				TargetAttributes = {
+					311C09941FE361870054E828 = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = A48PP6NL33;
+						ProvisioningStyle = Automatic;
+					};
 					81A18AC41EEE42AC00BA8293 = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
@@ -308,6 +381,7 @@
 			projectRoot = "";
 			targets = (
 				81A18AC41EEE42AC00BA8293 /* BluetoothLE */,
+				311C09941FE361870054E828 /* BluetoothLE-Mac */,
 				81A18AE41EEE434B00BA8293 /* iOS Demo */,
 				81A18AFF1EEE436600BA8293 /* macOS Demo */,
 			);
@@ -315,6 +389,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		311C09931FE361870054E828 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		81A18AC31EEE42AC00BA8293 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -344,6 +425,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		311C09901FE361870054E828 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				311C09AA1FE3645F0054E828 /* BLEDevice.m in Sources */,
+				311C09AB1FE3645F0054E828 /* BLE.m in Sources */,
+				311C09AC1FE3645F0054E828 /* BLE+Delegate.m in Sources */,
+				311C09AD1FE3645F0054E828 /* BLE+SendData.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		81A18AC01EEE42AC00BA8293 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -419,6 +511,74 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		311C099E1FE361870054E828 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = A48PP6NL33;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "BluetoothLE-Mac/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = "meituan.BluetoothLE-Mac";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		311C099F1FE361870054E828 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = A48PP6NL33;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "BluetoothLE-Mac/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = "meituan.BluetoothLE-Mac";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		81A18ACB1EEE42AC00BA8293 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -530,7 +690,7 @@
 				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.midmirror.BluetoothLE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -550,7 +710,7 @@
 				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.midmirror.BluetoothLE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -595,7 +755,7 @@
 				DEVELOPMENT_TEAM = A48PP6NL33;
 				INFOPLIST_FILE = "macOS Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.midmirror.BluetoothLE.macOS-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -614,7 +774,7 @@
 				DEVELOPMENT_TEAM = A48PP6NL33;
 				INFOPLIST_FILE = "macOS Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.midmirror.BluetoothLE.macOS-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -626,6 +786,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		311C09A01FE361870054E828 /* Build configuration list for PBXNativeTarget "BluetoothLE-Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				311C099E1FE361870054E828 /* Debug */,
+				311C099F1FE361870054E828 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		81A18ABF1EEE42AC00BA8293 /* Build configuration list for PBXProject "BluetoothLE" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
