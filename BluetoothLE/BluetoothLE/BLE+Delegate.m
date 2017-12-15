@@ -84,7 +84,6 @@
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
-    
     if (self.updateServiceBlock) {
         self.updateServiceBlock(service);
     }
@@ -95,6 +94,7 @@
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    NSLog(@"didUpdateValueForCharacteristic:%@", characteristic);
     if (self.receiveDataBlock) {
         self.receiveDataBlock(characteristic.value);
     }
