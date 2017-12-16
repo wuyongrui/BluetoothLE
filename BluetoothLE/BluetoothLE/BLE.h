@@ -14,19 +14,19 @@ typedef void(^FindBluetoothBlock)(BLEDevice *device);
 typedef void(^FindBluetoothAllBlock)(NSDictionary *deviceDict);
 
 /** 连接成功、失败 */
-typedef void(^ConnectSuccessBlock)();
-typedef void(^ConnectFailureBlock)();
+typedef void(^ConnectSuccessBlock)(void);
+typedef void(^ConnectFailureBlock)(void);
 
 typedef void(^UpdateServiceBlock)(CBService *service);
 
 /** 可以发送、发送成功、发送失败、接收到返回值 */
-typedef void(^SendSuccessBlock)();
-typedef void(^SendFailureBlock)();
+typedef void(^SendSuccessBlock)(void);
+typedef void(^SendFailureBlock)(void);
 typedef void(^SendProgressBlock)(NSNumber *progress);
 typedef void(^ReceiveDataBlock)(NSData *data);
 
 /** 断开 */
-typedef void(^UnconnectBlock)();
+typedef void(^UnconnectBlock)(void);
 
 
 @interface BLE : NSObject<CBCentralManagerDelegate,CBPeripheralDelegate>
@@ -65,8 +65,6 @@ typedef void(^UnconnectBlock)();
 
 /**
  *  连接蓝牙设备
- *
- *  @param peripheral 将要连接的 CBPeripheral 对象
  */
 - (void)connect:(BLEDevice *)device;
 

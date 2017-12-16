@@ -6,7 +6,7 @@
 //  Copyright © 2017 midmirror. All rights reserved.
 //
 
-#import <BluetoothLE/BLE.h>
+#import "BLE.h"
 
 @interface BLE (Delegate)
 

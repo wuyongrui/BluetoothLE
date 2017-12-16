@@ -15,7 +15,6 @@
 		311C09A31FE361D30054E828 /* BLE.h in Headers */ = {isa = PBXBuildFile; fileRef = 81A18AD01EEE42C600BA8293 /* BLE.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		311C09A41FE361D30054E828 /* BLE+Delegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 817F485B1EF22F8D0013AEC3 /* BLE+Delegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		311C09A51FE361D30054E828 /* BLE+SendData.h in Headers */ = {isa = PBXBuildFile; fileRef = 817F485F1EF239830013AEC3 /* BLE+SendData.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		311C09A81FE364280054E828 /* BluetoothLE_Mac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311C09951FE361870054E828 /* BluetoothLE_Mac.framework */; };
 		311C09AA1FE3645F0054E828 /* BLEDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C098A1FE244330054E828 /* BLEDevice.m */; };
 		311C09AB1FE3645F0054E828 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A18AD11EEE42C600BA8293 /* BLE.m */; };
 		311C09AC1FE3645F0054E828 /* BLE+Delegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 817F485C1EF22F8D0013AEC3 /* BLE+Delegate.m */; };
@@ -24,6 +23,7 @@
 		311C09B11FE3C8030054E828 /* BLEBroadcast.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C09AF1FE3C8030054E828 /* BLEBroadcast.m */; };
 		311C09B31FE3C9100054E828 /* BLEBroadcast.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C09AF1FE3C8030054E828 /* BLEBroadcast.m */; };
 		311C09B41FE3C9230054E828 /* BLEBroadcast.h in Headers */ = {isa = PBXBuildFile; fileRef = 311C09AE1FE3C8030054E828 /* BLEBroadcast.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		80DDD66D1FE559AC0047B189 /* BluetoothLE_Mac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311C09951FE361870054E828 /* BluetoothLE_Mac.framework */; };
 		817F485D1EF22F8D0013AEC3 /* BLE+Delegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 817F485B1EF22F8D0013AEC3 /* BLE+Delegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		817F485E1EF22F8D0013AEC3 /* BLE+Delegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 817F485C1EF22F8D0013AEC3 /* BLE+Delegate.m */; };
 		817F48611EF239830013AEC3 /* BLE+SendData.h in Headers */ = {isa = PBXBuildFile; fileRef = 817F485F1EF239830013AEC3 /* BLE+SendData.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -46,19 +46,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		313ED72A1FE218AB00A03382 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 81A18ABC1EEE42AC00BA8293 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 81A18AC41EEE42AC00BA8293;
-			remoteInfo = BluetoothLE;
-		};
 		313ED72C1FE218AE00A03382 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 81A18ABC1EEE42AC00BA8293 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 81A18AC41EEE42AC00BA8293;
 			remoteInfo = BluetoothLE;
+		};
+		80DDD66B1FE558AC0047B189 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 81A18ABC1EEE42AC00BA8293 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 311C09941FE361870054E828;
+			remoteInfo = "BluetoothLE-Mac";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -129,7 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				311C09A81FE364280054E828 /* BluetoothLE_Mac.framework in Frameworks */,
+				80DDD66D1FE559AC0047B189 /* BluetoothLE_Mac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,7 +340,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				313ED72B1FE218AB00A03382 /* PBXTargetDependency */,
+				80DDD66C1FE558AC0047B189 /* PBXTargetDependency */,
 			);
 			name = "macOS Demo";
 			productName = "macOS Demo";
@@ -483,15 +483,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		313ED72B1FE218AB00A03382 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 81A18AC41EEE42AC00BA8293 /* BluetoothLE */;
-			targetProxy = 313ED72A1FE218AB00A03382 /* PBXContainerItemProxy */;
-		};
 		313ED72D1FE218AE00A03382 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 81A18AC41EEE42AC00BA8293 /* BluetoothLE */;
 			targetProxy = 313ED72C1FE218AE00A03382 /* PBXContainerItemProxy */;
+		};
+		80DDD66C1FE558AC0047B189 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 311C09941FE361870054E828 /* BluetoothLE-Mac */;
+			targetProxy = 80DDD66B1FE558AC0047B189 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -691,7 +691,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -712,6 +714,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";

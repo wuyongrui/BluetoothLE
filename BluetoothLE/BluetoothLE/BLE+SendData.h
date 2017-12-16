@@ -6,7 +6,7 @@
 //  Copyright © 2017 midmirror. All rights reserved.
 //
 
-#import <BluetoothLE/BluetoothLE.h>
+#import "BLE.h"
 
 @interface BLE (SendData)
 
