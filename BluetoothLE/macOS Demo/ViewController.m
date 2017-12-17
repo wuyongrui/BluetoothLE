@@ -7,9 +7,7 @@
 //
 
 #import "ViewController.h"
-//#import <BluetoothLE/BluetoothLE.h>
-#import <BluetoothLE_Mac/BluetoothLE_Mac.h>
-#import "LockManager.h"
+#import "BLEBroadcast.h"
 
 @interface ViewController()
 
@@ -60,9 +58,9 @@
 //    [[BLE shared] whenReceiveData:^(NSData *data) {
 //        // 接收到蓝牙返回的数据
 //        if ([data isEqualToData:passwordData]) {
-//            [LockManager unlock:password];
+//            [BLELockManager unlock:password];
 //        } else if ([data isEqualToData:lockData]) {
-//            [LockManager lock];
+//            [BLELockManager lock];
 //        }
 //    }];
 //    [[BLE shared] unconnect];

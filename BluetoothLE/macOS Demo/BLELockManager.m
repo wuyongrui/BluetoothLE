@@ -1,18 +1,18 @@
 //
-//  LockManager.m
+//  BLELockManager.m
 //  macOS Demo
 //
 //  Created by 许向亮 on 2017/12/14.
 //  Copyright © 2017年 midmirror. All rights reserved.
 //
 
-#import "LockManager.h"
+#import "BLELockManager.h"
 
-@interface LockManager()
+@interface BLELockManager()
 
 @end
 
-@implementation LockManager
+@implementation BLELockManager
 
 + (BOOL)isLocked
 {
@@ -48,21 +48,21 @@
     }
     
     // show login window 1s after display idle
-    double delayInSeconds = 1.0; // longer or shorter are both not good.
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-        // wakeup display from idle status to show login window
-        io_registry_entry_t r = IORegistryEntryFromPath(kIOMasterPortDefault, "IOService:/IOResources/IODisplayWrangler");
-        if (r) {
-            IORegistryEntrySetCFProperty(r, CFSTR("IORequestIdle"), kCFBooleanFalse);
-            IOObjectRelease(r);
-        }
-        
-        // restore user's old setting, the old setting only takes effect after next display idle.
-        [self setScreensaverAskForPassword:screensaverAskForPassword];
-        [self setScreensaverDelay:screensaverDelay];
-    });
-    
-    sleep(1); // waiting login window
+//    double delayInSeconds = 1.0; // longer or shorter are both not good.
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+//        // wakeup display from idle status to show login window
+//        io_registry_entry_t r = IORegistryEntryFromPath(kIOMasterPortDefault, "IOService:/IOResources/IODisplayWrangler");
+//        if (r) {
+//            IORegistryEntrySetCFProperty(r, CFSTR("IORequestIdle"), kCFBooleanFalse);
+//            IOObjectRelease(r);
+//        }
+//
+//        // restore user's old setting, the old setting only takes effect after next display idle.
+//        [self setScreensaverAskForPassword:screensaverAskForPassword];
+//        [self setScreensaverDelay:screensaverDelay];
+//    });
+//
+//    sleep(1); // waiting login window
 }
 
 + (void)unlock:(NSString *)password

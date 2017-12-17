@@ -1,5 +1,5 @@
 //
-//  LockManager.h
+//  BLELockManager.h
 //  macOS Demo
 //
 //  Created by 许向亮 on 2017/12/14.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LockManager : NSObject
+@interface BLELockManager : NSObject
 
 + (BOOL)isLocked;
 + (void)lock;

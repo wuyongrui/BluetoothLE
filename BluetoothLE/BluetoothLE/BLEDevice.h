@@ -13,5 +13,13 @@
 
 @property (nonatomic, strong) CBPeripheral *peripheral;
 @property (nonatomic, strong) NSDictionary *advertisementData;
+@property(strong,nonatomic,readwrite) NSNumber *strength;
+@property(strong,nonatomic,readwrite) NSNumber *distance;   // Printer's distance calculate by RSSI
+
+/** 计算距离 */
++ (NSNumber *)distanceWithRSSI:(NSNumber *)RSSI;
+
+/** 判断信号强度 */
++ (NSNumber *)strengthWithRSSI:(NSNumber *)RSSI;
 
 @end

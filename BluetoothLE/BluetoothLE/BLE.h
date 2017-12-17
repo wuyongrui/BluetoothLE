@@ -18,6 +18,7 @@ typedef void(^ConnectSuccessBlock)(void);
 typedef void(^ConnectFailureBlock)(void);
 
 typedef void(^UpdateServiceBlock)(CBService *service);
+typedef void(^UpdateRSSIBlock)(NSNumber *RSSI);
 
 /** 可以发送、发送成功、发送失败、接收到返回值 */
 typedef void(^SendSuccessBlock)(void);
@@ -35,6 +36,7 @@ typedef void(^UnconnectBlock)(void);
 @property(copy,nonatomic,readwrite) FindBluetoothAllBlock   findBluetoothAllBlock;
 
 @property(copy,nonatomic,readwrite) UpdateServiceBlock      updateServiceBlock;
+@property(copy,nonatomic,readwrite) UpdateRSSIBlock         updateRSSIBlock;
 
 @property(copy,nonatomic,readwrite) SendSuccessBlock        sendSuccessBlock;        //发送结束时的 Block
 @property(copy,nonatomic,readwrite) SendFailureBlock        sendFailureBlock;

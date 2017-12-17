@@ -29,18 +29,23 @@
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI {
-    NSString *uuid = [peripheral.identifier UUIDString];
-    BLEDevice *device = [[BLEDevice alloc] init];
-    device.peripheral = peripheral;
-    device.advertisementData = advertisementData;
-    if (!self.deviceDict[uuid]) {
-        self.deviceDict[uuid] = device;
-        if (self.findBluetoothAllBlock) {
-            self.findBluetoothAllBlock(self.deviceDict);
+    NSString *localName = advertisementData[CBAdvertisementDataLocalNameKey];
+    if ([localName isEqualToString:@"Phone ID Beacon"]) {
+        NSString *uuid = [peripheral.identifier UUIDString];
+        BLEDevice *device = [[BLEDevice alloc] init];
+        device.peripheral = peripheral;
+        device.advertisementData = advertisementData;
+        device.distance = [BLEDevice distanceWithRSSI:RSSI];
+        device.strength = [BLEDevice strengthWithRSSI:RSSI];
+        if (!self.deviceDict[uuid]) {
+            self.deviceDict[uuid] = device;
+            if (self.findBluetoothAllBlock) {
+                self.findBluetoothAllBlock(self.deviceDict);
+            }
         }
-    }
-    if (self.findBluetoothBlock) {
-        self.findBluetoothBlock(device);
+        if (self.findBluetoothBlock) {
+            self.findBluetoothBlock(device);
+        }
     }
 }
 
@@ -56,6 +61,24 @@
     [self stopScan]; //连接成功后停止扫描
     
     [peripheral discoverServices:nil];
+    
+    NSTimer *timer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(readRSSITimer:) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+}
+
+- (void)readRSSITimer:(NSTimer *)timer {
+    if (self.currentDevice.peripheral) {
+        [self.currentDevice.peripheral readRSSI];
+    }
+    else {
+        [timer invalidate]; // 断开连接时，peripheral会置空，此时断开定时器
+    }
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(nullable NSError *)error {
+    if (self.updateRSSIBlock) {
+        self.updateRSSIBlock(RSSI);
+    }
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
