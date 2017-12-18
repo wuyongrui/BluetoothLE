@@ -11,7 +11,7 @@
 
 @interface BLEBroadcast : NSObject
 
-- (id)initWithUUID:(NSString *)uuid deviceName:(NSString *)deviceName;
+- (id)initWithUUID:(NSString *)uuid;
 - (void)startBroadcasting;
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral;
 - (void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(NSError *)error;

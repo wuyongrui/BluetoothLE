@@ -33,6 +33,7 @@
     if ([localName isEqualToString:@"Phone ID Beacon"]) {
         NSString *uuid = [peripheral.identifier UUIDString];
         BLEDevice *device = [[BLEDevice alloc] init];
+        device.localName = localName;
         device.peripheral = peripheral;
         device.advertisementData = advertisementData;
         device.distance = [BLEDevice distanceWithRSSI:RSSI];

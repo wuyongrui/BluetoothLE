@@ -67,7 +67,7 @@
 //    [[BLE shared] whenUnconnect:^{
 //        // 已断开
 //    }];
-    self.broadcast = [[BLEBroadcast alloc] initWithUUID:@"C4D13329-6DF2-47B5-83AC-CD3AB71AA9F8" deviceName:[NSHost currentHost].localizedName];
+    self.broadcast = [[BLEBroadcast alloc] initWithUUID:@"C4D13329-6DF2-47B5-83AC-CD3AB71AA9F8"];
 }
 
 

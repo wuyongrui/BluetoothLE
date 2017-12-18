@@ -12,7 +12,6 @@
 @interface BLEBroadcast()<CBPeripheralManagerDelegate>
 
 @property (nonatomic, strong) CBUUID *uuid;
-@property (nonatomic, copy) NSString *deviceName;
 @property (nonatomic, strong) CBPeripheralManager *peripheralManager;
 
 @end
@@ -22,12 +21,11 @@ static NSString * const kCharacteristicUUID = @"BB00";
 
 @implementation BLEBroadcast
 
-- (id)initWithUUID:(NSString *)uuid deviceName:(NSString *)deviceName
+- (id)initWithUUID:(NSString *)uuid
 {
     self = [super init];
     if (self) {
         self.uuid = [CBUUID UUIDWithString:uuid];
-        _deviceName = [deviceName copy];
         self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil];
     }
     

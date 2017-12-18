@@ -71,15 +71,14 @@
 - (void)prepareBlueTooth
 {
     [[BLE shared] scan];
-    [[BLE shared] whenFindBluetooth:^(BLEDevice *device) {
-        // 扫描的的蓝牙
-        NSLog(@"name:%@ uuid:%@ advertisement:%@", device.peripheral.name, device.peripheral.identifier.UUIDString, device.advertisementData);
-        if (self.isConnecting && [device.peripheral.name containsString:@"Robin"]) {
-            [self prepareConnectDevice:device];
-        }
-    }];
     [[BLE shared] whenFindBluetoothAll:^(NSDictionary *deviceDict) {
         // 扫描到的蓝牙列表
+        NSLog(@"devices:%@", deviceDict);
+        NSSortDescriptor *distanceDes = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES];
+        NSArray<BLEDevice *> *devices = [deviceDict.allValues sortedArrayUsingDescriptors:@[distanceDes]];
+        if (devices.firstObject.distance.doubleValue < 0.5) {
+            [self prepareConnectDevice:devices.firstObject];
+        }
     }];
     [[BLE shared] whenUpdateService:^(CBService *service) {
         // 更新服务（characteristic）
