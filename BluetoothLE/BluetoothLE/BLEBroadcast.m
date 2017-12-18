@@ -11,17 +11,19 @@
 @interface BLEBroadcast()<CBPeripheralManagerDelegate>
 
 @property (nonatomic, strong) CBUUID *uuid;
+@property (nonatomic, copy) NSString *deviceName;
 @property (nonatomic, strong) CBPeripheralManager *peripheralManager;
 
 @end
 
 @implementation BLEBroadcast
 
-- (id)initWithUUID:(NSString *)uuid
+- (id)initWithUUID:(NSString *)uuid deviceName:(NSString *)deviceName
 {
     self = [super init];
     if (self) {
         self.uuid = [CBUUID UUIDWithString:uuid];
+        _deviceName = [deviceName copy];
         self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil];
     }
     
@@ -42,7 +44,7 @@
     // While app is in background, advertisingData is ignored. Apple-specific data is sent in the advertisement instead:
     // e.g. 14:FF:4C:00:01:00:00:80:00:00:00:00:00:00:00:00:00:00:00:00:00
     
-    NSDictionary *advertisingData = @{CBAdvertisementDataLocalNameKey:@"Phone ID Beacon",
+    NSDictionary *advertisingData = @{CBAdvertisementDataLocalNameKey:self.deviceName,
                                       CBAdvertisementDataServiceUUIDsKey:@[self.uuid]};
     [self.peripheralManager startAdvertising:advertisingData];
     

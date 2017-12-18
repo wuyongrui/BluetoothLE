@@ -24,49 +24,49 @@
     
     self.titles = @[@"锁定 Mac", @"解锁 Mac"];
     [self.view addSubview:self.tableView];
-    
-    [[BLE shared] scan];
-    [[BLE shared] whenFindBluetooth:^(BLEDevice *device) {
-        // 扫描的的蓝牙
-        NSLog(@"name:%@ uuid:%@ advertisement:%@", device.peripheral.name, device.peripheral.identifier.UUIDString, device.advertisementData);
-        if ([device.peripheral.name isEqualToString:@"XiangLiang's MBP"]) {
-            [[BLE shared] connect:device];
-        }
-    }];
-    [[BLE shared] whenFindBluetoothAll:^(NSDictionary *deviceDict) {
-        // 扫描到的蓝牙列表
-    }];
-    [[BLE shared] whenConnectSuccess:^{
-        // 连接成功
-        self.isConnected = YES;
-        [self.tableView reloadData];
-    }];
-    [[BLE shared] whenConnectFailure:^{
-        // 连接失败
-    }];
-    [[BLE shared] whenUpdateService:^(CBService *service) {
-        // 更新服务（characteristic）
-        for (CBCharacteristic *characteristic in service.characteristics) {
-            NSLog(@"characteristic:%@",characteristic);
-        }
-    }];
-    [[BLE shared] send:[[NSData alloc] init]];
-    [[BLE shared] whenSendProgressUpdate:^(NSNumber *progress) {
-       // 数据发送进度
-    }];
-    [[BLE shared] whenSendSuccess:^{
-       // 数据发送成功
-    }];
-    [[BLE shared] whenSendFailure:^{
-       // 数据发送失败
-    }];
-    [[BLE shared] whenReceiveData:^(NSData *data) {
-       // 接收到蓝牙返回的数据
-    }];
-    [[BLE shared] unconnect];
-    [[BLE shared] whenUnconnect:^{
-       // 已断开
-    }];
+    self.isConnected = YES;
+//    [[BLE shared] scan];
+//    [[BLE shared] whenFindBluetooth:^(BLEDevice *device) {
+//        // 扫描的的蓝牙
+//        NSLog(@"name:%@ uuid:%@ advertisement:%@", device.peripheral.name, device.peripheral.identifier.UUIDString, device.advertisementData);
+//        if ([device.peripheral.name isEqualToString:@"XiangLiang's MBP"]) {
+//            [[BLE shared] connect:device];
+//        }
+//    }];
+//    [[BLE shared] whenFindBluetoothAll:^(NSDictionary *deviceDict) {
+//        // 扫描到的蓝牙列表
+//    }];
+//    [[BLE shared] whenConnectSuccess:^{
+//        // 连接成功
+//        self.isConnected = YES;
+//        [self.tableView reloadData];
+//    }];
+//    [[BLE shared] whenConnectFailure:^{
+//        // 连接失败
+//    }];
+//    [[BLE shared] whenUpdateService:^(CBService *service) {
+//        // 更新服务（characteristic）
+//        for (CBCharacteristic *characteristic in service.characteristics) {
+//            NSLog(@"characteristic:%@",characteristic);
+//        }
+//    }];
+//    [[BLE shared] send:[[NSData alloc] init]];
+//    [[BLE shared] whenSendProgressUpdate:^(NSNumber *progress) {
+//       // 数据发送进度
+//    }];
+//    [[BLE shared] whenSendSuccess:^{
+//       // 数据发送成功
+//    }];
+//    [[BLE shared] whenSendFailure:^{
+//       // 数据发送失败
+//    }];
+//    [[BLE shared] whenReceiveData:^(NSData *data) {
+//       // 接收到蓝牙返回的数据
+//    }];
+//    [[BLE shared] unconnect];
+//    [[BLE shared] whenUnconnect:^{
+//       // 已断开
+//    }];
 }
 
 
@@ -99,7 +99,7 @@
             NSData *lockData = [NSData dataWithBytes:"\x0a\x0b" length:2];
             [[BLE shared] send:lockData];
         } else if (indexPath.row == 1) {
-            NSString *password = @"mtdp";
+            NSString *password = @"650779";
             NSData *passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
             [[BLE shared] send:passwordData];
         }

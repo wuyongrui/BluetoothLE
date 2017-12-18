@@ -26,8 +26,8 @@
 //    [[BLE shared] whenFindBluetooth:^(BLEDevice *device) {
 //        // 扫描的的蓝牙
 //        NSLog(@"name:%@ uuid:%@ advertisement:%@", device.peripheral.name, device.peripheral.identifier.UUIDString, device.advertisementData);
-//        if ([[device.peripheral identifier].UUIDString isEqualToString:@"167FEB01-EC51-4CE8-B086-448FD0F888F0"]) {
-//
+//        if ([[device.peripheral identifier].UUIDString isEqualToString:@"01CFAB1A-F31C-4AE8-956E-3E7719AF919F"]) {
+//            [[BLE shared] connect:device];
 //        }
 //    }];
 //    [[BLE shared] whenFindBluetoothAll:^(NSDictionary *deviceDict) {
@@ -54,22 +54,22 @@
 //        // 数据发送失败
 //    }];
 //
-//    NSString *password = @"mtdp";
-//    NSData *passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
-//    NSData *lockData = [NSData dataWithBytes:"\x0a\x0b" length:2];
-//    [[BLE shared] whenReceiveData:^(NSData *data) {
-//        // 接收到蓝牙返回的数据
-//        if ([data isEqualToData:passwordData]) {
-//            [LockManager unlock:password];
-//        } else if ([data isEqualToData:lockData]) {
-//            [LockManager lock];
-//        }
-//    }];
+    NSString *password = @"650779";
+    NSData *passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *lockData = [NSData dataWithBytes:"\x0a\x0b" length:2];
+    [[BLE shared] whenReceiveData:^(NSData *data) {
+        // 接收到蓝牙返回的数据
+        if ([data isEqualToData:passwordData]) {
+            [LockManager unlock:password];
+        } else if ([data isEqualToData:lockData]) {
+            [LockManager lock];
+        }
+    }];
 //    [[BLE shared] unconnect];
 //    [[BLE shared] whenUnconnect:^{
 //        // 已断开
 //    }];
-    self.broadcast = [[BLEBroadcast alloc] initWithUUID:@"C4D13329-6DF2-47B5-83AC-CD3AB71AA9F8"];
+    self.broadcast = [[BLEBroadcast alloc] initWithUUID:@"C4D13329-6DF2-47B5-83AC-CD3AB71AA9F8" deviceName:[NSHost currentHost].localizedName];
 }
 
 

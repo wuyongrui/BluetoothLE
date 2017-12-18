@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0032DAFA1FE6C90100370334 /* PIBConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0032DAF91FE6C90100370334 /* PIBConnectViewController.m */; };
+		0038B4041FE6B39D00BDD321 /* PIBSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0038B4031FE6B39D00BDD321 /* PIBSearchViewController.m */; };
 		311C098B1FE244330054E828 /* BLEDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 311C09891FE244330054E828 /* BLEDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		311C098C1FE244330054E828 /* BLEDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C098A1FE244330054E828 /* BLEDevice.m */; };
 		311C098F1FE248A80054E828 /* LockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C098E1FE248A80054E828 /* LockManager.m */; };
@@ -34,9 +36,7 @@
 		81A18AE91EEE434B00BA8293 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A18AE81EEE434B00BA8293 /* main.m */; };
 		81A18AEC1EEE434B00BA8293 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A18AEB1EEE434B00BA8293 /* AppDelegate.m */; };
 		81A18AEF1EEE434B00BA8293 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A18AEE1EEE434B00BA8293 /* ViewController.m */; };
-		81A18AF21EEE434B00BA8293 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81A18AF01EEE434B00BA8293 /* Main.storyboard */; };
 		81A18AF41EEE434B00BA8293 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81A18AF31EEE434B00BA8293 /* Assets.xcassets */; };
-		81A18AF71EEE434B00BA8293 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81A18AF51EEE434B00BA8293 /* LaunchScreen.storyboard */; };
 		81A18B041EEE436600BA8293 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A18B031EEE436600BA8293 /* AppDelegate.m */; };
 		81A18B071EEE436600BA8293 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A18B061EEE436600BA8293 /* main.m */; };
 		81A18B0A1EEE436600BA8293 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A18B091EEE436600BA8293 /* ViewController.m */; };
@@ -63,6 +63,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0032DAF81FE6C90100370334 /* PIBConnectViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIBConnectViewController.h; sourceTree = "<group>"; };
+		0032DAF91FE6C90100370334 /* PIBConnectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIBConnectViewController.m; sourceTree = "<group>"; };
+		0038B4021FE6B39D00BDD321 /* PIBSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIBSearchViewController.h; sourceTree = "<group>"; };
+		0038B4031FE6B39D00BDD321 /* PIBSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIBSearchViewController.m; sourceTree = "<group>"; };
 		311C09891FE244330054E828 /* BLEDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEDevice.h; sourceTree = "<group>"; };
 		311C098A1FE244330054E828 /* BLEDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLEDevice.m; sourceTree = "<group>"; };
 		311C098D1FE248A80054E828 /* LockManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockManager.h; sourceTree = "<group>"; };
@@ -87,9 +91,7 @@
 		81A18AEB1EEE434B00BA8293 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		81A18AED1EEE434B00BA8293 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		81A18AEE1EEE434B00BA8293 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		81A18AF11EEE434B00BA8293 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		81A18AF31EEE434B00BA8293 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		81A18AF61EEE434B00BA8293 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		81A18AF81EEE434B00BA8293 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81A18B001EEE436600BA8293 /* macOS Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "macOS Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81A18B021EEE436600BA8293 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -201,11 +203,13 @@
 				81A18AEB1EEE434B00BA8293 /* AppDelegate.m */,
 				81A18AED1EEE434B00BA8293 /* ViewController.h */,
 				81A18AEE1EEE434B00BA8293 /* ViewController.m */,
-				81A18AF01EEE434B00BA8293 /* Main.storyboard */,
 				81A18AF31EEE434B00BA8293 /* Assets.xcassets */,
-				81A18AF51EEE434B00BA8293 /* LaunchScreen.storyboard */,
 				81A18AF81EEE434B00BA8293 /* Info.plist */,
 				81A18AE71EEE434B00BA8293 /* Supporting Files */,
+				0038B4021FE6B39D00BDD321 /* PIBSearchViewController.h */,
+				0038B4031FE6B39D00BDD321 /* PIBSearchViewController.m */,
+				0032DAF81FE6C90100370334 /* PIBConnectViewController.h */,
+				0032DAF91FE6C90100370334 /* PIBConnectViewController.m */,
 			);
 			path = "iOS Demo";
 			sourceTree = "<group>";
@@ -358,21 +362,20 @@
 				TargetAttributes = {
 					311C09941FE361870054E828 = {
 						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = A48PP6NL33;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					81A18AC41EEE42AC00BA8293 = {
 						CreatedOnToolsVersion = 8.2.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					81A18AE41EEE434B00BA8293 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = A48PP6NL33;
+						DevelopmentTeam = 27U27E2SDX;
 						ProvisioningStyle = Automatic;
 					};
 					81A18AFF1EEE436600BA8293 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = A48PP6NL33;
+						DevelopmentTeam = 27U27E2SDX;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -417,9 +420,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81A18AF71EEE434B00BA8293 /* LaunchScreen.storyboard in Resources */,
 				81A18AF41EEE434B00BA8293 /* Assets.xcassets in Resources */,
-				81A18AF21EEE434B00BA8293 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +464,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0032DAFA1FE6C90100370334 /* PIBConnectViewController.m in Sources */,
+				0038B4041FE6B39D00BDD321 /* PIBSearchViewController.m in Sources */,
 				81A18AEF1EEE434B00BA8293 /* ViewController.m in Sources */,
 				81A18AEC1EEE434B00BA8293 /* AppDelegate.m in Sources */,
 				81A18AE91EEE434B00BA8293 /* main.m in Sources */,
@@ -496,22 +499,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		81A18AF01EEE434B00BA8293 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				81A18AF11EEE434B00BA8293 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		81A18AF51EEE434B00BA8293 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				81A18AF61EEE434B00BA8293 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 		81A18B0D1EEE436600BA8293 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -536,10 +523,10 @@
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = A48PP6NL33;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -552,6 +539,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "meituan.BluetoothLE-Mac";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -570,10 +558,10 @@
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = A48PP6NL33;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -586,6 +574,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "meituan.BluetoothLE-Mac";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -692,6 +681,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -704,6 +694,7 @@
 				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.midmirror.BluetoothLE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -713,6 +704,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -725,6 +717,7 @@
 				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.midmirror.BluetoothLE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -734,13 +727,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = A48PP6NL33;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 27U27E2SDX;
 				INFOPLIST_FILE = "iOS Demo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PhoneID.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -749,13 +746,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = A48PP6NL33;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 27U27E2SDX;
 				INFOPLIST_FILE = "iOS Demo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PhoneID.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -767,7 +768,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = A48PP6NL33;
+				DEVELOPMENT_TEAM = 27U27E2SDX;
 				INFOPLIST_FILE = "macOS Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
@@ -786,7 +787,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = A48PP6NL33;
+				DEVELOPMENT_TEAM = 27U27E2SDX;
 				INFOPLIST_FILE = "macOS Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
