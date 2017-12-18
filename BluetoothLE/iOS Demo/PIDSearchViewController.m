@@ -8,7 +8,8 @@
 
 #import "PIDSearchViewController.h"
 #import <BluetoothLE/BluetoothLE.h>
-#import "PIDConnectViewController.h"
+#import "PIDBindViewController.h"
+#import "PIDOperationViewController.h"
 #import "PIDMacro.h"
 
 @interface PIDSearchViewController ()
@@ -21,7 +22,6 @@
 - (void)commonInit;
 - (void)prepareBlueTooth;
 - (void)startLoading;
-- (void)prepareConnectDevice:(BLEDevice *)device;
 //- (void)endLoading;//optional
 //- (void)alertConnectOption;//optional
     
@@ -35,7 +35,6 @@
     [self commonInit];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self prepareBlueTooth];
-//        [self prepareConnectDevice:nil];
     });
 }
 
@@ -74,7 +73,6 @@
         NSArray<BLEDevice *> *devices = [deviceDict.allValues sortedArrayUsingDescriptors:@[distanceDes]];
         if (devices.firstObject.distance.doubleValue < 0.5) {
             [[BLE shared] connect:devices.firstObject];
-            [self prepareConnectDevice:devices.firstObject];
         }
     }];
     [[BLE shared] whenUpdateService:^(CBService *service) {
@@ -82,17 +80,27 @@
         for (CBCharacteristic *characteristic in service.characteristics) {
             if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"BB00"]]) {
                 [BLE shared].characteristicWrite = characteristic;
-                [self presentConnectVC];
+                NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:[BLE shared].currentDevice.peripheral.identifier.UUIDString];
+                if (password.length > 0) {
+                    UINavigationController *operationNC = [[UINavigationController alloc] initWithRootViewController:[[PIDOperationViewController alloc] init]];
+                    [self.navigationController presentViewController:operationNC animated:YES completion:nil];
+                } else {
+                    BLEData *bleData = [BLEData new];
+                    [[BLE shared] send:bleData.bindData];
+                    [self presentBindVC];
+                }
+            } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"BB11"]]) {
+                [[BLE shared].currentDevice.peripheral setNotifyValue:YES forCharacteristic:characteristic];
             }
         }
     }];
 }
 
-- (void)presentConnectVC
+- (void)presentBindVC
 {
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[PIDConnectViewController alloc] init]];
-    nav.navigationBar.hidden = YES;
-    [self.navigationController presentViewController:nav animated:YES completion:nil];
+    UINavigationController *bindNC = [[UINavigationController alloc] initWithRootViewController:[[PIDBindViewController alloc] init]];
+    bindNC.navigationBar.hidden = YES;
+    [self.navigationController presentViewController:bindNC animated:YES completion:nil];
 }
     
 #pragma mark - getter

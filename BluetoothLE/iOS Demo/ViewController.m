@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import <BluetoothLE/BluetoothLE.h>
-#import "PIDBindViewController.h"
+#import "PIDOperationViewController.h"
 
 @interface ViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -40,7 +40,7 @@
 #pragma mark - private
 
 - (void)pushBindViewController {
-    PIDBindViewController *bindDeviceVC = [[PIDBindViewController alloc] init];
+    PIDOperationViewController *bindDeviceVC = [[PIDOperationViewController alloc] init];
     UINavigationController *bindDeviceNC = [[UINavigationController alloc] initWithRootViewController:bindDeviceVC];
     [self presentViewController:bindDeviceNC animated:YES completion:nil];
 }

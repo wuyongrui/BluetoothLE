@@ -12,20 +12,20 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        Byte bindByte[4]   = {50, 49, 44, 00};
-        Byte unbindByte[4] = {50, 49, 44, 01};
-        Byte lockByte[4]   = {50, 49, 44, 02};
-        Byte unlockByte[4] = {50, 49, 44, 03};
+        Byte bindByte[4]   = {0x50, 0x49, 0x44, 0x00};
+        Byte unbindByte[4] = {0x50, 0x49, 0x44, 0x01};
+        Byte lockByte[4]   = {0x50, 0x49, 0x44, 0x02};
+        Byte unlockByte[4] = {0x50, 0x49, 0x44, 0x03};
         
-        Byte bindSuccessByte[5]   = {50, 49, 44, 00, 00};
-        Byte unbindSuccessByte[5] = {50, 49, 44, 01, 00};
-        Byte lockSuccessByte[5]   = {50, 49, 44, 02, 00};
-        Byte unlockSuccessByte[5] = {50, 49, 44, 03, 00};
+        Byte bindSuccessByte[5]   = {0x50, 0x49, 0x44, 0x00, 0x00};
+        Byte unbindSuccessByte[5] = {0x50, 0x49, 0x44, 0x01, 0x00};
+        Byte lockSuccessByte[5]   = {0x50, 0x49, 0x44, 0x02, 0x00};
+        Byte unlockSuccessByte[5] = {0x50, 0x49, 0x44, 0x03, 0x00};
         
-        Byte bindFailureByte[5]   = {50, 49, 44, 00, 01};
-        Byte unbindFailureByte[5] = {50, 49, 44, 01, 01};
-        Byte lockFailureByte[5]   = {50, 49, 44, 02, 01};
-        Byte unlockFailureByte[5] = {50, 49, 44, 03, 01};
+        Byte bindFailureByte[5]   = {0x50, 0x49, 0x44, 0x00, 0x01};
+        Byte unbindFailureByte[5] = {0x50, 0x49, 0x44, 0x01, 0x01};
+        Byte lockFailureByte[5]   = {0x50, 0x49, 0x44, 0x02, 0x01};
+        Byte unlockFailureByte[5] = {0x50, 0x49, 0x44, 0x03, 0x01};
         
         self.bindData    = [NSData dataWithBytes:bindByte length:4];
         self.unbindData  = [NSData dataWithBytes:unbindByte length:4];
@@ -41,14 +41,25 @@
         self.unbindFailureData  = [NSData dataWithBytes:unbindFailureByte length:5];
         self.lockFailureData    = [NSData dataWithBytes:lockFailureByte length:5];
         self.unlockFailureData  = [NSData dataWithBytes:unlockFailureByte length:5];
-        
-        self.password = @"mtdp";
-        NSMutableData *unlockData = [[NSMutableData alloc] init];
-        [unlockData appendData:self.unlockData];
-        [unlockData appendData:[self.password dataUsingEncoding:NSUTF8StringEncoding]];
-        self.passwordData = unlockData;
     }
     return self;
+}
+
+- (void)storePassword:(NSString *)password withUUID:(NSString *)uuid {
+    [[NSUserDefaults standardUserDefaults] setObject:password forKey:uuid];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)passwordWithUUID:(NSString *)uuid {
+    return [[NSUserDefaults standardUserDefaults] objectForKey:uuid];
+}
+
+- (NSData *)passwordDataWithUUID:(NSString *)uuid {
+    NSString *password = [self passwordWithUUID:uuid];
+    NSMutableData *unlockData = [[NSMutableData alloc] init];
+    [unlockData appendData:self.unlockData];
+    [unlockData appendData:[password dataUsingEncoding:NSUTF8StringEncoding]];
+    return unlockData;
 }
 
 @end

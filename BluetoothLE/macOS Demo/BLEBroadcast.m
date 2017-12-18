@@ -14,11 +14,14 @@
 
 @property (nonatomic, strong) CBUUID *uuid;
 @property (nonatomic, strong) CBPeripheralManager *peripheralManager;
+@property (nonatomic, strong) CBMutableCharacteristic *characteristicWrite;
+@property (nonatomic, strong) CBMutableCharacteristic *characteristicNotify;
 
 @end
 
 static NSString * const kServiceUUID = @"AA00";
-static NSString * const kCharacteristicUUID = @"BB00";
+static NSString * const kCharacteristicWriteUUID = @"BB00";
+static NSString * const kCharacteristicNotifyUUID = @"BB11";
 
 @implementation BLEBroadcast
 
@@ -35,8 +38,9 @@ static NSString * const kCharacteristicUUID = @"BB00";
 
 - (void)addService {
     CBMutableService *service = [[CBMutableService alloc] initWithType:[CBUUID UUIDWithString:kServiceUUID] primary:YES];//primary
-    CBMutableCharacteristic *characteristic = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString:kCharacteristicUUID] properties:CBCharacteristicPropertyWriteWithoutResponse value:nil permissions:CBAttributePermissionsWriteable];
-    [service setCharacteristics:@[characteristic]];
+    self.characteristicWrite = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString:kCharacteristicWriteUUID] properties:CBCharacteristicPropertyWriteWithoutResponse value:nil permissions:CBAttributePermissionsWriteable];
+    self.characteristicNotify = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString:kCharacteristicNotifyUUID] properties:CBCharacteristicPropertyNotify value:nil permissions:CBAttributePermissionsWriteable];
+    [service setCharacteristics:@[self.characteristicWrite, self.characteristicNotify]];
     
     [self.peripheralManager addService:service];
 }
@@ -73,19 +77,45 @@ static NSString * const kCharacteristicUUID = @"BB00";
 {
     NSLog(@"requests:%@",requests);
     
-    BLEData *data = [BLEData new];
+    BLEData *bleData = [BLEData new];
     
     for (CBATTRequest *request in requests) {
         // 接收到蓝牙返回的数据
         NSLog(@"request:%@",request.value);
-        if ([request.value isEqualToData:data.bindData]) {
-            
-        } else if ([request.value isEqualToData:data.unbindData]) {
-            
-        } else if ([request.value isEqualToData:data.lockData]) {
+        NSData *operationData = [request.value subdataWithRange:NSMakeRange(0, 4)];
+        if ([operationData isEqualToData:bleData.bindData]) {
             [BLELockManager lock];
-        } else if ([request.value isEqualToData:data.unlockData]) {
-            [BLELockManager unlock:data.password];
+        } else if ([operationData isEqualToData:bleData.unbindData]) {
+            
+        } else if ([operationData isEqualToData:bleData.lockData]) {
+            [BLELockManager lock];
+            if ([BLELockManager isLocked]) {
+                [peripheral updateValue:bleData.lockSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
+            } else {
+                [peripheral updateValue:bleData.lockFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
+            }
+        } else if ([operationData isEqualToData:bleData.unlockData]) {
+            NSData *userPasswordData = [request.value subdataWithRange:NSMakeRange(3, request.value.length-3)];
+            NSString *password = [[NSString alloc] initWithData:userPasswordData encoding:NSUTF8StringEncoding];
+            NSLog(@"用户输入的密码:%@",password);
+            NSData *passwordData = [bleData passwordDataWithUUID:request.central.identifier.UUIDString];
+            if ([request.value isEqualToData:passwordData]) {
+                // 解锁流程
+                [BLELockManager unlock:password];
+                if (![BLELockManager isLocked]) {
+                    [peripheral updateValue:bleData.unlockSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
+                } else {
+                    [peripheral updateValue:bleData.unlockFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
+                }
+            } else {
+                // 验证绑定流程
+                [BLELockManager unlock:password];
+                if (![BLELockManager isLocked]) {
+                    [peripheral updateValue:bleData.bindSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
+                } else {
+                    [peripheral updateValue:bleData.bindFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
+                }
+            }
         }
     }
 }
