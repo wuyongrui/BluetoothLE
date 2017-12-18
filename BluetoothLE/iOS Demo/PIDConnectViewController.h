@@ -12,6 +12,4 @@
 
 @interface PIDConnectViewController : UIViewController
 
-- (instancetype)initWithDevice:(BLEDevice *)device;
-
 @end

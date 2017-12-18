@@ -17,7 +17,6 @@
 @property (nonatomic, strong) UIImageView *loadingImageView;
 @property (nonatomic, strong) UILabel *searchLabel;
 @property (nonatomic, strong) UILabel *warnLabel;
-@property (nonatomic, assign) BOOL isConnecting;
 
 - (void)commonInit;
 - (void)prepareBlueTooth;
@@ -47,12 +46,6 @@
     [self startLoading];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    self.isConnecting = YES;
-}
-
 - (void)commonInit
 {
     [self.view addSubview:self.backgroundImageView];
@@ -80,21 +73,24 @@
         NSSortDescriptor *distanceDes = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES];
         NSArray<BLEDevice *> *devices = [deviceDict.allValues sortedArrayUsingDescriptors:@[distanceDes]];
         if (devices.firstObject.distance.doubleValue < 0.5) {
+            [[BLE shared] connect:devices.firstObject];
             [self prepareConnectDevice:devices.firstObject];
         }
     }];
     [[BLE shared] whenUpdateService:^(CBService *service) {
         // 更新服务（characteristic）
         for (CBCharacteristic *characteristic in service.characteristics) {
-            NSLog(@"characteristic:%@",characteristic);
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"BB00"]]) {
+                [BLE shared].characteristicWrite = characteristic;
+                [self presentConnectVC];
+            }
         }
     }];
 }
 
-- (void)prepareConnectDevice:(BLEDevice *)device
+- (void)presentConnectVC
 {
-    self.isConnecting = NO;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[PIDConnectViewController alloc] initWithDevice:device]];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[PIDConnectViewController alloc] init]];
     nav.navigationBar.hidden = YES;
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }

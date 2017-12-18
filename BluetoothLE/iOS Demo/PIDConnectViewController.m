@@ -10,10 +10,10 @@
 #import <BluetoothLE/BluetoothLE.h>
 #import "ViewController.h"
 #import "PIDMacro.h"
+#import "BLEData.h"
 
 @interface PIDConnectViewController ()
 
-@property (nonatomic, strong) BLEDevice *device;
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *nameTipLabel;
@@ -33,14 +33,6 @@
 
 @implementation PIDConnectViewController
 
-- (instancetype)initWithDevice:(BLEDevice *)device
-{
-    if (self = [super init]) {
-        _device = device;
-    }
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -52,7 +44,7 @@
 {
     [self.view addSubview:self.backgroundImageView];
     [self.view addSubview:self.nameLabel];
-    self.nameLabel.text = self.device.peripheral.name;
+    self.nameLabel.text = [BLE shared].currentDevice.peripheral.name;
     [self.view addSubview:self.nameTipLabel];
 //    [self.view addSubview:self.accountTextField];
     [self.view addSubview:self.passwordTextField];
@@ -71,8 +63,24 @@
 
 - (void)connectClick
 {
-    [[NSUserDefaults standardUserDefaults] setObject:self.passwordTextField.text forKey:self.device.peripheral.name];
-    [[BLE shared] connect:self.device];
+//    [[NSUserDefaults standardUserDefaults] setObject:self.passwordTextField.text forKey:self.device.peripheral.name];
+    BLEDevice *device = [BLE shared].currentDevice;
+    NSString *password = self.passwordTextField.text;
+    BLEData *bleData = [BLEData new];
+    
+    [[BLE shared] whenReceiveData:^(NSData *data) {
+        if ([data isEqualToData:bleData.bindSuccessData]) {
+            
+        } else if ([data isEqualToData:bleData.bindFailureData]) {
+            
+        }
+    }];
+    if (password.length > 0) {
+        NSMutableData *unlockData = [[NSMutableData alloc] init];
+        [unlockData appendData:bleData.unlockData];
+        [unlockData appendData:[password dataUsingEncoding:NSUTF8StringEncoding]];
+        [[BLE shared] send:unlockData];
+    }
 }
 
 - (void)cancleClick
@@ -90,14 +98,6 @@
     }];
     [[BLE shared] whenConnectFailure:^{
         NSLog(@"连接失败");
-    }];
-    [[BLE shared] whenUpdateService:^(CBService *service) {
-        // 更新服务（characteristic）
-        for (CBCharacteristic *characteristic in service.characteristics) {
-            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"BB00"]]) {
-                [BLE shared].characteristicWrite = characteristic;
-            }
-        }
     }];
 }
 
