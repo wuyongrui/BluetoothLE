@@ -91,6 +91,14 @@
     [[BLE shared] whenConnectFailure:^{
         NSLog(@"连接失败");
     }];
+    [[BLE shared] whenUpdateService:^(CBService *service) {
+        // 更新服务（characteristic）
+        for (CBCharacteristic *characteristic in service.characteristics) {
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"BB00"]]) {
+                [BLE shared].characteristicWrite = characteristic;
+            }
+        }
+    }];
 }
 
 #pragma mark - getter

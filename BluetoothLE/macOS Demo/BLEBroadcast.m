@@ -8,6 +8,7 @@
 
 #import "BLEBroadcast.h"
 #import "BLELockManager.h"
+#import <BluetoothLE_Mac/BluetoothLE_Mac.h>
 
 @interface BLEBroadcast()<CBPeripheralManagerDelegate>
 
@@ -71,16 +72,20 @@ static NSString * const kCharacteristicUUID = @"BB00";
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveWriteRequests:(NSArray<CBATTRequest *> *)requests
 {
     NSLog(@"requests:%@",requests);
-    NSString *password = @"mtdp";
-    NSData *passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
-    NSData *lockData = [NSData dataWithBytes:"\x0a\x0b" length:2];
+    
+    BLEData *data = [BLEData new];
+    
     for (CBATTRequest *request in requests) {
         // 接收到蓝牙返回的数据
         NSLog(@"request:%@",request.value);
-        if ([request.value isEqualToData:passwordData]) {
-            [BLELockManager unlock:password];
-        } else if ([request.value isEqualToData:lockData]) {
+        if ([request.value isEqualToData:data.bindData]) {
+            
+        } else if ([request.value isEqualToData:data.unbindData]) {
+            
+        } else if ([request.value isEqualToData:data.lockData]) {
             [BLELockManager lock];
+        } else if ([request.value isEqualToData:data.unlockData]) {
+            [BLELockManager unlock:data.password];
         }
     }
 }

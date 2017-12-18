@@ -65,13 +65,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    BLEData *data = [BLEData new];
     if (indexPath.row == 0) {
-        NSData *lockData = [NSData dataWithBytes:"\x0a\x0b" length:2];
-        [[BLE shared] send:lockData];
+        [[BLE shared] send:data.lockData];
     } else if (indexPath.row == 1) {
-        NSString *password = @"mtdp";
-        NSData *passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
-        [[BLE shared] send:passwordData];
+        [[BLE shared] send:data.unlockData];
     }
 }
 

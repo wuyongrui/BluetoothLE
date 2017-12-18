@@ -33,8 +33,8 @@
     if ([self isLocked]) return;
     
     // get user's old setting
-    BOOL screensaverAskForPassword = [self getScreensaverAskForPassword];
-    NSInteger screensaverDelay = [self getScreensaverDelay];
+//    BOOL screensaverAskForPassword = [self getScreensaverAskForPassword];
+//    NSInteger screensaverDelay = [self getScreensaverDelay];
     
     // set the new setting for locking operation
     [self setScreensaverAskForPassword:YES];    // ask for password to unlock

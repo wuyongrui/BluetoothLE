@@ -20,6 +20,10 @@
 		311C09AB1FE3645F0054E828 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A18AD11EEE42C600BA8293 /* BLE.m */; };
 		311C09AC1FE3645F0054E828 /* BLE+Delegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 817F485C1EF22F8D0013AEC3 /* BLE+Delegate.m */; };
 		311C09AD1FE3645F0054E828 /* BLE+SendData.m in Sources */ = {isa = PBXBuildFile; fileRef = 817F48601EF239830013AEC3 /* BLE+SendData.m */; };
+		311C09B71FE7D4890054E828 /* BLEData.h in Headers */ = {isa = PBXBuildFile; fileRef = 311C09B51FE7D4890054E828 /* BLEData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		311C09B81FE7D4890054E828 /* BLEData.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C09B61FE7D4890054E828 /* BLEData.m */; };
+		311C09B91FE7D5A60054E828 /* BLEData.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C09B61FE7D4890054E828 /* BLEData.m */; };
+		311C09BA1FE7D5AB0054E828 /* BLEData.h in Headers */ = {isa = PBXBuildFile; fileRef = 311C09B51FE7D4890054E828 /* BLEData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		80DDD66D1FE559AC0047B189 /* BluetoothLE_Mac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311C09951FE361870054E828 /* BluetoothLE_Mac.framework */; };
 		80DDD6781FE567670047B189 /* BLELockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DDD6771FE567670047B189 /* BLELockManager.m */; };
 		80DDD67B1FE568740047B189 /* BLEBroadcast.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DDD67A1FE568740047B189 /* BLEBroadcast.m */; };
@@ -73,6 +77,8 @@
 		311C09951FE361870054E828 /* BluetoothLE_Mac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BluetoothLE_Mac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		311C09971FE361870054E828 /* BluetoothLE_Mac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BluetoothLE_Mac.h; sourceTree = "<group>"; };
 		311C09981FE361870054E828 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		311C09B51FE7D4890054E828 /* BLEData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEData.h; sourceTree = "<group>"; };
+		311C09B61FE7D4890054E828 /* BLEData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLEData.m; sourceTree = "<group>"; };
 		80DDD6761FE567670047B189 /* BLELockManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLELockManager.h; sourceTree = "<group>"; };
 		80DDD6771FE567670047B189 /* BLELockManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLELockManager.m; sourceTree = "<group>"; };
 		80DDD6791FE568740047B189 /* BLEBroadcast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEBroadcast.h; sourceTree = "<group>"; };
@@ -199,6 +205,8 @@
 			children = (
 				311C09891FE244330054E828 /* BLEDevice.h */,
 				311C098A1FE244330054E828 /* BLEDevice.m */,
+				311C09B51FE7D4890054E828 /* BLEData.h */,
+				311C09B61FE7D4890054E828 /* BLEData.m */,
 				81A18AD01EEE42C600BA8293 /* BLE.h */,
 				81A18AD11EEE42C600BA8293 /* BLE.m */,
 				817F485B1EF22F8D0013AEC3 /* BLE+Delegate.h */,
@@ -279,6 +287,7 @@
 				311C09A31FE361D30054E828 /* BLE.h in Headers */,
 				311C09A41FE361D30054E828 /* BLE+Delegate.h in Headers */,
 				311C09A51FE361D30054E828 /* BLE+SendData.h in Headers */,
+				311C09BA1FE7D5AB0054E828 /* BLEData.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +299,7 @@
 				81A18ACA1EEE42AC00BA8293 /* BluetoothLE.h in Headers */,
 				311C098B1FE244330054E828 /* BLEDevice.h in Headers */,
 				817F48611EF239830013AEC3 /* BLE+SendData.h in Headers */,
+				311C09B71FE7D4890054E828 /* BLEData.h in Headers */,
 				817F485D1EF22F8D0013AEC3 /* BLE+Delegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,6 +522,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				311C09B91FE7D5A60054E828 /* BLEData.m in Sources */,
 				311C09AA1FE3645F0054E828 /* BLEDevice.m in Sources */,
 				311C09AB1FE3645F0054E828 /* BLE.m in Sources */,
 				311C09AC1FE3645F0054E828 /* BLE+Delegate.m in Sources */,
@@ -526,6 +537,7 @@
 				817F48621EF239830013AEC3 /* BLE+SendData.m in Sources */,
 				311C098C1FE244330054E828 /* BLEDevice.m in Sources */,
 				817F485E1EF22F8D0013AEC3 /* BLE+Delegate.m in Sources */,
+				311C09B81FE7D4890054E828 /* BLEData.m in Sources */,
 				81A18AD31EEE42C600BA8293 /* BLE.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
