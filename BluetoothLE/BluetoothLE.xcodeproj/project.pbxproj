@@ -41,6 +41,7 @@
 		81A18B0C1EEE436600BA8293 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81A18B0B1EEE436600BA8293 /* Assets.xcassets */; };
 		81A18B0F1EEE436600BA8293 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81A18B0D1EEE436600BA8293 /* Main.storyboard */; };
 		81A18B141EEE444A00BA8293 /* BluetoothLE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81A18AC51EEE42AC00BA8293 /* BluetoothLE.framework */; };
+		C2DB3CCD10348E3B7E857F2D /* libPods-iOS Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE1B5B72613FAA639A179AE5 /* libPods-iOS Demo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		0032DAF91FE6C90100370334 /* PIBConnectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIBConnectViewController.m; sourceTree = "<group>"; };
 		0038B4021FE6B39D00BDD321 /* PIBSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIBSearchViewController.h; sourceTree = "<group>"; };
 		0038B4031FE6B39D00BDD321 /* PIBSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIBSearchViewController.m; sourceTree = "<group>"; };
+		27812ECC175ABB97965649ED /* Pods-iOS Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOS Demo/Pods-iOS Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		311C09891FE244330054E828 /* BLEDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEDevice.h; sourceTree = "<group>"; };
 		311C098A1FE244330054E828 /* BLEDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLEDevice.m; sourceTree = "<group>"; };
 		311C09951FE361870054E828 /* BluetoothLE_Mac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BluetoothLE_Mac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +104,8 @@
 		81A18B0B1EEE436600BA8293 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81A18B0E1EEE436600BA8293 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		81A18B101EEE436600BA8293 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE1B5B72613FAA639A179AE5 /* libPods-iOS Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iOS Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F601F3DBD4CB3F4D3D31910D /* Pods-iOS Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOS Demo/Pods-iOS Demo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +128,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81A18B141EEE444A00BA8293 /* BluetoothLE.framework in Frameworks */,
+				C2DB3CCD10348E3B7E857F2D /* libPods-iOS Demo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +143,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A97977A3B9E35C361E5DF98 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				27812ECC175ABB97965649ED /* Pods-iOS Demo.debug.xcconfig */,
+				F601F3DBD4CB3F4D3D31910D /* Pods-iOS Demo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		311C09961FE361870054E828 /* BluetoothLE-Mac */ = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +164,7 @@
 		311C09A61FE362180054E828 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE1B5B72613FAA639A179AE5 /* libPods-iOS Demo.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -163,6 +178,7 @@
 				81A18B011EEE436600BA8293 /* macOS Demo */,
 				81A18AC61EEE42AC00BA8293 /* Products */,
 				311C09A61FE362180054E828 /* Frameworks */,
+				1A97977A3B9E35C361E5DF98 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -319,9 +335,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 81A18AF91EEE434B00BA8293 /* Build configuration list for PBXNativeTarget "iOS Demo" */;
 			buildPhases = (
+				C398EA400F48153468E28A19 /* [CP] Check Pods Manifest.lock */,
 				81A18AE11EEE434B00BA8293 /* Sources */,
 				81A18AE21EEE434B00BA8293 /* Frameworks */,
 				81A18AE31EEE434B00BA8293 /* Resources */,
+				CAAAE2F157C926F8F30F727E /* [CP] Embed Pods Frameworks */,
+				398B0D1EAB9930AC07D66F72 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -370,12 +389,12 @@
 					};
 					81A18AE41EEE434B00BA8293 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 27U27E2SDX;
+						DevelopmentTeam = A48PP6NL33;
 						ProvisioningStyle = Automatic;
 					};
 					81A18AFF1EEE436600BA8293 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 27U27E2SDX;
+						DevelopmentTeam = A48PP6NL33;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -434,6 +453,57 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		398B0D1EAB9930AC07D66F72 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOS Demo/Pods-iOS Demo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C398EA400F48153468E28A19 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-iOS Demo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CAAAE2F157C926F8F30F727E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOS Demo/Pods-iOS Demo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		311C09901FE361870054E828 /* Sources */ = {
@@ -725,12 +795,13 @@
 		};
 		81A18AFA1EEE434B00BA8293 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27812ECC175ABB97965649ED /* Pods-iOS Demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 27U27E2SDX;
+				DEVELOPMENT_TEAM = A48PP6NL33;
 				INFOPLIST_FILE = "iOS Demo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -744,12 +815,13 @@
 		};
 		81A18AFB1EEE434B00BA8293 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F601F3DBD4CB3F4D3D31910D /* Pods-iOS Demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 27U27E2SDX;
+				DEVELOPMENT_TEAM = A48PP6NL33;
 				INFOPLIST_FILE = "iOS Demo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -768,7 +840,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 27U27E2SDX;
+				DEVELOPMENT_TEAM = A48PP6NL33;
 				INFOPLIST_FILE = "macOS Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
@@ -787,7 +859,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 27U27E2SDX;
+				DEVELOPMENT_TEAM = A48PP6NL33;
 				INFOPLIST_FILE = "macOS Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;

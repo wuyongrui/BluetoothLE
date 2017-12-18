@@ -18,6 +18,7 @@ DerivedData/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
+*.xcworkspacedata
 xcuserdata/
 
 ## Other
@@ -33,7 +34,7 @@ xcuserdata/
 
 # CocoaPods
 Podfile.lock
-Pods/*
+BluetoothLE/Pods/*
 
 # Carthage
 Carthage/Build
