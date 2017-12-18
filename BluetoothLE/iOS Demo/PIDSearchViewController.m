@@ -9,6 +9,7 @@
 #import "PIDSearchViewController.h"
 #import <BluetoothLE/BluetoothLE.h>
 #import "PIDConnectViewController.h"
+#import "PIDMacro.h"
 
 @interface PIDSearchViewController ()
 
@@ -35,6 +36,7 @@
     [self commonInit];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self prepareBlueTooth];
+//        [self prepareConnectDevice:nil];
     });
 }
 
@@ -42,6 +44,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
+    [self startLoading];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -56,7 +59,6 @@
     [self.view addSubview:self.loadingImageView];
     [self.view addSubview:self.searchLabel];
     [self.view addSubview:self.warnLabel];
-    [self startLoading];
 }
 
 - (void)startLoading
@@ -65,6 +67,7 @@
     rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0];
     rotationAnimation.duration = 2;
     rotationAnimation.repeatCount = HUGE_VALF;
+    rotationAnimation.removedOnCompletion = NO;
     [self.loadingImageView.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
 }
 
@@ -112,8 +115,8 @@
     if (!_loadingImageView) {
         UIImage *img = [UIImage imageNamed:@"quanquan"];
         _loadingImageView = [[UIImageView alloc] initWithImage:img];
-        CGSize size = CGSizeMake(img.size.width * 1.7, img.size.height * 1.7);
-        _loadingImageView.frame = CGRectMake((self.view.frame.size.width - size.width)/2., 235, size.width, size.height);
+        CGSize size = CGSizeMake(img.size.width * PIDRealWidth(1.7), img.size.height * PIDRealWidth(1.7));
+        _loadingImageView.frame = CGRectMake((self.view.frame.size.width - size.width)/2., PIDRealHeight(207), size.width, size.height);
     }
     return _loadingImageView;
 }
@@ -121,7 +124,7 @@
 - (UILabel *)searchLabel
 {
     if (!_searchLabel) {
-        _searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 440, self.view.frame.size.width, 15)];
+        _searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, PIDRealHeight(410), self.view.frame.size.width, 15)];
         _searchLabel.font = [UIFont systemFontOfSize:14];
         _searchLabel.textAlignment = NSTextAlignmentCenter;
         _searchLabel.textColor = [UIColor colorWithWhite:1 alpha:0.6];
@@ -133,7 +136,7 @@
 - (UILabel *)warnLabel
 {
     if (!_warnLabel) {
-        _warnLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 650, self.view.frame.size.width, 50)];
+        _warnLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, PIDRealHeight(600), self.view.frame.size.width, 50)];
         _warnLabel.font = [UIFont systemFontOfSize:18];
         _warnLabel.textAlignment = NSTextAlignmentCenter;
         _warnLabel.textColor = [UIColor colorWithWhite:1 alpha:0.8];

@@ -52,12 +52,11 @@
       "scale" : "2x"
     },
     {
-      "extent" : "full-screen",
+      "orientation" : "portrait",
       "idiom" : "iphone",
+      "extent" : "full-screen",
+      "minimum-system-version" : "7.0",
       "subtype" : "retina4",
-      "filename" : "Default.png",
-      "minimum-system-version" : "7.0",
-      "orientation" : "portrait",
       "scale" : "2x"
     },
     {
@@ -97,6 +96,7 @@
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
+      "filename" : "Default-568h@2x-1.png",
       "extent" : "full-screen",
       "scale" : "2x"
     },

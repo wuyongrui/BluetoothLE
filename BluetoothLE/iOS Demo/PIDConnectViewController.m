@@ -9,6 +9,7 @@
 #import "PIDConnectViewController.h"
 #import <BluetoothLE/BluetoothLE.h>
 #import "ViewController.h"
+#import "PIDMacro.h"
 
 @interface PIDConnectViewController ()
 
@@ -53,12 +54,7 @@
     [self.view addSubview:self.nameLabel];
     self.nameLabel.text = self.device.peripheral.name;
     [self.view addSubview:self.nameTipLabel];
-    [self.view addSubview:self.accountTextField];
-    NSRange range = [self.device.peripheral.name rangeOfString:@"的"];
-    if (range.location == NSNotFound) {
-        range.location = 5;
-    }
-    self.accountTextField.text = [self.device.peripheral.name substringToIndex:range.location];
+//    [self.view addSubview:self.accountTextField];
     [self.view addSubview:self.passwordTextField];
     [self.view addSubview:self.warnLabel];
     [self.view addSubview:self.connectButton];
@@ -110,7 +106,7 @@
 
 - (UILabel *)nameLabel{
     if(!_nameLabel){
-        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 230, self.view.frame.size.width, 34)];
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, PIDRealHeight(210), self.view.frame.size.width, 34)];
         _nameLabel.font = [UIFont systemFontOfSize:30];
         _nameLabel.textAlignment = NSTextAlignmentCenter;
         _nameLabel.textColor = [UIColor colorWithWhite:1 alpha:0.6];
@@ -121,7 +117,7 @@
 - (UILabel *)nameTipLabel
 {
     if (!_nameTipLabel) {
-        _nameTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 268, self.view.frame.size.width, 18)];
+        _nameTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, PIDRealHeight(248), self.view.frame.size.width, 18)];
         _nameTipLabel.font = [UIFont systemFontOfSize:16];
         _nameTipLabel.textAlignment = NSTextAlignmentCenter;
         _nameTipLabel.textColor = [UIColor colorWithWhite:1 alpha:0.6];
@@ -151,18 +147,18 @@
 
 - (UITextField *)passwordTextField{
     if(!_passwordTextField){
-        CGFloat pad = 30, height = 45;
-        _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(pad, 375, self.view.frame.size.width - 2 * pad, height)];
+        CGFloat pad = PIDRealWidth(30), height = PIDRealHeight(45), iconWidth = PIDRealWidth(50);
+        _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(pad, PIDRealHeight(290), self.view.frame.size.width - 2 * pad, height)];
         _passwordTextField.font = [UIFont systemFontOfSize:22];
         _passwordTextField.textColor = [UIColor colorWithWhite:1 alpha:0.8];
         _passwordTextField.secureTextEntry = YES;
         UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lock_icon"]];
         icon.contentMode = UIViewContentModeCenter;
-        icon.frame = CGRectMake(0, 0, 50, height);
+        icon.frame = CGRectMake(0, 0, iconWidth, height);
         _passwordTextField.leftView = icon;
         _passwordTextField.leftViewMode = UITextFieldViewModeAlways;
         
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(50, height - 1, _passwordTextField.frame.size.width, 1)];
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(iconWidth, height - 1, _passwordTextField.frame.size.width - iconWidth, 1)];
         line.backgroundColor = [UIColor colorWithWhite:1 alpha:0.6];
         [_passwordTextField addSubview:line];
     }
@@ -172,7 +168,7 @@
 - (UILabel *)warnLabel
 {
     if (!_warnLabel) {
-        _warnLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 430, self.view.frame.size.width, 40)];
+        _warnLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, PIDRealHeight(350), self.view.frame.size.width, 40)];
         _warnLabel.font = [UIFont systemFontOfSize:16];
         _warnLabel.textAlignment = NSTextAlignmentCenter;
         _warnLabel.textColor = [UIColor colorWithWhite:1 alpha:0.6];
@@ -184,11 +180,11 @@
 
 - (UIButton *)connectButton{
     if(!_connectButton){
-        CGFloat pad = 30, height = 45;
-        _connectButton = [[UIButton alloc] initWithFrame:CGRectMake(pad, 550, self.view.frame.size.width - 2 * pad, height)];
+        CGFloat pad = PIDRealWidth(30), height = PIDRealHeight(42);
+        _connectButton = [[UIButton alloc] initWithFrame:CGRectMake(pad, PIDRealHeight(520), self.view.frame.size.width - 2 * pad, height)];
         _connectButton.layer.cornerRadius = height / 2.;
         _connectButton.backgroundColor = [UIColor colorWithRed:53/255. green:124/255. blue:220/255. alpha:1];
-        _connectButton.titleLabel.font = [UIFont systemFontOfSize:24];
+        _connectButton.titleLabel.font = [UIFont systemFontOfSize:PIDRealWidth(22)];
         [_connectButton setTitleColor:[UIColor colorWithWhite:1 alpha:0.8] forState:UIControlStateNormal];
         [_connectButton setTitle:@"连接" forState:UIControlStateNormal];
         [_connectButton addTarget:self action:@selector(connectClick) forControlEvents:UIControlEventTouchUpInside];
@@ -198,11 +194,11 @@
 
 - (UIButton *)cancleButton{
     if(!_cancleButton){
-        CGFloat pad = 30, height = 45;
-        _cancleButton = [[UIButton alloc] initWithFrame:CGRectMake(pad, 610, self.view.frame.size.width - 2 * pad, height)];
+        CGFloat pad = PIDRealWidth(30), height = PIDRealHeight(42);
+        _cancleButton = [[UIButton alloc] initWithFrame:CGRectMake(pad, PIDRealHeight(580), self.view.frame.size.width - 2 * pad, height)];
         _cancleButton.layer.cornerRadius = height / 2.;
         _cancleButton.backgroundColor = [UIColor colorWithRed:53/255. green:124/255. blue:220/255. alpha:1];
-        _cancleButton.titleLabel.font = [UIFont systemFontOfSize:24];
+        _cancleButton.titleLabel.font = [UIFont systemFontOfSize:PIDRealWidth(22)];
         [_cancleButton setTitleColor:[UIColor colorWithWhite:1 alpha:0.8] forState:UIControlStateNormal];
         [_cancleButton setTitle:@"取消" forState:UIControlStateNormal];
         [_cancleButton addTarget:self action:@selector(cancleClick) forControlEvents:UIControlEventTouchUpInside];
