@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import <BluetoothLE/BluetoothLE.h>
+#import "BindDeviceViewController.h"
 
 @interface ViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -22,57 +23,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"Phone ID";
     self.titles = @[@"锁定 Mac", @"解锁 Mac"];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"绑定" style:UIBarButtonItemStylePlain target:self action:@selector(pushBindViewController)];
+    self.navigationItem.rightBarButtonItem = rightItem;
     [self.view addSubview:self.tableView];
-    self.isConnected = YES;
-//    [[BLE shared] scan];
-//    [[BLE shared] whenFindBluetooth:^(BLEDevice *device) {
-//        // 扫描的的蓝牙
-//        NSLog(@"name:%@ uuid:%@ advertisement:%@", device.peripheral.name, device.peripheral.identifier.UUIDString, device.advertisementData);
-//        if ([device.peripheral.name isEqualToString:@"XiangLiang's MBP"]) {
-//            [[BLE shared] connect:device];
-//        }
-//    }];
-//    [[BLE shared] whenFindBluetoothAll:^(NSDictionary *deviceDict) {
-//        // 扫描到的蓝牙列表
-//    }];
-//    [[BLE shared] whenConnectSuccess:^{
-//        // 连接成功
-//        self.isConnected = YES;
-//        [self.tableView reloadData];
-//    }];
-//    [[BLE shared] whenConnectFailure:^{
-//        // 连接失败
-//    }];
-//    [[BLE shared] whenUpdateService:^(CBService *service) {
-//        // 更新服务（characteristic）
-//        for (CBCharacteristic *characteristic in service.characteristics) {
-//            NSLog(@"characteristic:%@",characteristic);
-//        }
-//    }];
-//    [[BLE shared] send:[[NSData alloc] init]];
-//    [[BLE shared] whenSendProgressUpdate:^(NSNumber *progress) {
-//       // 数据发送进度
-//    }];
-//    [[BLE shared] whenSendSuccess:^{
-//       // 数据发送成功
-//    }];
-//    [[BLE shared] whenSendFailure:^{
-//       // 数据发送失败
-//    }];
-//    [[BLE shared] whenReceiveData:^(NSData *data) {
-//       // 接收到蓝牙返回的数据
-//    }];
-//    [[BLE shared] unconnect];
-//    [[BLE shared] whenUnconnect:^{
-//       // 已断开
-//    }];
-}
 
+    self.isConnected = YES;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - private
+
+- (void)pushBindViewController {
+    BindDeviceViewController *bindDeviceVC = [[BindDeviceViewController alloc] init];
+    UINavigationController *bindDeviceNC = [[UINavigationController alloc] initWithRootViewController:bindDeviceVC];
+    [self presentViewController:bindDeviceNC animated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDataSource
@@ -94,15 +64,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.isConnected) {
-        if (indexPath.row == 0) {
-            NSData *lockData = [NSData dataWithBytes:"\x0a\x0b" length:2];
-            [[BLE shared] send:lockData];
-        } else if (indexPath.row == 1) {
-            NSString *password = @"650779";
-            NSData *passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
-            [[BLE shared] send:passwordData];
-        }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row == 0) {
+        NSData *lockData = [NSData dataWithBytes:"\x0a\x0b" length:2];
+        [[BLE shared] send:lockData];
+    } else if (indexPath.row == 1) {
+        NSString *password = @"mtdp";
+        NSData *passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
+        [[BLE shared] send:passwordData];
     }
 }
 

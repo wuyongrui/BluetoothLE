@@ -7,9 +7,7 @@
 //
 
 #import "ViewController.h"
-//#import <BluetoothLE/BluetoothLE.h>
-#import <BluetoothLE_Mac/BluetoothLE_Mac.h>
-#import "LockManager.h"
+#import "BLEBroadcast.h"
 
 @interface ViewController()
 
@@ -54,17 +52,17 @@
 //        // 数据发送失败
 //    }];
 //
-    NSString *password = @"650779";
-    NSData *passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
-    NSData *lockData = [NSData dataWithBytes:"\x0a\x0b" length:2];
-    [[BLE shared] whenReceiveData:^(NSData *data) {
-        // 接收到蓝牙返回的数据
-        if ([data isEqualToData:passwordData]) {
-            [LockManager unlock:password];
-        } else if ([data isEqualToData:lockData]) {
-            [LockManager lock];
-        }
-    }];
+//    NSString *password = @"mtdp";
+//    NSData *passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
+//    NSData *lockData = [NSData dataWithBytes:"\x0a\x0b" length:2];
+//    [[BLE shared] whenReceiveData:^(NSData *data) {
+//        // 接收到蓝牙返回的数据
+//        if ([data isEqualToData:passwordData]) {
+//            [BLELockManager unlock:password];
+//        } else if ([data isEqualToData:lockData]) {
+//            [BLELockManager lock];
+//        }
+//    }];
 //    [[BLE shared] unconnect];
 //    [[BLE shared] whenUnconnect:^{
 //        // 已断开

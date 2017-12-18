@@ -59,7 +59,7 @@
 - (void)writeFinal:(NSData *)data {
     
     if (self.characteristicWrite && data) {
-        [self.currentDevice.peripheral writeValue:data forCharacteristic:self.characteristicWrite type:CBCharacteristicWriteWithResponse];
+        [self.currentDevice.peripheral writeValue:data forCharacteristic:self.characteristicWrite type:CBCharacteristicWriteWithoutResponse];
     }
 }
 
