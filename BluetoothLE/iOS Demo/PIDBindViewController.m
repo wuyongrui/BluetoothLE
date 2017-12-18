@@ -1,22 +1,22 @@
 //
-//  BindDeviceViewController.m
+//  PIDBindViewController.m
 //  iOS Demo
 //
 //  Created by midmirror on 2017/12/17.
 //  Copyright © 2017年 midmirror. All rights reserved.
 //
 
-#import "BindDeviceViewController.h"
+#import "PIDBindViewController.h"
 #import <BluetoothLE/BluetoothLE.h>
 
-@interface BindDeviceViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface PIDBindViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray<BLEDevice *> *devices;
 
 @end
 
-@implementation BindDeviceViewController
+@implementation PIDBindViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

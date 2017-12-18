@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0032DAFA1FE6C90100370334 /* PIBConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0032DAF91FE6C90100370334 /* PIBConnectViewController.m */; };
-		0038B4041FE6B39D00BDD321 /* PIBSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0038B4031FE6B39D00BDD321 /* PIBSearchViewController.m */; };
+		0032DAFA1FE6C90100370334 /* PIDConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0032DAF91FE6C90100370334 /* PIDConnectViewController.m */; };
+		0038B4041FE6B39D00BDD321 /* PIDSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0038B4031FE6B39D00BDD321 /* PIDSearchViewController.m */; };
 		311C098B1FE244330054E828 /* BLEDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 311C09891FE244330054E828 /* BLEDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		311C098C1FE244330054E828 /* BLEDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C098A1FE244330054E828 /* BLEDevice.m */; };
 		311C09991FE361870054E828 /* BluetoothLE_Mac.h in Headers */ = {isa = PBXBuildFile; fileRef = 311C09971FE361870054E828 /* BluetoothLE_Mac.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -23,7 +23,7 @@
 		80DDD66D1FE559AC0047B189 /* BluetoothLE_Mac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311C09951FE361870054E828 /* BluetoothLE_Mac.framework */; };
 		80DDD6781FE567670047B189 /* BLELockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DDD6771FE567670047B189 /* BLELockManager.m */; };
 		80DDD67B1FE568740047B189 /* BLEBroadcast.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DDD67A1FE568740047B189 /* BLEBroadcast.m */; };
-		80DDD67E1FE61C710047B189 /* BindDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DDD67D1FE61C710047B189 /* BindDeviceViewController.m */; };
+		80DDD67E1FE61C710047B189 /* PIDBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DDD67D1FE61C710047B189 /* PIDBindViewController.m */; };
 		817F485D1EF22F8D0013AEC3 /* BLE+Delegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 817F485B1EF22F8D0013AEC3 /* BLE+Delegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		817F485E1EF22F8D0013AEC3 /* BLE+Delegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 817F485C1EF22F8D0013AEC3 /* BLE+Delegate.m */; };
 		817F48611EF239830013AEC3 /* BLE+SendData.h in Headers */ = {isa = PBXBuildFile; fileRef = 817F485F1EF239830013AEC3 /* BLE+SendData.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -62,10 +62,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0032DAF81FE6C90100370334 /* PIBConnectViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIBConnectViewController.h; sourceTree = "<group>"; };
-		0032DAF91FE6C90100370334 /* PIBConnectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIBConnectViewController.m; sourceTree = "<group>"; };
-		0038B4021FE6B39D00BDD321 /* PIBSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIBSearchViewController.h; sourceTree = "<group>"; };
-		0038B4031FE6B39D00BDD321 /* PIBSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIBSearchViewController.m; sourceTree = "<group>"; };
+		0032DAF81FE6C90100370334 /* PIDConnectViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIDConnectViewController.h; sourceTree = "<group>"; };
+		0032DAF91FE6C90100370334 /* PIDConnectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIDConnectViewController.m; sourceTree = "<group>"; };
+		0038B4021FE6B39D00BDD321 /* PIDSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIDSearchViewController.h; sourceTree = "<group>"; };
+		0038B4031FE6B39D00BDD321 /* PIDSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIDSearchViewController.m; sourceTree = "<group>"; };
 		27812ECC175ABB97965649ED /* Pods-iOS Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOS Demo/Pods-iOS Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		311C09891FE244330054E828 /* BLEDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEDevice.h; sourceTree = "<group>"; };
 		311C098A1FE244330054E828 /* BLEDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLEDevice.m; sourceTree = "<group>"; };
@@ -76,8 +76,8 @@
 		80DDD6771FE567670047B189 /* BLELockManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLELockManager.m; sourceTree = "<group>"; };
 		80DDD6791FE568740047B189 /* BLEBroadcast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEBroadcast.h; sourceTree = "<group>"; };
 		80DDD67A1FE568740047B189 /* BLEBroadcast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLEBroadcast.m; sourceTree = "<group>"; };
-		80DDD67C1FE61C710047B189 /* BindDeviceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindDeviceViewController.h; sourceTree = "<group>"; };
-		80DDD67D1FE61C710047B189 /* BindDeviceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BindDeviceViewController.m; sourceTree = "<group>"; };
+		80DDD67C1FE61C710047B189 /* PIDBindViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIDBindViewController.h; sourceTree = "<group>"; };
+		80DDD67D1FE61C710047B189 /* PIDBindViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIDBindViewController.m; sourceTree = "<group>"; };
 		817F485B1EF22F8D0013AEC3 /* BLE+Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BLE+Delegate.h"; sourceTree = "<group>"; };
 		817F485C1EF22F8D0013AEC3 /* BLE+Delegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BLE+Delegate.m"; sourceTree = "<group>"; };
 		817F485F1EF239830013AEC3 /* BLE+SendData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BLE+SendData.h"; sourceTree = "<group>"; };
@@ -217,15 +217,15 @@
 				81A18AEB1EEE434B00BA8293 /* AppDelegate.m */,
 				81A18AED1EEE434B00BA8293 /* ViewController.h */,
 				81A18AEE1EEE434B00BA8293 /* ViewController.m */,
-				80DDD67C1FE61C710047B189 /* BindDeviceViewController.h */,
-				80DDD67D1FE61C710047B189 /* BindDeviceViewController.m */,
+				80DDD67C1FE61C710047B189 /* PIDBindViewController.h */,
+				80DDD67D1FE61C710047B189 /* PIDBindViewController.m */,
+				0038B4021FE6B39D00BDD321 /* PIDSearchViewController.h */,
+				0038B4031FE6B39D00BDD321 /* PIDSearchViewController.m */,
+				0032DAF81FE6C90100370334 /* PIDConnectViewController.h */,
+				0032DAF91FE6C90100370334 /* PIDConnectViewController.m */,
 				81A18AF31EEE434B00BA8293 /* Assets.xcassets */,
 				81A18AF81EEE434B00BA8293 /* Info.plist */,
 				81A18AE71EEE434B00BA8293 /* Supporting Files */,
-				0038B4021FE6B39D00BDD321 /* PIBSearchViewController.h */,
-				0038B4031FE6B39D00BDD321 /* PIBSearchViewController.m */,
-				0032DAF81FE6C90100370334 /* PIBConnectViewController.h */,
-				0032DAF91FE6C90100370334 /* PIBConnectViewController.m */,
 			);
 			path = "iOS Demo";
 			sourceTree = "<group>";
@@ -532,10 +532,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0032DAFA1FE6C90100370334 /* PIBConnectViewController.m in Sources */,
-				0038B4041FE6B39D00BDD321 /* PIBSearchViewController.m in Sources */,
+				0032DAFA1FE6C90100370334 /* PIDConnectViewController.m in Sources */,
+				0038B4041FE6B39D00BDD321 /* PIDSearchViewController.m in Sources */,
 				81A18AEF1EEE434B00BA8293 /* ViewController.m in Sources */,
-				80DDD67E1FE61C710047B189 /* BindDeviceViewController.m in Sources */,
+				80DDD67E1FE61C710047B189 /* PIDBindViewController.m in Sources */,
 				81A18AEC1EEE434B00BA8293 /* AppDelegate.m in Sources */,
 				81A18AE91EEE434B00BA8293 /* main.m in Sources */,
 			);

@@ -1,5 +1,5 @@
 //
-//  BindDeviceViewController.h
+//  PIDBindViewController.h
 //  iOS Demo
 //
 //  Created by midmirror on 2017/12/17.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BindDeviceViewController : UIViewController
+@interface PIDBindViewController : UIViewController
 
 @end

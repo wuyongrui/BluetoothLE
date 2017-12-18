@@ -1,16 +1,16 @@
 //
-//  PIBConnectViewController.m
+//  PIDConnectViewController.m
 //  iOS Demo
 //
 //  Created by Robin on 2017/12/17.
 //  Copyright © 2017年 midmirror. All rights reserved.
 //
 
-#import "PIBConnectViewController.h"
+#import "PIDConnectViewController.h"
 #import <BluetoothLE/BluetoothLE.h>
 #import "ViewController.h"
 
-@interface PIBConnectViewController ()
+@interface PIDConnectViewController ()
 
 @property (nonatomic, strong) BLEDevice *device;
 @property (nonatomic, strong) UIImageView *backgroundImageView;
@@ -30,7 +30,7 @@
 
 @end
 
-@implementation PIBConnectViewController
+@implementation PIDConnectViewController
 
 - (instancetype)initWithDevice:(BLEDevice *)device
 {

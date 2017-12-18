@@ -1,16 +1,16 @@
 //
-//  PIBSearchViewController.m
+//  PIDSearchViewController.m
 //  iOS Demo
 //
 //  Created by Robin on 2017/12/17.
 //  Copyright © 2017年 midmirror. All rights reserved.
 //
 
-#import "PIBSearchViewController.h"
+#import "PIDSearchViewController.h"
 #import <BluetoothLE/BluetoothLE.h>
-#import "PIBConnectViewController.h"
+#import "PIDConnectViewController.h"
 
-@interface PIBSearchViewController ()
+@interface PIDSearchViewController ()
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 @property (nonatomic, strong) UIImageView *loadingImageView;
@@ -27,7 +27,7 @@
     
 @end
 
-@implementation PIBSearchViewController
+@implementation PIDSearchViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -92,7 +92,7 @@
 - (void)prepareConnectDevice:(BLEDevice *)device
 {
     self.isConnecting = NO;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[PIBConnectViewController alloc] initWithDevice:device]];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[PIDConnectViewController alloc] initWithDevice:device]];
     nav.navigationBar.hidden = YES;
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }

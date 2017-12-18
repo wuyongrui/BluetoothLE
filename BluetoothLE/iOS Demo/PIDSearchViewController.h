@@ -1,5 +1,5 @@
 //
-//  PIBSearchViewController.h
+//  PIDSearchViewController.h
 //  iOS Demo
 //
 //  Created by Robin on 2017/12/17.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PIBSearchViewController : UIViewController
+@interface PIDSearchViewController : UIViewController
 
 @end

@@ -1,5 +1,5 @@
 //
-//  PIBConnectViewController.h
+//  PIDConnectViewController.h
 //  iOS Demo
 //
 //  Created by Robin on 2017/12/17.
@@ -10,7 +10,7 @@
 
 @class BLEDevice;
 
-@interface PIBConnectViewController : UIViewController
+@interface PIDConnectViewController : UIViewController
 
 - (instancetype)initWithDevice:(BLEDevice *)device;
 
