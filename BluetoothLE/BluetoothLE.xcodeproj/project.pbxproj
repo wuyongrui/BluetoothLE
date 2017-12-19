@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0032DAFA1FE6C90100370334 /* PIDBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0032DAF91FE6C90100370334 /* PIDBindViewController.m */; };
+		0032DAFD1FE967DD00370334 /* PIDStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0032DAFC1FE967DD00370334 /* PIDStatusViewController.m */; };
 		0038B4041FE6B39D00BDD321 /* PIDSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0038B4031FE6B39D00BDD321 /* PIDSearchViewController.m */; };
 		311C098B1FE244330054E828 /* BLEDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 311C09891FE244330054E828 /* BLEDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		311C098C1FE244330054E828 /* BLEDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C098A1FE244330054E828 /* BLEDevice.m */; };
@@ -69,6 +70,8 @@
 		0031958D1FE7900F00444F9A /* PIDMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIDMacro.h; sourceTree = "<group>"; };
 		0032DAF81FE6C90100370334 /* PIDBindViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIDBindViewController.h; sourceTree = "<group>"; };
 		0032DAF91FE6C90100370334 /* PIDBindViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIDBindViewController.m; sourceTree = "<group>"; };
+		0032DAFB1FE967DD00370334 /* PIDStatusViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIDStatusViewController.h; sourceTree = "<group>"; };
+		0032DAFC1FE967DD00370334 /* PIDStatusViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIDStatusViewController.m; sourceTree = "<group>"; };
 		0038B4021FE6B39D00BDD321 /* PIDSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIDSearchViewController.h; sourceTree = "<group>"; };
 		0038B4031FE6B39D00BDD321 /* PIDSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIDSearchViewController.m; sourceTree = "<group>"; };
 		27812ECC175ABB97965649ED /* Pods-iOS Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOS Demo/Pods-iOS Demo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -234,6 +237,8 @@
 				81A18AF81EEE434B00BA8293 /* Info.plist */,
 				81A18AE71EEE434B00BA8293 /* Supporting Files */,
 				0031958D1FE7900F00444F9A /* PIDMacro.h */,
+				0032DAFB1FE967DD00370334 /* PIDStatusViewController.h */,
+				0032DAFC1FE967DD00370334 /* PIDStatusViewController.m */,
 			);
 			path = "iOS Demo";
 			sourceTree = "<group>";
@@ -524,7 +529,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		CAAAE2F157C926F8F30F727E /* [CP] Embed Pods Frameworks */ = {
@@ -577,6 +582,7 @@
 				0038B4041FE6B39D00BDD321 /* PIDSearchViewController.m in Sources */,
 				81A18AEF1EEE434B00BA8293 /* PIDLockViewController.m in Sources */,
 				81A18AEC1EEE434B00BA8293 /* AppDelegate.m in Sources */,
+				0032DAFD1FE967DD00370334 /* PIDStatusViewController.m in Sources */,
 				81A18AE91EEE434B00BA8293 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

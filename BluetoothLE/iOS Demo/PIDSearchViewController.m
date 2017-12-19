@@ -100,7 +100,9 @@
 - (void)presentBindVC
 {
     PIDBindViewController *bindVC = [[PIDBindViewController alloc] init];
-    [self.navigationController pushViewController:bindVC animated:YES];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:bindVC];
+    nav.navigationBarHidden = YES;
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
     
 #pragma mark - getter
