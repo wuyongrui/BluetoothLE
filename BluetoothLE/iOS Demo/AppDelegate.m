@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "PIDLockViewController.h"
 #import "PIDSearchViewController.h"
 
 @interface AppDelegate ()

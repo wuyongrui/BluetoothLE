@@ -1,3 +1,5 @@
+
+
 //
 //  PIDSearchViewController.m
 //  iOS Demo
@@ -9,7 +11,7 @@
 #import "PIDSearchViewController.h"
 #import <BluetoothLE/BluetoothLE.h>
 #import "PIDBindViewController.h"
-#import "PIDOperationViewController.h"
+#import "PIDLockViewController.h"
 #import "PIDMacro.h"
 
 @interface PIDSearchViewController ()
@@ -82,8 +84,8 @@
                 [BLE shared].characteristicWrite = characteristic;
                 NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:[BLE shared].currentDevice.peripheral.identifier.UUIDString];
                 if (password.length > 0) {
-                    UINavigationController *operationNC = [[UINavigationController alloc] initWithRootViewController:[[PIDOperationViewController alloc] init]];
-                    [self.navigationController presentViewController:operationNC animated:YES completion:nil];
+                    PIDLockViewController *lockVC = [[PIDLockViewController alloc] init];
+                    [self.navigationController pushViewController:lockVC animated:YES];
                 } else {
                     BLEData *bleData = [BLEData new];
                     [[BLE shared] send:bleData.bindData];

@@ -8,7 +8,7 @@
 
 #import "PIDBindViewController.h"
 #import <BluetoothLE/BluetoothLE.h>
-#import "ViewController.h"
+#import "PIDLockViewController.h"
 #import "PIDMacro.h"
 #import "BLEData.h"
 #import <SVProgressHUD/SVProgressHUD.h>
@@ -95,7 +95,7 @@
     [[BLE shared] whenConnectSuccess:^{
         NSLog(@"连接成功");
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.navigationController pushViewController:[ViewController new] animated:YES];
+            [self.navigationController pushViewController:[PIDLockViewController new] animated:YES];
         });
     }];
     [[BLE shared] whenConnectFailure:^{

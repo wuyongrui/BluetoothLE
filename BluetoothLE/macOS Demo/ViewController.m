@@ -6,7 +6,7 @@
 //  Copyright © 2017 midmirror. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "PIDLockViewController.h"
 #import "BLEBroadcast.h"
 
 @interface ViewController()

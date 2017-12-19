@@ -6,11 +6,10 @@
 //  Copyright © 2017 midmirror. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "PIDLockViewController.h"
 #import <BluetoothLE/BluetoothLE.h>
-#import "PIDOperationViewController.h"
 
-@interface ViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface PIDLockViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *titles;
@@ -18,15 +17,13 @@
 
 @end
 
-@implementation ViewController
+@implementation PIDLockViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"Phone ID";
     self.titles = @[@"锁定 Mac", @"解锁 Mac"];
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"绑定" style:UIBarButtonItemStylePlain target:self action:@selector(pushBindViewController)];
-    self.navigationItem.rightBarButtonItem = rightItem;
     [self.view addSubview:self.tableView];
 
     self.isConnected = YES;
@@ -35,14 +32,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - private
-
-- (void)pushBindViewController {
-    PIDOperationViewController *bindDeviceVC = [[PIDOperationViewController alloc] init];
-    UINavigationController *bindDeviceNC = [[UINavigationController alloc] initWithRootViewController:bindDeviceVC];
-    [self presentViewController:bindDeviceNC animated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDataSource

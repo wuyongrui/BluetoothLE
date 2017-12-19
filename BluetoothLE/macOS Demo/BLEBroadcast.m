@@ -112,6 +112,7 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
                 [BLELockManager unlock:password];
                 if (![BLELockManager isLocked]) {
                     [peripheral updateValue:bleData.bindSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
+                    [bleData storePassword:password withUUID:request.central.identifier.UUIDString];
                 } else {
                     [peripheral updateValue:bleData.bindFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
                 }
