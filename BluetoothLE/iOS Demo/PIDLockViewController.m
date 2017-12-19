@@ -14,7 +14,8 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *titles;
-@property (nonatomic, assign) BOOL isConnected;
+@property (nonatomic, assign) BOOL isEnableAutoLock;
+@property (nonatomic, assign) BOOL isEnableSend;
 
 @end
 
@@ -26,10 +27,28 @@
     self.title = @"Phone ID";
     self.titles = @[@"锁定 Mac", @"解锁 Mac"];
     [self.view addSubview:self.tableView];
+    self.isEnableAutoLock = YES;
+    self.isEnableSend = YES;
+    [self setupUI];
+    [self prepareBluetooth];
+}
 
-    self.isConnected = YES;
-    
-    BLEDevice *device = [BLE shared].currentDevice;
+- (void)setupUI {
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"自动" style:UIBarButtonItemStylePlain target:self action:@selector(enableAutoLock:)];
+    self.navigationItem.rightBarButtonItem = rightItem;
+}
+
+- (void)enableAutoLock:(UIBarButtonItem *)item {
+    if (self.isEnableAutoLock) {
+        self.isEnableAutoLock = NO;
+        item.title = @"自动";
+    } else {
+        self.isEnableAutoLock = YES;
+        item.title = @"手动";
+    }
+}
+
+- (void)prepareBluetooth {
     BLEData *bleData = [BLEData new];
     NSDictionary *passwordDict = [bleData passwordDict];
     [[BLE shared] scan];
@@ -55,42 +74,45 @@
         }
     }];
     [[BLE shared] whenUpdateRSSI:^(NSNumber *RSSI) {
-        float distance = [BLEDevice distanceWithRSSI:RSSI].floatValue;
-        NSString *state = @"";
-        if (distance <= PIDLOCKDISTANCE) {
-            if ([BLE shared].currentDevice.isLocked) {
-                [self unlock];
-                state = @"解锁中";
-                NSLog(@"解锁中");
+        if (self.isEnableAutoLock) {
+            float distance = [BLEDevice distanceWithRSSI:RSSI].floatValue;
+            NSString *state = @"";
+            if (distance <= PIDLOCKDISTANCE) {
+                if ([BLE shared].currentDevice.isLocked) {
+                    [self unlock];
+                    state = @"解锁中";
+                }
+            } else {
+                if (![BLE shared].currentDevice.isLocked) {
+                    [self lock];
+                    state = @"锁定中";
+                }
             }
+            self.title = [NSString stringWithFormat:@"%.2f m %@", distance, state];
         } else {
-            if (![BLE shared].currentDevice.isLocked) {
-                [[BLE shared] send:bleData.lockData];
-                state = @"锁定中";
-                NSLog(@"锁定中");
-            }
+            self.title = @"当前手动模式";
         }
-        self.title = [NSString stringWithFormat:@"%.2f m %@", distance, state];
     }];
     [[BLE shared] whenReceiveData:^(NSData *data) {
         if ([data isEqualToData:bleData.unlockSuccessData]) {
-            NSLog(@"解锁成功");
+            self.isEnableSend = YES;
             [BLE shared].currentDevice.isLocked = NO;
             [SVProgressHUD showSuccessWithStatus:@"解锁成功"];
         } else if ([data isEqualToData:bleData.unlockFailureData]) {
-            
+            self.isEnableSend = YES;
             [BLE shared].currentDevice.isLocked = YES;
             [self unlock];
         } else if ([data isEqualToData:bleData.lockSuccessData]) {
-            NSLog(@"锁定成功");
+            self.isEnableSend = YES;
             [BLE shared].currentDevice.isLocked = YES;
             [SVProgressHUD showSuccessWithStatus:@"锁定成功"];
         } else if ([data isEqualToData:bleData.lockFailureData]) {
-            
+            self.isEnableSend = YES;
             [BLE shared].currentDevice.isLocked = NO;
-            [[BLE shared] send:bleData.lockData];
+            [self lock];
         }
     }];
+
 }
 
 - (void)unlock {
@@ -101,6 +123,13 @@
     [unlockData appendData:bleData.unlockData];
     [unlockData appendData:[password dataUsingEncoding:NSUTF8StringEncoding]];
     [[BLE shared] send:unlockData];
+    self.isEnableSend = NO;
+}
+
+- (void)lock {
+    BLEData *bleData = [BLEData new];
+    [[BLE shared] send:bleData.lockData];
+    self.isEnableSend = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -119,7 +148,7 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class]) forIndexPath:indexPath];
     cell.textLabel.text = self.titles[indexPath.row];
-    cell.textLabel.textColor = self.isConnected ? [UIColor blackColor] : [UIColor grayColor];
+    cell.textLabel.textColor = [UIColor blackColor];
     return cell;
 }
 
