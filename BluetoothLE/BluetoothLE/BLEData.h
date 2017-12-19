@@ -24,7 +24,9 @@
 @property (nonatomic, strong) NSData *unlockFailureData;
 
 - (void)storePassword:(NSString *)password withUUID:(NSString *)uuid;
+- (NSMutableDictionary *)passwordDict;
 - (NSString *)passwordWithUUID:(NSString *)uuid;
 - (NSData *)passwordDataWithUUID:(NSString *)uuid;
+- (void)clearPasswords;
 
 @end

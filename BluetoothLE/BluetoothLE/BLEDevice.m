@@ -38,4 +38,9 @@
     else                                return @0;
 }
 
+- (void)setIsLocked:(BOOL)isLocked {
+    _isLocked = isLocked;
+    NSLog(@"锁定状态:%@",@(isLocked));
+}
+
 @end

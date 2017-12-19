@@ -91,6 +91,8 @@ typedef void(^UnconnectBlock)(void);
 /** 当断开连接时 */
 - (void)whenUnconnect:(UnconnectBlock)unconnectBlock;
 
+- (void)whenUpdateRSSI:(UpdateRSSIBlock)RSSIBlock;
+
 /** 发送数据 */
 - (void)whenSendSuccess:(SendSuccessBlock)sendSuccessBlock; // 成功
 - (void)whenSendFailure:(SendFailureBlock)sendFailureBlock; // 失败

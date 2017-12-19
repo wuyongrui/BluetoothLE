@@ -16,6 +16,7 @@
 @property (nonatomic, strong) CBPeripheralManager *peripheralManager;
 @property (nonatomic, strong) CBMutableCharacteristic *characteristicWrite;
 @property (nonatomic, strong) CBMutableCharacteristic *characteristicNotify;
+@property (nonatomic, strong) CBMutableService *service;
 
 @end
 
@@ -37,12 +38,13 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
 }
 
 - (void)addService {
-    CBMutableService *service = [[CBMutableService alloc] initWithType:[CBUUID UUIDWithString:kServiceUUID] primary:YES];//primary
-    self.characteristicWrite = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString:kCharacteristicWriteUUID] properties:CBCharacteristicPropertyWriteWithoutResponse value:nil permissions:CBAttributePermissionsWriteable];
-    self.characteristicNotify = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString:kCharacteristicNotifyUUID] properties:CBCharacteristicPropertyNotify value:nil permissions:CBAttributePermissionsWriteable];
-    [service setCharacteristics:@[self.characteristicWrite, self.characteristicNotify]];
-    
-    [self.peripheralManager addService:service];
+    if (!self.service) {
+        self.service = [[CBMutableService alloc] initWithType:[CBUUID UUIDWithString:kServiceUUID] primary:YES];//primary
+        self.characteristicWrite = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString:kCharacteristicWriteUUID] properties:CBCharacteristicPropertyWriteWithoutResponse value:nil permissions:CBAttributePermissionsWriteable];
+        self.characteristicNotify = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString:kCharacteristicNotifyUUID] properties:CBCharacteristicPropertyNotify value:nil permissions:CBAttributePermissionsWriteable];
+        [self.service setCharacteristics:@[self.characteristicWrite, self.characteristicNotify]];
+        [self.peripheralManager addService:self.service];
+    }
 }
 
 
@@ -95,10 +97,12 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
                 [peripheral updateValue:bleData.lockFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
             }
         } else if ([operationData isEqualToData:bleData.unlockData]) {
-            NSData *userPasswordData = [request.value subdataWithRange:NSMakeRange(3, request.value.length-3)];
+            NSData *userPasswordData = [request.value subdataWithRange:NSMakeRange(4, request.value.length-4
+                                                                                   )];
             NSString *password = [[NSString alloc] initWithData:userPasswordData encoding:NSUTF8StringEncoding];
-            NSLog(@"用户输入的密码:%@",password);
             NSData *passwordData = [bleData passwordDataWithUUID:request.central.identifier.UUIDString];
+            NSLog(@"userpasswordData:%@",userPasswordData);
+            NSLog(@"用户输入的密码：%@，用户数据:%@ 本地:%@",password, request.value, passwordData);
             if ([request.value isEqualToData:passwordData]) {
                 // 解锁流程
                 [BLELockManager unlock:password];

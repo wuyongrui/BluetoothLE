@@ -74,6 +74,10 @@
     self.unconnectBlock = unconnectBlock;
 }
 
+- (void)whenUpdateRSSI:(UpdateRSSIBlock)RSSIBlock {
+    self.updateRSSIBlock = RSSIBlock;
+}
+
 - (void)whenConnectSuccess:(ConnectSuccessBlock)connectSuccessBlock {
     self.connectSuccessBlock = connectSuccessBlock;
 }
@@ -96,6 +100,11 @@
 
 - (void)whenReceiveData:(ReceiveDataBlock)receiveDataBlock {
     self.receiveDataBlock = receiveDataBlock;
+}
+
+- (void)setCurrentDevice:(BLEDevice *)currentDevice {
+    _currentDevice = currentDevice;
+    NSLog(@"当前设备:%@",currentDevice);
 }
 
 @end

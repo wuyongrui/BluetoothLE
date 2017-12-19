@@ -8,6 +8,7 @@
 
 #import "PIDLockViewController.h"
 #import <BluetoothLE/BluetoothLE.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface PIDLockViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -27,6 +28,76 @@
     [self.view addSubview:self.tableView];
 
     self.isConnected = YES;
+    
+    BLEDevice *device = [BLE shared].currentDevice;
+    BLEData *bleData = [BLEData new];
+    NSDictionary *passwordDict = [bleData passwordDict];
+    [[BLE shared] scan];
+    [[BLE shared] whenFindBluetooth:^(BLEDevice *device) {
+        if (device.distance.doubleValue < 0.5) {
+            NSString *password = passwordDict[device.peripheral.identifier.UUIDString];
+            if (password.length > 0) {
+                [[BLE shared] connect:device];
+            }
+        }
+    }];
+    [[BLE shared] whenUpdateService:^(CBService *service) {
+        // 更新服务（characteristic）
+        for (CBCharacteristic *characteristic in service.characteristics) {
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"BB00"]]) {
+                [BLE shared].characteristicWrite = characteristic;
+            } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"BB11"]]) {
+                [[BLE shared].currentDevice.peripheral setNotifyValue:YES forCharacteristic:characteristic];
+            }
+        }
+    }];
+    [[BLE shared] whenUpdateRSSI:^(NSNumber *RSSI) {
+        float distance = [BLEDevice distanceWithRSSI:RSSI].floatValue;
+        NSString *state = @"";
+        if (distance <= 0.5) {
+            if ([BLE shared].currentDevice.isLocked) {
+                [self unlock];
+                state = @"解锁中";
+                NSLog(@"解锁中");
+            }
+        } else {
+            if (![BLE shared].currentDevice.isLocked) {
+                [[BLE shared] send:bleData.lockData];
+                state = @"锁定中";
+                NSLog(@"锁定中");
+            }
+        }
+        self.title = [NSString stringWithFormat:@"%.2f m %@", distance, state];
+    }];
+    [[BLE shared] whenReceiveData:^(NSData *data) {
+        if ([data isEqualToData:bleData.unlockSuccessData]) {
+            NSLog(@"解锁成功");
+            [BLE shared].currentDevice.isLocked = NO;
+            [SVProgressHUD showSuccessWithStatus:@"解锁成功"];
+        } else if ([data isEqualToData:bleData.unlockFailureData]) {
+            
+            [BLE shared].currentDevice.isLocked = YES;
+            [self unlock];
+        } else if ([data isEqualToData:bleData.lockSuccessData]) {
+            NSLog(@"锁定成功");
+            [BLE shared].currentDevice.isLocked = YES;
+            [SVProgressHUD showSuccessWithStatus:@"锁定成功"];
+        } else if ([data isEqualToData:bleData.lockFailureData]) {
+            
+            [BLE shared].currentDevice.isLocked = NO;
+            [[BLE shared] send:bleData.lockData];
+        }
+    }];
+}
+
+- (void)unlock {
+    BLEDevice *device = [BLE shared].currentDevice;
+    BLEData *bleData = [BLEData new];
+    NSString *password = [bleData passwordWithUUID:device.peripheral.identifier.UUIDString];
+    NSMutableData *unlockData = [[NSMutableData alloc] init];
+    [unlockData appendData:bleData.unlockData];
+    [unlockData appendData:[password dataUsingEncoding:NSUTF8StringEncoding]];
+    [[BLE shared] send:unlockData];
 }
 
 - (void)didReceiveMemoryWarning {

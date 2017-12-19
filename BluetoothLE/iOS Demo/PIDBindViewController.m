@@ -72,6 +72,9 @@
         if ([data isEqualToData:bleData.bindSuccessData]) {
             [SVProgressHUD showSuccessWithStatus:@"绑定成功"];
             [bleData storePassword:password withUUID:device.peripheral.identifier.UUIDString];
+            PIDLockViewController *lockVC = [[PIDLockViewController alloc] init];
+            UINavigationController *lockNC = [[UINavigationController alloc] initWithRootViewController:lockVC];
+            [self presentViewController:lockNC animated:YES completion:nil];
         } else if ([data isEqualToData:bleData.bindFailureData]) {
             [SVProgressHUD showErrorWithStatus:@"绑定失败"];
             self.passwordTextField.text = @"";
@@ -81,6 +84,7 @@
         NSMutableData *unlockData = [[NSMutableData alloc] init];
         [unlockData appendData:bleData.unlockData];
         [unlockData appendData:[password dataUsingEncoding:NSUTF8StringEncoding]];
+        NSLog(@"密码：%@，密码数据:%@ 解锁数据:%@",password, [password dataUsingEncoding:NSUTF8StringEncoding], unlockData);
         [[BLE shared] send:unlockData];
     }
 }

@@ -46,20 +46,48 @@
 }
 
 - (void)storePassword:(NSString *)password withUUID:(NSString *)uuid {
-    [[NSUserDefaults standardUserDefaults] setObject:password forKey:uuid];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *passwordDict = [self passwordDict];
+    passwordDict[uuid] = password;
+    [defaults setObject:passwordDict forKey:@"password"];
+    [defaults synchronize];
+}
+
+- (NSMutableDictionary *)passwordDict {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *lastPasswordDict = [defaults objectForKey:@"password"];
+    NSMutableDictionary *passwordDict = [[NSMutableDictionary alloc] init];
+    if (lastPasswordDict) {
+        passwordDict = [[NSMutableDictionary alloc] initWithDictionary:lastPasswordDict];
+    }
+    return passwordDict;
 }
 
 - (NSString *)passwordWithUUID:(NSString *)uuid {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:uuid];
+    if (uuid.length > 0) {
+        NSMutableDictionary *passwordDict = [self passwordDict];
+        return passwordDict[uuid];
+    } else {
+        return nil;
+    }
+}
+
+- (void)clearPasswords {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:nil forKey:@"password"];
+    [defaults synchronize];
 }
 
 - (NSData *)passwordDataWithUUID:(NSString *)uuid {
-    NSString *password = [self passwordWithUUID:uuid];
-    NSMutableData *unlockData = [[NSMutableData alloc] init];
-    [unlockData appendData:self.unlockData];
-    [unlockData appendData:[password dataUsingEncoding:NSUTF8StringEncoding]];
-    return unlockData;
+    if (uuid.length > 0) {
+        NSString *password = [self passwordWithUUID:uuid];
+        NSMutableData *unlockData = [[NSMutableData alloc] init];
+        [unlockData appendData:self.unlockData];
+        [unlockData appendData:[password dataUsingEncoding:NSUTF8StringEncoding]];
+        return unlockData;
+    } else {
+        return nil;
+    }
 }
 
 @end

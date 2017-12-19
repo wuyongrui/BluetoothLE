@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "BLEMenuItemManager.h"
+#import "BLEData.h"
 
 @interface AppDelegate ()
 @end
@@ -16,6 +17,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [[BLEMenuItemManager sharedManager] refresh];
+    [[BLEData new] clearPasswords];
 }
 
 @end

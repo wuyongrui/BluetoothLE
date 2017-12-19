@@ -35,9 +35,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self commonInit];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self prepareBlueTooth];
-    });
+    [self prepareBlueTooth];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -67,42 +65,42 @@
 
 - (void)prepareBlueTooth
 {
-    [[BLE shared] scan];
-    [[BLE shared] whenFindBluetoothAll:^(NSDictionary *deviceDict) {
-        // 扫描到的蓝牙列表
-        NSLog(@"devices:%@", deviceDict);
-        NSSortDescriptor *distanceDes = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES];
-        NSArray<BLEDevice *> *devices = [deviceDict.allValues sortedArrayUsingDescriptors:@[distanceDes]];
-        if (devices.firstObject.distance.doubleValue < 0.5) {
-            [[BLE shared] connect:devices.firstObject];
-        }
-    }];
-    [[BLE shared] whenUpdateService:^(CBService *service) {
-        // 更新服务（characteristic）
-        for (CBCharacteristic *characteristic in service.characteristics) {
-            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"BB00"]]) {
-                [BLE shared].characteristicWrite = characteristic;
-                NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:[BLE shared].currentDevice.peripheral.identifier.UUIDString];
-                if (password.length > 0) {
-                    PIDLockViewController *lockVC = [[PIDLockViewController alloc] init];
-                    [self.navigationController pushViewController:lockVC animated:YES];
-                } else {
-                    BLEData *bleData = [BLEData new];
+    BLEData *bleData = [BLEData new];
+    if ([bleData passwordDict].count > 0) {
+        PIDLockViewController *lockVC = [[PIDLockViewController alloc] init];
+        UINavigationController *lockNC = [[UINavigationController alloc] initWithRootViewController:lockVC];
+        [self presentViewController:lockNC animated:YES completion:nil];
+    } else {
+        // 本地没有保存密码，进入绑定模式
+        [[BLE shared] scan];
+        [[BLE shared] whenFindBluetoothAll:^(NSDictionary *deviceDict) {
+            // 扫描到的蓝牙列表
+            NSLog(@"devices:%@", deviceDict);
+            NSSortDescriptor *distanceDes = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES];
+            NSArray<BLEDevice *> *devices = [deviceDict.allValues sortedArrayUsingDescriptors:@[distanceDes]];
+            if (devices.firstObject.distance.doubleValue < 0.5) {
+                [[BLE shared] connect:devices.firstObject];
+            }
+        }];
+        [[BLE shared] whenUpdateService:^(CBService *service) {
+            // 更新服务（characteristic）
+            for (CBCharacteristic *characteristic in service.characteristics) {
+                if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"BB00"]]) {
+                    [BLE shared].characteristicWrite = characteristic;
                     [[BLE shared] send:bleData.bindData];
                     [self presentBindVC];
+                } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"BB11"]]) {
+                    [[BLE shared].currentDevice.peripheral setNotifyValue:YES forCharacteristic:characteristic];
                 }
-            } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"BB11"]]) {
-                [[BLE shared].currentDevice.peripheral setNotifyValue:YES forCharacteristic:characteristic];
             }
-        }
-    }];
+        }];
+    }
 }
 
 - (void)presentBindVC
 {
-    UINavigationController *bindNC = [[UINavigationController alloc] initWithRootViewController:[[PIDBindViewController alloc] init]];
-    bindNC.navigationBar.hidden = YES;
-    [self.navigationController presentViewController:bindNC animated:YES completion:nil];
+    PIDBindViewController *bindVC = [[PIDBindViewController alloc] init];
+    [self.navigationController pushViewController:bindVC animated:YES];
 }
     
 #pragma mark - getter
