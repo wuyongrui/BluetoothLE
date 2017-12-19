@@ -32,18 +32,14 @@
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI {
     NSString *localName = advertisementData[CBAdvertisementDataLocalNameKey];
     NSString *uuid = [peripheral.identifier UUIDString];
-    BLEDevice *device = [[BLEDevice alloc] init];
-    device.localName = localName;
-    device.peripheral = peripheral;
-    device.advertisementData = advertisementData;
-    device.distance = [BLEDevice distanceWithRSSI:RSSI];
-    device.strength = [BLEDevice strengthWithRSSI:RSSI];
     
     if ([localName isEqualToString:PIDBINDED]) {
+        BLEDevice *device = [BLEDevice deviceWithPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];
         if (self.findBindedBluetoothBlock) {
             self.findBindedBluetoothBlock(device);
         }
     } else if ([localName isEqualToString:PIDUNBIND]) {
+        BLEDevice *device = [BLEDevice deviceWithPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];
         if (!self.deviceDict[uuid]) {
             self.deviceDict[uuid] = device;
             if (self.findUnbindBluetoothAllBlock) {

@@ -43,4 +43,17 @@
     NSLog(@"锁定状态:%@",@(isLocked));
 }
 
++ (BLEDevice *)deviceWithPeripheral:(CBPeripheral *)peripheral
+                  advertisementData:(NSDictionary<NSString *,id> *)advertisementData
+                               RSSI:(NSNumber *)RSSI {
+    NSString *localName = advertisementData[CBAdvertisementDataLocalNameKey];
+    BLEDevice *device = [[BLEDevice alloc] init];
+    device.localName = localName;
+    device.peripheral = peripheral;
+    device.advertisementData = advertisementData;
+    device.distance = [BLEDevice distanceWithRSSI:RSSI];
+    device.strength = [BLEDevice strengthWithRSSI:RSSI];
+    return device;
+}
+
 @end

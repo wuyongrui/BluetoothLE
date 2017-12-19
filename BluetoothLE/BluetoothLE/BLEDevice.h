@@ -24,4 +24,8 @@
 /** 判断信号强度 */
 + (NSNumber *)strengthWithRSSI:(NSNumber *)RSSI;
 
++ (BLEDevice *)deviceWithPeripheral:(CBPeripheral *)peripheral
+                  advertisementData:(NSDictionary<NSString *,id> *)advertisementData
+                               RSSI:(NSNumber *)RSSI;
+
 @end
