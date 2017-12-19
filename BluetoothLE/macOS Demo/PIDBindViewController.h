@@ -1,5 +1,5 @@
 //
-//  BLEScanViewController.h
+//  PIDBindViewController.h
 //  macOS Demo
 //
 //  Created by 吴勇锐 on 2017/12/18.
@@ -8,6 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface BLEScanViewController : NSViewController
+@interface PIDBindViewController : NSViewController
 
 @end

@@ -73,12 +73,12 @@
     } else {
         // 本地没有保存密码，进入绑定模式
         [[BLE shared] scan];
-        [[BLE shared] whenFindBluetoothAll:^(NSDictionary *deviceDict) {
+        [[BLE shared] whenFindUnbindBluetoothAll:^(NSDictionary *deviceDict) {
             // 扫描到的蓝牙列表
             NSLog(@"devices:%@", deviceDict);
             NSSortDescriptor *distanceDes = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES];
             NSArray<BLEDevice *> *devices = [deviceDict.allValues sortedArrayUsingDescriptors:@[distanceDes]];
-            if (devices.firstObject.distance.doubleValue < 0.5) {
+            if (devices.firstObject.distance.doubleValue < PIDLOCKDISTANCE) {
                 [[BLE shared] connect:devices.firstObject];
             }
         }];

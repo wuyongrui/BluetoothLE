@@ -10,8 +10,8 @@
 #import "BLEDevice.h"
 
 /** 发现新蓝牙 */
-typedef void(^FindBluetoothBlock)(BLEDevice *device);
-typedef void(^FindBluetoothAllBlock)(NSDictionary *deviceDict);
+typedef void(^FindBindedBluetoothBlock)(BLEDevice *device);
+typedef void(^FindUnbindBluetoothAllBlock)(NSDictionary *deviceDict);
 
 /** 连接成功、失败 */
 typedef void(^ConnectSuccessBlock)(void);
@@ -32,8 +32,8 @@ typedef void(^UnconnectBlock)(void);
 
 @interface BLE : NSObject<CBCentralManagerDelegate,CBPeripheralDelegate>
 
-@property(copy,nonatomic,readwrite) FindBluetoothBlock      findBluetoothBlock;
-@property(copy,nonatomic,readwrite) FindBluetoothAllBlock   findBluetoothAllBlock;
+@property(copy,nonatomic,readwrite) FindBindedBluetoothBlock      findBindedBluetoothBlock;
+@property(copy,nonatomic,readwrite) FindUnbindBluetoothAllBlock   findUnbindBluetoothAllBlock;
 
 @property(copy,nonatomic,readwrite) UpdateServiceBlock      updateServiceBlock;
 @property(copy,nonatomic,readwrite) UpdateRSSIBlock         updateRSSIBlock;
@@ -75,10 +75,10 @@ typedef void(^UnconnectBlock)(void);
  */
 - (void)unconnect;
 
-/* 发现新蓝牙（同一个蓝牙如果状态更新会被重复发现），仅用于快速连接 */
-- (void)whenFindBluetooth:(FindBluetoothBlock)bluetoothBlock;
-/* 发现所有的蓝牙（每3秒更新一次所有蓝牙状态），用于扫描连接 */
-- (void)whenFindBluetoothAll:(FindBluetoothAllBlock)bluetoothAllBlock;
+/* 发现已绑定蓝牙 */
+- (void)whenFindBindedBluetooth:(FindBindedBluetoothBlock)bluetoothBlock;
+/* 发现未绑定蓝牙 */
+- (void)whenFindUnbindBluetoothAll:(FindUnbindBluetoothAllBlock)bluetoothAllBlock;
 
 - (void)whenUpdateService:(UpdateServiceBlock)serviceBlock;
 

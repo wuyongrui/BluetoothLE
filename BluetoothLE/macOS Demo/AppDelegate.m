@@ -7,8 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "BLEMenuItemManager.h"
-#import "BLEData.h"
+#import "PIDMenuItemManager.h"
+#import "BLEBroadcast.h"
 
 @interface AppDelegate ()
 @end
@@ -16,8 +16,11 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    [[BLEMenuItemManager sharedManager] refresh];
-    [[BLEData new] clearPasswords];
+    [[PIDMenuItemManager sharedManager] refresh];
+    [[BLEBroadcast shared] start];
+    [[BLEBroadcast shared] whenAddService:^{
+        [[BLEBroadcast shared] startBindedAdvertising];
+    }];
 }
 
 @end

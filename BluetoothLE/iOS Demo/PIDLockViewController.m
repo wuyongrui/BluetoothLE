@@ -33,13 +33,16 @@
     BLEData *bleData = [BLEData new];
     NSDictionary *passwordDict = [bleData passwordDict];
     [[BLE shared] scan];
-    [[BLE shared] whenFindBluetooth:^(BLEDevice *device) {
-        if (device.distance.doubleValue < 0.5) {
+    [[BLE shared] whenFindBindedBluetooth:^(BLEDevice *device) {
+        if (device.distance.doubleValue < PIDLOCKDISTANCE) {
             NSString *password = passwordDict[device.peripheral.identifier.UUIDString];
             if (password.length > 0) {
                 [[BLE shared] connect:device];
             }
         }
+    }];
+    [[BLE shared] whenConnectSuccess:^{
+        self.title = [NSString stringWithFormat:@"已连接:%@",[BLE shared].currentDevice.peripheral.name];
     }];
     [[BLE shared] whenUpdateService:^(CBService *service) {
         // 更新服务（characteristic）
@@ -54,7 +57,7 @@
     [[BLE shared] whenUpdateRSSI:^(NSNumber *RSSI) {
         float distance = [BLEDevice distanceWithRSSI:RSSI].floatValue;
         NSString *state = @"";
-        if (distance <= 0.5) {
+        if (distance <= PIDLOCKDISTANCE) {
             if ([BLE shared].currentDevice.isLocked) {
                 [self unlock];
                 state = @"解锁中";

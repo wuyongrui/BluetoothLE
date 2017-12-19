@@ -8,20 +8,29 @@
 
 #import <Foundation/Foundation.h>
 
+extern const float PIDLOCKDISTANCE;
+extern NSString * const PIDUNBIND;
+extern NSString * const PIDBINDED;
+
 @interface BLEData : NSObject
 
 @property (nonatomic, strong) NSData *bindData;
 @property (nonatomic, strong) NSData *unbindData;
 @property (nonatomic, strong) NSData *lockData;
 @property (nonatomic, strong) NSData *unlockData;
+@property (nonatomic, strong) NSData *clearPasswordData;
+
 @property (nonatomic, strong) NSData *bindSuccessData;
 @property (nonatomic, strong) NSData *bindFailureData;
 @property (nonatomic, strong) NSData *unbindSuccessData;
 @property (nonatomic, strong) NSData *unbindFailureData;
+@property (nonatomic, strong) NSData *clearPasswordSuccessData;
+
 @property (nonatomic, strong) NSData *lockSuccessData;
 @property (nonatomic, strong) NSData *lockFailureData;
 @property (nonatomic, strong) NSData *unlockSuccessData;
 @property (nonatomic, strong) NSData *unlockFailureData;
+@property (nonatomic, strong) NSData *clearPasswordFailureData;
 
 - (void)storePassword:(NSString *)password withUUID:(NSString *)uuid;
 - (NSMutableDictionary *)passwordDict;
@@ -30,3 +39,4 @@
 - (void)clearPasswords;
 
 @end
+

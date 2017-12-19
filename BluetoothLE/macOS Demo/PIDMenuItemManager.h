@@ -1,5 +1,5 @@
 //
-//  BLEMenuItemManager.h
+//  PIDMenuItemManager.h
 //  macOS Demo
 //
 //  Created by 吴勇锐 on 2017/12/19.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BLEMenuItemManager : NSObject
+@interface PIDMenuItemManager : NSObject
 
 + (instancetype)sharedManager;
 - (void)refresh;

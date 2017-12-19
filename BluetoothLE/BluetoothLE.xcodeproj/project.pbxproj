@@ -40,13 +40,12 @@
 		81A18AF41EEE434B00BA8293 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81A18AF31EEE434B00BA8293 /* Assets.xcassets */; };
 		81A18B041EEE436600BA8293 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A18B031EEE436600BA8293 /* AppDelegate.m */; };
 		81A18B071EEE436600BA8293 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A18B061EEE436600BA8293 /* main.m */; };
-		81A18B0A1EEE436600BA8293 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A18B091EEE436600BA8293 /* ViewController.m */; };
 		81A18B0C1EEE436600BA8293 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81A18B0B1EEE436600BA8293 /* Assets.xcassets */; };
 		81A18B0F1EEE436600BA8293 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81A18B0D1EEE436600BA8293 /* Main.storyboard */; };
 		81A18B141EEE444A00BA8293 /* BluetoothLE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81A18AC51EEE42AC00BA8293 /* BluetoothLE.framework */; };
 		C2DB3CCD10348E3B7E857F2D /* libPods-iOS Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE1B5B72613FAA639A179AE5 /* libPods-iOS Demo.a */; };
-		C304B8861FE8A69A00ABEB37 /* BLEMenuItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C304B8851FE8A69A00ABEB37 /* BLEMenuItemManager.m */; };
-		C32A71851FE7DCA900409036 /* BLEScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32A71841FE7DCA900409036 /* BLEScanViewController.m */; };
+		C304B8861FE8A69A00ABEB37 /* PIDMenuItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C304B8851FE8A69A00ABEB37 /* PIDMenuItemManager.m */; };
+		C32A71851FE7DCA900409036 /* PIDBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32A71841FE7DCA900409036 /* PIDBindViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,16 +104,14 @@
 		81A18B021EEE436600BA8293 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		81A18B031EEE436600BA8293 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		81A18B061EEE436600BA8293 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		81A18B081EEE436600BA8293 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		81A18B091EEE436600BA8293 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		81A18B0B1EEE436600BA8293 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81A18B0E1EEE436600BA8293 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		81A18B101EEE436600BA8293 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE1B5B72613FAA639A179AE5 /* libPods-iOS Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iOS Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C304B8841FE8A69A00ABEB37 /* BLEMenuItemManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEMenuItemManager.h; sourceTree = "<group>"; };
-		C304B8851FE8A69A00ABEB37 /* BLEMenuItemManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLEMenuItemManager.m; sourceTree = "<group>"; };
-		C32A71831FE7DCA900409036 /* BLEScanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEScanViewController.h; sourceTree = "<group>"; };
-		C32A71841FE7DCA900409036 /* BLEScanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLEScanViewController.m; sourceTree = "<group>"; };
+		C304B8841FE8A69A00ABEB37 /* PIDMenuItemManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIDMenuItemManager.h; sourceTree = "<group>"; };
+		C304B8851FE8A69A00ABEB37 /* PIDMenuItemManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIDMenuItemManager.m; sourceTree = "<group>"; };
+		C32A71831FE7DCA900409036 /* PIDBindViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIDBindViewController.h; sourceTree = "<group>"; };
+		C32A71841FE7DCA900409036 /* PIDBindViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIDBindViewController.m; sourceTree = "<group>"; };
 		F601F3DBD4CB3F4D3D31910D /* Pods-iOS Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOS Demo/Pods-iOS Demo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -257,8 +254,6 @@
 				C32A717E1FE7D74A00409036 /* MenuItem */,
 				81A18B021EEE436600BA8293 /* AppDelegate.h */,
 				81A18B031EEE436600BA8293 /* AppDelegate.m */,
-				81A18B081EEE436600BA8293 /* ViewController.h */,
-				81A18B091EEE436600BA8293 /* ViewController.m */,
 				81A18B0B1EEE436600BA8293 /* Assets.xcassets */,
 				81A18B0D1EEE436600BA8293 /* Main.storyboard */,
 				81A18B101EEE436600BA8293 /* Info.plist */,
@@ -289,8 +284,8 @@
 		C32A717E1FE7D74A00409036 /* MenuItem */ = {
 			isa = PBXGroup;
 			children = (
-				C304B8841FE8A69A00ABEB37 /* BLEMenuItemManager.h */,
-				C304B8851FE8A69A00ABEB37 /* BLEMenuItemManager.m */,
+				C304B8841FE8A69A00ABEB37 /* PIDMenuItemManager.h */,
+				C304B8851FE8A69A00ABEB37 /* PIDMenuItemManager.m */,
 			);
 			name = MenuItem;
 			sourceTree = "<group>";
@@ -298,8 +293,8 @@
 		C32A71821FE7DC9100409036 /* Scan */ = {
 			isa = PBXGroup;
 			children = (
-				C32A71831FE7DCA900409036 /* BLEScanViewController.h */,
-				C32A71841FE7DCA900409036 /* BLEScanViewController.m */,
+				C32A71831FE7DCA900409036 /* PIDBindViewController.h */,
+				C32A71841FE7DCA900409036 /* PIDBindViewController.m */,
 			);
 			name = Scan;
 			sourceTree = "<group>";
@@ -590,13 +585,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81A18B0A1EEE436600BA8293 /* ViewController.m in Sources */,
 				80DDD67B1FE568740047B189 /* BLEBroadcast.m in Sources */,
 				81A18B071EEE436600BA8293 /* main.m in Sources */,
 				80DDD6781FE567670047B189 /* BLELockManager.m in Sources */,
-				C32A71851FE7DCA900409036 /* BLEScanViewController.m in Sources */,
+				C32A71851FE7DCA900409036 /* PIDBindViewController.m in Sources */,
 				81A18B041EEE436600BA8293 /* AppDelegate.m in Sources */,
-				C304B8861FE8A69A00ABEB37 /* BLEMenuItemManager.m in Sources */,
+				C304B8861FE8A69A00ABEB37 /* PIDMenuItemManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

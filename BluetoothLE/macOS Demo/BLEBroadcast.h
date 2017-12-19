@@ -9,11 +9,26 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
+typedef void(^AddServiceBlock)(void);
+
 @interface BLEBroadcast : NSObject
 
-- (id)initWithUUID:(NSString *)uuid;
-- (void)startBroadcasting;
-- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral;
-- (void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(NSError *)error;
+@property (nonatomic, copy) AddServiceBlock addServiceBlock;
+
++ (BLEBroadcast *)shared;
+
+- (void)start;
+/** 开始未绑定广播 */
+- (void)startUnbindAdvertising;
+/** 开始已绑定广播 */
+- (void)startBindedAdvertising;
+/** 停止广播 */
+- (void)stopAdvertising;
+/** 是否正在广播 */
+- (BOOL)isAdvertising;
+/** 发送数据 */
+- (void)send:(NSData *)data;
+
+- (void)whenAddService:(AddServiceBlock)addServiceBlcok;
 
 @end

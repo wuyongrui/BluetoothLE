@@ -58,12 +58,12 @@
     }
 }
 
-- (void)whenFindBluetooth:(FindBluetoothBlock)bluetoothBlock {
-    self.findBluetoothBlock = bluetoothBlock;
+- (void)whenFindBindedBluetooth:(FindBindedBluetoothBlock)bluetoothBlock {
+    self.findBindedBluetoothBlock = bluetoothBlock;
 }
 
-- (void)whenFindBluetoothAll:(FindBluetoothAllBlock)bluetoothAllBlock {
-    self.findBluetoothAllBlock = bluetoothAllBlock;
+- (void)whenFindUnbindBluetoothAll:(FindUnbindBluetoothAllBlock)bluetoothAllBlock {
+    self.findUnbindBluetoothAllBlock = bluetoothAllBlock;
 }
 
 - (void)whenUpdateService:(UpdateServiceBlock)serviceBlock {

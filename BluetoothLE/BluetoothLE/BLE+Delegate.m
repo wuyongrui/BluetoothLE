@@ -8,6 +8,7 @@
 
 #import "BLE+Delegate.h"
 #import "BLE+SendData.h"
+#import "BLEData.h"
 
 @implementation BLE (Delegate)
 
@@ -30,22 +31,24 @@
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI {
     NSString *localName = advertisementData[CBAdvertisementDataLocalNameKey];
-    if ([localName isEqualToString:@"Phone ID Beacon"]) {
-        NSString *uuid = [peripheral.identifier UUIDString];
-        BLEDevice *device = [[BLEDevice alloc] init];
-        device.localName = localName;
-        device.peripheral = peripheral;
-        device.advertisementData = advertisementData;
-        device.distance = [BLEDevice distanceWithRSSI:RSSI];
-        device.strength = [BLEDevice strengthWithRSSI:RSSI];
+    NSString *uuid = [peripheral.identifier UUIDString];
+    BLEDevice *device = [[BLEDevice alloc] init];
+    device.localName = localName;
+    device.peripheral = peripheral;
+    device.advertisementData = advertisementData;
+    device.distance = [BLEDevice distanceWithRSSI:RSSI];
+    device.strength = [BLEDevice strengthWithRSSI:RSSI];
+    
+    if ([localName isEqualToString:PIDBINDED]) {
+        if (self.findBindedBluetoothBlock) {
+            self.findBindedBluetoothBlock(device);
+        }
+    } else if ([localName isEqualToString:PIDUNBIND]) {
         if (!self.deviceDict[uuid]) {
             self.deviceDict[uuid] = device;
-            if (self.findBluetoothAllBlock) {
-                self.findBluetoothAllBlock(self.deviceDict);
+            if (self.findUnbindBluetoothAllBlock) {
+                self.findUnbindBluetoothAllBlock(self.deviceDict);
             }
-        }
-        if (self.findBluetoothBlock) {
-            self.findBluetoothBlock(device);
         }
     }
 }
@@ -96,7 +99,6 @@
     }
 }
 
-
 #pragma mark CBPeripheralDelegated
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error {
@@ -125,7 +127,7 @@
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-    if ((self.isSendFinish == NO) && ( self.dataOffset != 0)) {
+    if ((self.isSendFinish == NO) && (self.dataOffset != 0)) {
         [self sendNext:self.sendData];
     } else {
         if (self.sendSuccessBlock) {

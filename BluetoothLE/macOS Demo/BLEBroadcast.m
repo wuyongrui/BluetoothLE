@@ -12,7 +12,6 @@
 
 @interface BLEBroadcast()<CBPeripheralManagerDelegate>
 
-@property (nonatomic, strong) CBUUID *uuid;
 @property (nonatomic, strong) CBPeripheralManager *peripheralManager;
 @property (nonatomic, strong) CBMutableCharacteristic *characteristicWrite;
 @property (nonatomic, strong) CBMutableCharacteristic *characteristicNotify;
@@ -26,15 +25,34 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
 
 @implementation BLEBroadcast
 
-- (id)initWithUUID:(NSString *)uuid
++ (BLEBroadcast *)shared
 {
-    self = [super init];
-    if (self) {
-        self.uuid = [CBUUID UUIDWithString:uuid];
-        self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil];
-    }
-    
-    return self;
+    static BLEBroadcast *instance = nil;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        instance = [[self alloc] init];
+    });
+    return instance;
+}
+
+- (void)start {
+    self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil];
+}
+
+- (void)startUnbindAdvertising {
+    [self.peripheralManager startAdvertising:@{CBAdvertisementDataLocalNameKey:PIDUNBIND, CBAdvertisementDataServiceUUIDsKey: @[[CBUUID UUIDWithString:kServiceUUID]]}];
+}
+
+- (void)startBindedAdvertising {
+    [self.peripheralManager startAdvertising:@{CBAdvertisementDataLocalNameKey:PIDBINDED, CBAdvertisementDataServiceUUIDsKey: @[[CBUUID UUIDWithString:kServiceUUID]]}];
+}
+
+- (void)stopAdvertising {
+    [self.peripheralManager stopAdvertising];
+}
+
+- (BOOL)isAdvertising {
+    return [self.peripheralManager isAdvertising];
 }
 
 - (void)addService {
@@ -59,12 +77,13 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
 }
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(NSError *)error {
+    NSLog(@"didAddService");
     if (error) {
         NSLog(@"Error publishing service: %@", [error localizedDescription]);
-        return;
     }
-    NSLog(@"service is added");
-    [self.peripheralManager startAdvertising:@{CBAdvertisementDataLocalNameKey:@"Phone ID Beacon", CBAdvertisementDataServiceUUIDsKey: @[[CBUUID UUIDWithString:kServiceUUID]]}];
+    if (self.addServiceBlock) {
+        self.addServiceBlock();
+    }
 }
 
 - (void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(NSError *)error
@@ -97,8 +116,7 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
                 [peripheral updateValue:bleData.lockFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
             }
         } else if ([operationData isEqualToData:bleData.unlockData]) {
-            NSData *userPasswordData = [request.value subdataWithRange:NSMakeRange(4, request.value.length-4
-                                                                                   )];
+            NSData *userPasswordData = [request.value subdataWithRange:NSMakeRange(4, request.value.length-4)];
             NSString *password = [[NSString alloc] initWithData:userPasswordData encoding:NSUTF8StringEncoding];
             NSData *passwordData = [bleData passwordDataWithUUID:request.central.identifier.UUIDString];
             NSLog(@"userpasswordData:%@",userPasswordData);
@@ -107,22 +125,32 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
                 // 解锁流程
                 [BLELockManager unlock:password];
                 if (![BLELockManager isLocked]) {
-                    [peripheral updateValue:bleData.unlockSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
+                    [peripheral updateValue:bleData.unlockSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:self.characteristicNotify.subscribedCentrals];
                 } else {
-                    [peripheral updateValue:bleData.unlockFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
+                    [peripheral updateValue:bleData.unlockFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:self.characteristicNotify.subscribedCentrals];
                 }
             } else {
                 // 验证绑定流程
                 [BLELockManager unlock:password];
                 if (![BLELockManager isLocked]) {
-                    [peripheral updateValue:bleData.bindSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
+                    [peripheral updateValue:bleData.bindSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:self.characteristicNotify.subscribedCentrals];
                     [bleData storePassword:password withUUID:request.central.identifier.UUIDString];
                 } else {
-                    [peripheral updateValue:bleData.bindFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
+                    [peripheral updateValue:bleData.bindFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:self.characteristicNotify.subscribedCentrals];
                 }
             }
         }
     }
+}
+
+- (void)send:(NSData *)data {
+    if (self.peripheralManager && self.characteristicNotify) {
+        [self.peripheralManager updateValue:data forCharacteristic:self.characteristicNotify onSubscribedCentrals:self.characteristicNotify.subscribedCentrals];
+    }
+}
+
+- (void)whenAddService:(AddServiceBlock)addServiceBlcok {
+    self.addServiceBlock = addServiceBlcok;
 }
 
 @end
