@@ -10,6 +10,7 @@
 #import <AppKit/AppKit.h>
 #import <BluetoothLE_Mac/BluetoothLE_Mac.h>
 #import "BLEBroadcast.h"
+#import "BLELockManager.h"
 
 @interface PIDMenuItemManager()
 
@@ -19,6 +20,7 @@
 @property (nonatomic, copy) NSString *bindedDeviceName;
 
 @property (nonatomic, strong) NSMenuItem *bindMenuItem;
+@property (nonatomic, strong) NSMenuItem *lockMenuItem;
 @property (nonatomic, strong) NSMenuItem *clearPasswordMenuItem;
 @property (nonatomic, strong) NSMenuItem *quitMenuItem;
 
@@ -40,6 +42,8 @@
     if (self) {
         self.bindMenuItem = [[NSMenuItem alloc] initWithTitle:@"绑定" action:@selector(bindAction:) keyEquivalent:@""];
         [self.bindMenuItem setTarget:self];
+        self.lockMenuItem = [[NSMenuItem alloc] initWithTitle:@"锁定" action:@selector(lockAction:) keyEquivalent:@""];
+        [self.lockMenuItem setTarget:self];
         self.clearPasswordMenuItem = [[NSMenuItem alloc] initWithTitle:@"清除密码" action:@selector(clearPasswordsAction:) keyEquivalent:@""];
         [self.clearPasswordMenuItem setTarget:self];
         self.quitMenuItem = [[NSMenuItem alloc] initWithTitle:@"退出" action:@selector(quitAction:) keyEquivalent:@"q"];
@@ -57,6 +61,7 @@
 - (void)refresh {
     [self.item.menu removeAllItems];
     [self.item.menu addItem:self.bindMenuItem];
+    [self.item.menu addItem:self.lockMenuItem];
     [self.item.menu addItem:self.clearPasswordMenuItem];
     [self.item.menu addItem:self.quitMenuItem];
 }
@@ -87,6 +92,12 @@
         // 取消绑定
     }
 }
+
+- (void)lockAction:(NSMenuItem *)item {
+    [BLELockManager lock];
+}
+
+
 - (void)quitAction:(NSMenuItem *)item {
     [NSApp performSelector:@selector(terminate:) withObject:nil afterDelay:0.0];
 }
