@@ -11,7 +11,7 @@
 #import "PIDSearchViewController.h"
 #import <BluetoothLE/BluetoothLE.h>
 #import "PIDBindViewController.h"
-#import "PIDLockViewController.h"
+#import "PIDStatusViewController.h"
 #import "PIDMacro.h"
 
 @interface PIDSearchViewController ()
@@ -67,9 +67,8 @@
 {
     BLEData *bleData = [BLEData new];
     if ([bleData passwordDict].count > 0) {
-        PIDLockViewController *lockVC = [[PIDLockViewController alloc] init];
-        UINavigationController *lockNC = [[UINavigationController alloc] initWithRootViewController:lockVC];
-        [self presentViewController:lockNC animated:YES completion:nil];
+        PIDStatusViewController *statusVC = [[PIDStatusViewController alloc] init];
+        [self.navigationController pushViewController:statusVC animated:YES];
     } else {
         // 本地没有保存密码，进入绑定模式
         [[BLE shared] scan];

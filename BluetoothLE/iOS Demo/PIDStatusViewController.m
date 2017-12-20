@@ -10,6 +10,7 @@
 #import "PIDMacro.h"
 #import <Masonry.h>
 #import <BluetoothLE/BluetoothLE.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface PIDStatusViewController ()
 
@@ -17,6 +18,7 @@
 @property (nonatomic, strong) UIButton *statusButton;
 @property (nonatomic, strong) UILabel *distanceLabel;
 @property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, assign) BOOL isEnableSend;
 
 - (void)commonInit;
 - (void)prepareBluetooth;
@@ -28,8 +30,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.isEnableSend = YES;
     [self commonInit];
     [self prepareBluetooth];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)commonInit
@@ -53,22 +61,29 @@
 
 - (void)prepareBluetooth
 {
-//    BLEData *bleData = [BLEData new];
-//    NSDictionary *passwordDict = [bleData passwordDict];
-//    [[BLE shared] scan];
-//    [[BLE shared] whenFindBindedBluetooth:^(BLEDevice *device) {
-//        if (device.distance.doubleValue < PIDLOCKDISTANCE) {
-//            NSString *password = passwordDict[device.peripheral.identifier.UUIDString];
-//            if (password.length > 0) {
-//                [[BLE shared] connect:device];
-//            }
-//        }
-//    }];
+    BLEData *bleData = [BLEData new];
+    NSDictionary *passwordDict = [bleData passwordDict];
+    [[BLE shared] scan];
+    [[BLE shared] whenFindBindedBluetooth:^(BLEDevice *device) {
+        if (device.distance.doubleValue < PIDLOCKDISTANCE) {
+            NSString *password = passwordDict[device.peripheral.identifier.UUIDString];
+            if (password.length > 0) {
+                [[BLE shared] connect:device];
+            }
+        }
+    }];
     [[BLE shared] whenConnectSuccess:^{
         self.nameLabel.text = [BLE shared].currentDevice.peripheral.name;
     }];
     [[BLE shared] whenUpdateService:^(CBService *service) {
-
+        // 更新服务（characteristic）
+        for (CBCharacteristic *characteristic in service.characteristics) {
+            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"BB00"]]) {
+                [BLE shared].characteristicWrite = characteristic;
+            } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"BB11"]]) {
+                [[BLE shared].currentDevice.peripheral setNotifyValue:YES forCharacteristic:characteristic];
+            }
+        }
     }];
     [[BLE shared] whenUpdateRSSI:^(NSNumber *RSSI) {
         float distance = [BLEDevice distanceWithRSSI:RSSI].floatValue;
@@ -76,10 +91,53 @@
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:str];
         [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:22] range:NSMakeRange(str.length - 3, 3)];
         self.distanceLabel.attributedText = attr;
+        
+        if (distance <= PIDLOCKDISTANCE) {
+            if ([BLE shared].currentDevice.isLocked) {
+                [self unlock];
+            }
+        } else {
+            if (![BLE shared].currentDevice.isLocked) {
+                [self lock];
+            }
+        }
     }];
     [[BLE shared] whenReceiveData:^(NSData *data) {
-
+        if ([data isEqualToData:bleData.unlockSuccessData]) {
+            self.isEnableSend = YES;
+            [BLE shared].currentDevice.isLocked = NO;
+            [SVProgressHUD showSuccessWithStatus:@"解锁成功"];
+        } else if ([data isEqualToData:bleData.unlockFailureData]) {
+            self.isEnableSend = YES;
+            [BLE shared].currentDevice.isLocked = YES;
+            [self unlock];
+        } else if ([data isEqualToData:bleData.lockSuccessData]) {
+            self.isEnableSend = YES;
+            [BLE shared].currentDevice.isLocked = YES;
+            [SVProgressHUD showSuccessWithStatus:@"锁定成功"];
+        } else if ([data isEqualToData:bleData.lockFailureData]) {
+            self.isEnableSend = YES;
+            [BLE shared].currentDevice.isLocked = NO;
+            [self lock];
+        }
     }];
+}
+
+- (void)unlock {
+    BLEDevice *device = [BLE shared].currentDevice;
+    BLEData *bleData = [BLEData new];
+    NSString *password = [bleData passwordWithUUID:device.peripheral.identifier.UUIDString];
+    NSMutableData *unlockData = [[NSMutableData alloc] init];
+    [unlockData appendData:bleData.unlockData];
+    [unlockData appendData:[password dataUsingEncoding:NSUTF8StringEncoding]];
+    [[BLE shared] send:unlockData];
+    self.isEnableSend = NO;
+}
+
+- (void)lock {
+    BLEData *bleData = [BLEData new];
+    [[BLE shared] send:bleData.lockData];
+    self.isEnableSend = NO;
 }
 
 #pragma mark - getter

@@ -7,8 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "PIDLockViewController.h"
-#import "PIDSearchViewController.h"
+#import "PIDStatusViewController.h"
 
 @interface AppDelegate ()
 
@@ -18,8 +17,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window=[[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController: [PIDSearchViewController new]];
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController: [PIDStatusViewController new]];
     [self.window makeKeyAndVisible];
     return YES;
 }

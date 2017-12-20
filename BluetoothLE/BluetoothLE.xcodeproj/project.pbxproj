@@ -225,6 +225,7 @@
 		81A18AE61EEE434B00BA8293 /* iOS Demo */ = {
 			isa = PBXGroup;
 			children = (
+				0031958D1FE7900F00444F9A /* PIDMacro.h */,
 				81A18AEA1EEE434B00BA8293 /* AppDelegate.h */,
 				81A18AEB1EEE434B00BA8293 /* AppDelegate.m */,
 				0038B4021FE6B39D00BDD321 /* PIDSearchViewController.h */,
@@ -233,12 +234,11 @@
 				0032DAF91FE6C90100370334 /* PIDBindViewController.m */,
 				81A18AED1EEE434B00BA8293 /* PIDLockViewController.h */,
 				81A18AEE1EEE434B00BA8293 /* PIDLockViewController.m */,
+				0032DAFB1FE967DD00370334 /* PIDStatusViewController.h */,
+				0032DAFC1FE967DD00370334 /* PIDStatusViewController.m */,
 				81A18AF31EEE434B00BA8293 /* Assets.xcassets */,
 				81A18AF81EEE434B00BA8293 /* Info.plist */,
 				81A18AE71EEE434B00BA8293 /* Supporting Files */,
-				0031958D1FE7900F00444F9A /* PIDMacro.h */,
-				0032DAFB1FE967DD00370334 /* PIDStatusViewController.h */,
-				0032DAFC1FE967DD00370334 /* PIDStatusViewController.m */,
 			);
 			path = "iOS Demo";
 			sourceTree = "<group>";
