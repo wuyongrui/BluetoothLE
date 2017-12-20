@@ -10,10 +10,12 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 
 typedef void(^AddServiceBlock)(void);
+typedef void(^BindSuccessBlock)(void);
 
 @interface BLEBroadcast : NSObject
 
 @property (nonatomic, copy) AddServiceBlock addServiceBlock;
+@property (nonatomic, copy) BindSuccessBlock bindSuccessBlock;
 
 + (BLEBroadcast *)shared;
 
@@ -29,6 +31,7 @@ typedef void(^AddServiceBlock)(void);
 /** 发送数据 */
 - (void)send:(NSData *)data;
 
-- (void)whenAddService:(AddServiceBlock)addServiceBlcok;
+- (void)whenAddService:(AddServiceBlock)addServiceBlock;
+- (void)whenBindSuccess:(BindSuccessBlock)bindSuccessBlock;
 
 @end

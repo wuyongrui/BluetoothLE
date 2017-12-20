@@ -11,6 +11,7 @@
 #import <BluetoothLE_Mac/BluetoothLE_Mac.h>
 #import "BLEBroadcast.h"
 #import "BLELockManager.h"
+#import "BLEData.h"
 
 @interface PIDMenuItemManager()
 
@@ -21,7 +22,6 @@
 
 @property (nonatomic, strong) NSMenuItem *bindMenuItem;
 @property (nonatomic, strong) NSMenuItem *lockMenuItem;
-@property (nonatomic, strong) NSMenuItem *clearPasswordMenuItem;
 @property (nonatomic, strong) NSMenuItem *quitMenuItem;
 
 @end
@@ -44,8 +44,6 @@
         [self.bindMenuItem setTarget:self];
         self.lockMenuItem = [[NSMenuItem alloc] initWithTitle:@"锁定" action:@selector(lockAction:) keyEquivalent:@""];
         [self.lockMenuItem setTarget:self];
-        self.clearPasswordMenuItem = [[NSMenuItem alloc] initWithTitle:@"清除密码" action:@selector(clearPasswordsAction:) keyEquivalent:@""];
-        [self.clearPasswordMenuItem setTarget:self];
         self.quitMenuItem = [[NSMenuItem alloc] initWithTitle:@"退出" action:@selector(quitAction:) keyEquivalent:@"q"];
         [self.quitMenuItem setTarget:self];
         
@@ -54,6 +52,14 @@
         [self.item setHighlightMode:YES];
         [self.item setEnabled:YES];
         self.item.menu = [[NSMenu alloc] initWithTitle:@"menu"];
+        
+        [[BLEBroadcast shared] start];
+        [[BLEBroadcast shared] whenAddService:^{
+            [[BLEBroadcast shared] startBindedAdvertising];
+        }];
+        [[BLEBroadcast shared] whenBindSuccess:^{
+            [self refresh];
+        }];
     }
     return self;
 }
@@ -62,8 +68,10 @@
     [self.item.menu removeAllItems];
     [self.item.menu addItem:self.bindMenuItem];
     [self.item.menu addItem:self.lockMenuItem];
-    [self.item.menu addItem:self.clearPasswordMenuItem];
     [self.item.menu addItem:self.quitMenuItem];
+    
+    PIDBindDevice *bindedDevice = [[BLEData new] bindedDevice];
+    self.bindMenuItem.title = bindedDevice ? @"取消绑定" : @"绑定";
 }
 
 #pragma mark - Public
@@ -90,6 +98,7 @@
         self.scanWindowController = scanWindowController;
     } else {
         // 取消绑定
+        [[BLEData new] removeBindedDevice];
     }
 }
 
@@ -97,13 +106,8 @@
     [BLELockManager lock];
 }
 
-
 - (void)quitAction:(NSMenuItem *)item {
     [NSApp performSelector:@selector(terminate:) withObject:nil afterDelay:0.0];
-}
-
-- (void)clearPasswordsAction:(NSMenuItem *)item {
-    [[BLEData new] clearPasswords];
 }
 
 @end

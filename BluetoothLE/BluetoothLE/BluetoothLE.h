@@ -27,3 +27,5 @@ FOUNDATION_EXPORT const unsigned char BluetoothLEVersionString[];
 #import <BluetoothLE/BLE+Delegate.h>
 #import <BluetoothLE/BLE+SendData.h>
 #import <BluetoothLE/BLEData.h>
+#import <BluetoothLE/NSObject+AutoEncode.h>
+#import <BluetoothLE/PIDBindDevice.h>

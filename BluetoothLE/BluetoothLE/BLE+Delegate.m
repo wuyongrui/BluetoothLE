@@ -30,20 +30,22 @@
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI {
-    NSString *localName = advertisementData[CBAdvertisementDataLocalNameKey];
-    NSString *uuid = [peripheral.identifier UUIDString];
-    
-    if ([localName isEqualToString:PIDBINDED]) {
-        BLEDevice *device = [BLEDevice deviceWithPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];
-        if (self.findBindedBluetoothBlock) {
-            self.findBindedBluetoothBlock(device);
-        }
-    } else if ([localName isEqualToString:PIDUNBIND]) {
-        BLEDevice *device = [BLEDevice deviceWithPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];
-        if (!self.deviceDict[uuid]) {
-            self.deviceDict[uuid] = device;
-            if (self.findUnbindBluetoothAllBlock) {
-                self.findUnbindBluetoothAllBlock(self.deviceDict);
+    if (RSSI.floatValue < 0) {
+        NSString *localName = advertisementData[CBAdvertisementDataLocalNameKey];
+        NSString *uuid = [peripheral.identifier UUIDString];
+        
+        if ([localName isEqualToString:PIDBINDED]) {
+            BLEDevice *device = [BLEDevice deviceWithPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];
+            if (self.findBindedBluetoothBlock) {
+                self.findBindedBluetoothBlock(device);
+            }
+        } else if ([localName isEqualToString:PIDUNBIND]) {
+            BLEDevice *device = [BLEDevice deviceWithPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];
+            if (!self.deviceDict[uuid]) {
+                self.deviceDict[uuid] = device;
+                if (self.findUnbindBluetoothAllBlock) {
+                    self.findUnbindBluetoothAllBlock(self.deviceDict);
+                }
             }
         }
     }
@@ -62,7 +64,7 @@
     
     [peripheral discoverServices:nil];
     
-    NSTimer *timer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(readRSSITimer:) userInfo:nil repeats:YES];
+    NSTimer *timer = [NSTimer timerWithTimeInterval:0.1 target:self selector:@selector(readRSSITimer:) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 

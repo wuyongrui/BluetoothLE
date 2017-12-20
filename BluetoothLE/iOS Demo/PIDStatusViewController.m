@@ -19,6 +19,7 @@
 @property (nonatomic, strong) UILabel *distanceLabel;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, assign) BOOL isEnableSend;
+@property (nonatomic, strong) NSMutableArray *RSSIs;
 
 - (void)commonInit;
 - (void)prepareBluetooth;
@@ -30,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.RSSIs = @[].mutableCopy;
     self.isEnableSend = YES;
     [self commonInit];
     [self prepareBluetooth];
@@ -62,13 +64,15 @@
 - (void)prepareBluetooth
 {
     BLEData *bleData = [BLEData new];
-    NSDictionary *passwordDict = [bleData passwordDict];
+//    NSDictionary *passwordDict = [bleData passwordDict];
+    PIDBindDevice *bindedDevice = [bleData bindedDevice];
     [[BLE shared] scan];
     [[BLE shared] whenFindBindedBluetooth:^(BLEDevice *device) {
         if (device.distance.doubleValue < PIDLOCKDISTANCE) {
-            NSString *password = passwordDict[device.peripheral.identifier.UUIDString];
-            if (password.length > 0) {
-                [[BLE shared] connect:device];
+            if ([bindedDevice.UUID isEqualToString:device.UUID]) {
+                if (bindedDevice.password.length > 0) {
+                    [[BLE shared] connect:device];
+                }
             }
         }
     }];
@@ -86,27 +90,29 @@
         }
     }];
     [[BLE shared] whenUpdateRSSI:^(NSNumber *RSSI) {
-        float distance = [BLEDevice distanceWithRSSI:RSSI].floatValue;
-        NSString *str =  [NSString stringWithFormat:@"%.2f /m", distance];
+        float average = [self averageRSSI:RSSI];
+        NSString *str =  [NSString stringWithFormat:@"%.1f /RSSI", average];
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:str];
         [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:22] range:NSMakeRange(str.length - 3, 3)];
         self.distanceLabel.attributedText = attr;
         
-        if (distance <= PIDLOCKDISTANCE) {
-            if ([BLE shared].currentDevice.isLocked) {
-                [self unlock];
-            }
+        if (average > PIDLOCKRSSI) {
+//            if ([BLE shared].currentDevice.isLocked) {
+//                [self unlock];
+//            }
+            [self unlock];
         } else {
-            if (![BLE shared].currentDevice.isLocked) {
-                [self lock];
-            }
+//            if (![BLE shared].currentDevice.isLocked) {
+//                [self lock];
+//            }
+            [self lock];
         }
     }];
     [[BLE shared] whenReceiveData:^(NSData *data) {
         if ([data isEqualToData:bleData.unlockSuccessData]) {
             self.isEnableSend = YES;
             [BLE shared].currentDevice.isLocked = NO;
-            [SVProgressHUD showSuccessWithStatus:@"解锁成功"];
+//            [SVProgressHUD showSuccessWithStatus:@"解锁成功"];
         } else if ([data isEqualToData:bleData.unlockFailureData]) {
             self.isEnableSend = YES;
             [BLE shared].currentDevice.isLocked = YES;
@@ -114,7 +120,7 @@
         } else if ([data isEqualToData:bleData.lockSuccessData]) {
             self.isEnableSend = YES;
             [BLE shared].currentDevice.isLocked = YES;
-            [SVProgressHUD showSuccessWithStatus:@"锁定成功"];
+//            [SVProgressHUD showSuccessWithStatus:@"锁定成功"];
         } else if ([data isEqualToData:bleData.lockFailureData]) {
             self.isEnableSend = YES;
             [BLE shared].currentDevice.isLocked = NO;
@@ -124,20 +130,25 @@
 }
 
 - (void)unlock {
-    BLEDevice *device = [BLE shared].currentDevice;
     BLEData *bleData = [BLEData new];
-    NSString *password = [bleData passwordWithUUID:device.peripheral.identifier.UUIDString];
+    NSString *password = [bleData bindedDevice].password;
     NSMutableData *unlockData = [[NSMutableData alloc] init];
     [unlockData appendData:bleData.unlockData];
     [unlockData appendData:[password dataUsingEncoding:NSUTF8StringEncoding]];
+    if (self.isEnableSend) {
+        
+        self.isEnableSend = NO;
+    }
     [[BLE shared] send:unlockData];
-    self.isEnableSend = NO;
 }
 
 - (void)lock {
     BLEData *bleData = [BLEData new];
+    if (self.isEnableSend) {
+        
+        self.isEnableSend = NO;
+    }
     [[BLE shared] send:bleData.lockData];
-    self.isEnableSend = NO;
 }
 
 #pragma mark - getter
@@ -154,7 +165,7 @@
 - (UILabel *)distanceLabel{
     if(!_distanceLabel){
         _distanceLabel = [UILabel new];
-        _distanceLabel.font = [UIFont systemFontOfSize:45];
+        _distanceLabel.font = [UIFont systemFontOfSize:35];
         _distanceLabel.textAlignment = NSTextAlignmentCenter;
         _distanceLabel.textColor = [UIColor colorWithWhite:1 alpha:0.9];
     }
@@ -177,6 +188,20 @@
         [_statusButton setImage:[UIImage imageNamed:@"status_btn"] forState:UIControlStateNormal];
     }
     return _statusButton;
+}
+
+- (float)averageRSSI:(NSNumber *)RSSI {
+    if (self.RSSIs.count == 5) {
+        [self.RSSIs removeObjectAtIndex:0];
+    }
+    [self.RSSIs addObject:RSSI];
+    double RSSISum = 0;
+    for (NSNumber *RSSI in self.RSSIs) {
+        RSSISum += RSSI.floatValue;
+    }
+    float distance = [BLEDevice distanceWithRSSI:RSSI].floatValue;
+    NSLog(@"平均RSSI:%.1f RSSI:%.1f distance:%@", RSSISum/self.RSSIs.count, RSSI.floatValue, @(distance));
+    return RSSISum/self.RSSIs.count;
 }
 
 @end

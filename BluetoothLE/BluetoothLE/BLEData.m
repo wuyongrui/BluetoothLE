@@ -7,10 +7,14 @@
 //
 
 #import "BLEData.h"
+#import "PIDDiskCache.h"
 
 const float PIDLOCKDISTANCE = 1.0;
+const float PIDLOCKRSSI = -65;
 NSString * const PIDUNBIND = @"PIDUNBIND";
 NSString * const PIDBINDED = @"PIDBINDED";
+
+NSString * const PIDDEFAULTDEVICE = @"PIDDEFAULTDEVICE";
 
 @implementation BLEData
 
@@ -55,42 +59,21 @@ NSString * const PIDBINDED = @"PIDBINDED";
     return self;
 }
 
-- (void)storePassword:(NSString *)password withUUID:(NSString *)uuid {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableDictionary *passwordDict = [self passwordDict];
-    passwordDict[uuid] = password;
-    [defaults setObject:passwordDict forKey:@"password"];
-    [defaults synchronize];
+- (void)storeBindedDevice:(BLEDevice *)device {
+    PIDBindDevice *bindDevice = [PIDBindDevice bindDeviceWithBLEDevice:device];
+    [[PIDDiskCache shared] storeItem:bindDevice forKey:PIDDEFAULTDEVICE];
 }
 
-- (NSMutableDictionary *)passwordDict {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *lastPasswordDict = [defaults objectForKey:@"password"];
-    NSMutableDictionary *passwordDict = [[NSMutableDictionary alloc] init];
-    if (lastPasswordDict) {
-        passwordDict = [[NSMutableDictionary alloc] initWithDictionary:lastPasswordDict];
-    }
-    return passwordDict;
+- (void)removeBindedDevice {
+    [[PIDDiskCache shared] removeItemForKey:PIDDEFAULTDEVICE];
 }
 
-- (NSString *)passwordWithUUID:(NSString *)uuid {
-    if (uuid.length > 0) {
-        NSMutableDictionary *passwordDict = [self passwordDict];
-        return passwordDict[uuid];
-    } else {
-        return nil;
-    }
+- (PIDBindDevice *)bindedDevice {
+    return [[PIDDiskCache shared] itemForKey:PIDDEFAULTDEVICE];
 }
 
-- (void)clearPasswords {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:nil forKey:@"password"];
-    [defaults synchronize];
-}
-
-- (NSData *)passwordDataWithUUID:(NSString *)uuid {
-    if (uuid.length > 0) {
-        NSString *password = [self passwordWithUUID:uuid];
+- (NSData *)passwordDataWithPassword:(NSString *)password {
+    if (password.length > 0) {
         NSMutableData *unlockData = [[NSMutableData alloc] init];
         [unlockData appendData:self.unlockData];
         [unlockData appendData:[password dataUsingEncoding:NSUTF8StringEncoding]];

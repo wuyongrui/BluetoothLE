@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "PIDMenuItemManager.h"
-#import "BLEBroadcast.h"
 
 @interface AppDelegate ()
 @end
@@ -17,10 +16,6 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [[PIDMenuItemManager sharedManager] refresh];
-    [[BLEBroadcast shared] start];
-    [[BLEBroadcast shared] whenAddService:^{
-        [[BLEBroadcast shared] startBindedAdvertising];
-    }];
 }
 
 @end

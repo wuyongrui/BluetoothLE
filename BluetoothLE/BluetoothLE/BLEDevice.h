@@ -17,6 +17,8 @@
 @property (nonatomic, strong) NSNumber *strength;
 @property (nonatomic, strong) NSNumber *distance;   // Printer's distance calculate by RSSI
 @property (nonatomic, assign) BOOL isLocked;
+@property (nonatomic, strong) NSString *password;
+@property (nonatomic, strong) NSString *UUID;
 
 /** 计算距离 */
 + (NSNumber *)distanceWithRSSI:(NSNumber *)RSSI;

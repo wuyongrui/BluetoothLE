@@ -25,6 +25,18 @@
 		311C09B81FE7D4890054E828 /* BLEData.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C09B61FE7D4890054E828 /* BLEData.m */; };
 		311C09B91FE7D5A60054E828 /* BLEData.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C09B61FE7D4890054E828 /* BLEData.m */; };
 		311C09BA1FE7D5AB0054E828 /* BLEData.h in Headers */ = {isa = PBXBuildFile; fileRef = 311C09B51FE7D4890054E828 /* BLEData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		314A4DA81FEA285C001EF921 /* PIDDiskCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 314A4DA61FEA285C001EF921 /* PIDDiskCache.h */; };
+		314A4DA91FEA285C001EF921 /* PIDDiskCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 314A4DA61FEA285C001EF921 /* PIDDiskCache.h */; };
+		314A4DAA1FEA285C001EF921 /* PIDDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 314A4DA71FEA285C001EF921 /* PIDDiskCache.m */; };
+		314A4DAB1FEA285C001EF921 /* PIDDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 314A4DA71FEA285C001EF921 /* PIDDiskCache.m */; };
+		314A4DAE1FEA432B001EF921 /* NSObject+AutoEncode.h in Headers */ = {isa = PBXBuildFile; fileRef = 314A4DAC1FEA432B001EF921 /* NSObject+AutoEncode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		314A4DAF1FEA432B001EF921 /* NSObject+AutoEncode.h in Headers */ = {isa = PBXBuildFile; fileRef = 314A4DAC1FEA432B001EF921 /* NSObject+AutoEncode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		314A4DB01FEA432B001EF921 /* NSObject+AutoEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = 314A4DAD1FEA432B001EF921 /* NSObject+AutoEncode.m */; };
+		314A4DB11FEA432B001EF921 /* NSObject+AutoEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = 314A4DAD1FEA432B001EF921 /* NSObject+AutoEncode.m */; };
+		314A4DB41FEA4C61001EF921 /* PIDBindDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 314A4DB21FEA4C61001EF921 /* PIDBindDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		314A4DB51FEA4C61001EF921 /* PIDBindDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 314A4DB21FEA4C61001EF921 /* PIDBindDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		314A4DB61FEA4C61001EF921 /* PIDBindDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 314A4DB31FEA4C61001EF921 /* PIDBindDevice.m */; };
+		314A4DB71FEA4C61001EF921 /* PIDBindDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 314A4DB31FEA4C61001EF921 /* PIDBindDevice.m */; };
 		80DDD66D1FE559AC0047B189 /* BluetoothLE_Mac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311C09951FE361870054E828 /* BluetoothLE_Mac.framework */; };
 		80DDD6781FE567670047B189 /* BLELockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DDD6771FE567670047B189 /* BLELockManager.m */; };
 		80DDD67B1FE568740047B189 /* BLEBroadcast.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DDD67A1FE568740047B189 /* BLEBroadcast.m */; };
@@ -82,6 +94,12 @@
 		311C09981FE361870054E828 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		311C09B51FE7D4890054E828 /* BLEData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEData.h; sourceTree = "<group>"; };
 		311C09B61FE7D4890054E828 /* BLEData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLEData.m; sourceTree = "<group>"; };
+		314A4DA61FEA285C001EF921 /* PIDDiskCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIDDiskCache.h; sourceTree = "<group>"; };
+		314A4DA71FEA285C001EF921 /* PIDDiskCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PIDDiskCache.m; sourceTree = "<group>"; };
+		314A4DAC1FEA432B001EF921 /* NSObject+AutoEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AutoEncode.h"; sourceTree = "<group>"; };
+		314A4DAD1FEA432B001EF921 /* NSObject+AutoEncode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AutoEncode.m"; sourceTree = "<group>"; };
+		314A4DB21FEA4C61001EF921 /* PIDBindDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIDBindDevice.h; sourceTree = "<group>"; };
+		314A4DB31FEA4C61001EF921 /* PIDBindDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIDBindDevice.m; sourceTree = "<group>"; };
 		80DDD6761FE567670047B189 /* BLELockManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLELockManager.h; sourceTree = "<group>"; };
 		80DDD6771FE567670047B189 /* BLELockManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLELockManager.m; sourceTree = "<group>"; };
 		80DDD6791FE568740047B189 /* BLEBroadcast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEBroadcast.h; sourceTree = "<group>"; };
@@ -206,6 +224,12 @@
 		81A18AC71EEE42AC00BA8293 /* BluetoothLE */ = {
 			isa = PBXGroup;
 			children = (
+				314A4DAC1FEA432B001EF921 /* NSObject+AutoEncode.h */,
+				314A4DAD1FEA432B001EF921 /* NSObject+AutoEncode.m */,
+				314A4DB21FEA4C61001EF921 /* PIDBindDevice.h */,
+				314A4DB31FEA4C61001EF921 /* PIDBindDevice.m */,
+				314A4DA61FEA285C001EF921 /* PIDDiskCache.h */,
+				314A4DA71FEA285C001EF921 /* PIDDiskCache.m */,
 				311C09891FE244330054E828 /* BLEDevice.h */,
 				311C098A1FE244330054E828 /* BLEDevice.m */,
 				311C09B51FE7D4890054E828 /* BLEData.h */,
@@ -313,8 +337,11 @@
 			files = (
 				311C09991FE361870054E828 /* BluetoothLE_Mac.h in Headers */,
 				311C09A21FE361D30054E828 /* BLEDevice.h in Headers */,
+				314A4DA91FEA285C001EF921 /* PIDDiskCache.h in Headers */,
 				311C09A31FE361D30054E828 /* BLE.h in Headers */,
 				311C09A41FE361D30054E828 /* BLE+Delegate.h in Headers */,
+				314A4DB51FEA4C61001EF921 /* PIDBindDevice.h in Headers */,
+				314A4DAF1FEA432B001EF921 /* NSObject+AutoEncode.h in Headers */,
 				311C09A51FE361D30054E828 /* BLE+SendData.h in Headers */,
 				311C09BA1FE7D5AB0054E828 /* BLEData.h in Headers */,
 			);
@@ -326,8 +353,11 @@
 			files = (
 				81A18AD21EEE42C600BA8293 /* BLE.h in Headers */,
 				81A18ACA1EEE42AC00BA8293 /* BluetoothLE.h in Headers */,
+				314A4DA81FEA285C001EF921 /* PIDDiskCache.h in Headers */,
 				311C098B1FE244330054E828 /* BLEDevice.h in Headers */,
 				817F48611EF239830013AEC3 /* BLE+SendData.h in Headers */,
+				314A4DB41FEA4C61001EF921 /* PIDBindDevice.h in Headers */,
+				314A4DAE1FEA432B001EF921 /* NSObject+AutoEncode.h in Headers */,
 				311C09B71FE7D4890054E828 /* BLEData.h in Headers */,
 				817F485D1EF22F8D0013AEC3 /* BLE+Delegate.h in Headers */,
 			);
@@ -557,6 +587,9 @@
 				311C09B91FE7D5A60054E828 /* BLEData.m in Sources */,
 				311C09AA1FE3645F0054E828 /* BLEDevice.m in Sources */,
 				311C09AB1FE3645F0054E828 /* BLE.m in Sources */,
+				314A4DAB1FEA285C001EF921 /* PIDDiskCache.m in Sources */,
+				314A4DB71FEA4C61001EF921 /* PIDBindDevice.m in Sources */,
+				314A4DB11FEA432B001EF921 /* NSObject+AutoEncode.m in Sources */,
 				311C09AC1FE3645F0054E828 /* BLE+Delegate.m in Sources */,
 				311C09AD1FE3645F0054E828 /* BLE+SendData.m in Sources */,
 			);
@@ -569,6 +602,9 @@
 				817F48621EF239830013AEC3 /* BLE+SendData.m in Sources */,
 				311C098C1FE244330054E828 /* BLEDevice.m in Sources */,
 				817F485E1EF22F8D0013AEC3 /* BLE+Delegate.m in Sources */,
+				314A4DAA1FEA285C001EF921 /* PIDDiskCache.m in Sources */,
+				314A4DB61FEA4C61001EF921 /* PIDBindDevice.m in Sources */,
+				314A4DB01FEA432B001EF921 /* NSObject+AutoEncode.m in Sources */,
 				311C09B81FE7D4890054E828 /* BLEData.m in Sources */,
 				81A18AD31EEE42C600BA8293 /* BLE.m in Sources */,
 			);

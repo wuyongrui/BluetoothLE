@@ -53,6 +53,7 @@
     device.advertisementData = advertisementData;
     device.distance = [BLEDevice distanceWithRSSI:RSSI];
     device.strength = [BLEDevice strengthWithRSSI:RSSI];
+    device.UUID = peripheral.identifier.UUIDString;
     return device;
 }
 

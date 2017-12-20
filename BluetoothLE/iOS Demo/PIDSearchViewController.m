@@ -13,6 +13,7 @@
 #import "PIDBindViewController.h"
 #import "PIDStatusViewController.h"
 #import "PIDMacro.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface PIDSearchViewController ()
 
@@ -66,7 +67,8 @@
 - (void)prepareBlueTooth
 {
     BLEData *bleData = [BLEData new];
-    if ([bleData passwordDict].count > 0) {
+    BLEDevice *defaultDevice = [bleData bindedDevice];
+    if (defaultDevice) {
         PIDStatusViewController *statusVC = [[PIDStatusViewController alloc] init];
         [self.navigationController pushViewController:statusVC animated:YES];
     } else {
@@ -86,11 +88,19 @@
             for (CBCharacteristic *characteristic in service.characteristics) {
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"BB00"]]) {
                     [BLE shared].characteristicWrite = characteristic;
-                    [[BLE shared] send:bleData.bindData];
-                    [self presentBindVC];
+                    [[BLE shared] send:bleData.lockData];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"BB11"]]) {
                     [[BLE shared].currentDevice.peripheral setNotifyValue:YES forCharacteristic:characteristic];
                 }
+            }
+        }];
+        [[BLE shared] whenReceiveData:^(NSData *data) {
+            if ([data isEqualToData:bleData.lockSuccessData]) {
+                [BLE shared].currentDevice.isLocked = YES;
+                [self presentBindVC];
+            } else if ([data isEqualToData:bleData.lockFailureData]) {
+                [BLE shared].currentDevice.isLocked = NO;
+                [[BLE shared] send:bleData.lockData];
             }
         }];
     }

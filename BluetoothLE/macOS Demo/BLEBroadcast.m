@@ -105,41 +105,59 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
         NSLog(@"request:%@",request.value);
         NSData *operationData = [request.value subdataWithRange:NSMakeRange(0, 4)];
         if ([operationData isEqualToData:bleData.bindData]) {
-            [BLELockManager lock];
+            [self bind:request];
         } else if ([operationData isEqualToData:bleData.unbindData]) {
-            
         } else if ([operationData isEqualToData:bleData.lockData]) {
-            [BLELockManager lock];
-            if ([BLELockManager isLocked]) {
-                [peripheral updateValue:bleData.lockSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
-            } else {
-                [peripheral updateValue:bleData.lockFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
-            }
+            NSLog(@"锁定");
+            [self lock:request];
         } else if ([operationData isEqualToData:bleData.unlockData]) {
-            NSData *userPasswordData = [request.value subdataWithRange:NSMakeRange(4, request.value.length-4)];
-            NSString *password = [[NSString alloc] initWithData:userPasswordData encoding:NSUTF8StringEncoding];
-            NSData *passwordData = [bleData passwordDataWithUUID:request.central.identifier.UUIDString];
-            NSLog(@"userpasswordData:%@",userPasswordData);
-            NSLog(@"用户输入的密码：%@，用户数据:%@ 本地:%@",password, request.value, passwordData);
-            if ([request.value isEqualToData:passwordData]) {
-                // 解锁流程
-                [BLELockManager unlock:password];
-                if (![BLELockManager isLocked]) {
-                    [peripheral updateValue:bleData.unlockSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:self.characteristicNotify.subscribedCentrals];
-                } else {
-                    [peripheral updateValue:bleData.unlockFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:self.characteristicNotify.subscribedCentrals];
-                }
-            } else {
-                // 验证绑定流程
-                [BLELockManager unlock:password];
-                if (![BLELockManager isLocked]) {
-                    [peripheral updateValue:bleData.bindSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:self.characteristicNotify.subscribedCentrals];
-                    [bleData storePassword:password withUUID:request.central.identifier.UUIDString];
-                } else {
-                    [peripheral updateValue:bleData.bindFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:self.characteristicNotify.subscribedCentrals];
-                }
-            }
+//            NSLog(@"解锁");
+            [self unlock:request];
         }
+    }
+}
+
+- (void)lock:(CBATTRequest *)request {
+    BLEData *bleData = [BLEData new];
+    [BLELockManager lock];
+    if ([BLELockManager isLocked]) {
+        [self.peripheralManager updateValue:bleData.lockSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
+    } else {
+        [self.peripheralManager updateValue:bleData.lockFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
+    }
+}
+
+- (void)unlock:(CBATTRequest *)request {
+    BLEData *bleData = [BLEData new];
+    NSData *userPasswordData = [request.value subdataWithRange:NSMakeRange(4, request.value.length-4)];
+    NSString *password = [[NSString alloc] initWithData:userPasswordData encoding:NSUTF8StringEncoding];
+//    NSData *passwordData = [bleData passwordDataWithPassword:password];
+    [BLELockManager unlock:password];
+    if (![BLELockManager isLocked]) {
+        [self.peripheralManager updateValue:bleData.unlockSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
+    } else {
+        [self.peripheralManager updateValue:bleData.unlockFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
+    }
+}
+
+- (void)bind:(CBATTRequest *)request {
+    BLEData *bleData = [BLEData new];
+    NSData *userPasswordData = [request.value subdataWithRange:NSMakeRange(4, request.value.length-4)];
+    NSString *password = [[NSString alloc] initWithData:userPasswordData encoding:NSUTF8StringEncoding];
+    [BLELockManager unlock:password];
+    if (![BLELockManager isLocked]) {
+        if (self.bindSuccessBlock) {
+            self.bindSuccessBlock();
+        }
+        NSLog(@"绑定成功");
+        [self.peripheralManager updateValue:bleData.bindSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
+        PIDBindDevice *bindedDevice = [[BLEDevice alloc] init];
+        bindedDevice.UUID = request.central.identifier.UUIDString;
+        bindedDevice.password = password;
+        [bleData storeBindedDevice:bindedDevice];
+    } else {
+        NSLog(@"绑定失败");
+        [self.peripheralManager updateValue:bleData.bindFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
     }
 }
 
@@ -149,8 +167,12 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
     }
 }
 
-- (void)whenAddService:(AddServiceBlock)addServiceBlcok {
-    self.addServiceBlock = addServiceBlcok;
+- (void)whenAddService:(AddServiceBlock)addServiceBlock {
+    self.addServiceBlock = addServiceBlock;
+}
+
+- (void)whenBindSuccess:(BindSuccessBlock)bindSuccessBlock {
+    self.bindSuccessBlock = bindSuccessBlock;
 }
 
 @end

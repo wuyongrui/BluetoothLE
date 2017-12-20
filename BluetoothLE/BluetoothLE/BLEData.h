@@ -7,8 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BLEDevice.h"
+#import "PIDBindDevice.h"
 
 extern const float PIDLOCKDISTANCE;
+extern const float PIDLOCKRSSI;
 extern NSString * const PIDUNBIND;
 extern NSString * const PIDBINDED;
 
@@ -32,11 +35,10 @@ extern NSString * const PIDBINDED;
 @property (nonatomic, strong) NSData *unlockFailureData;
 @property (nonatomic, strong) NSData *clearPasswordFailureData;
 
-- (void)storePassword:(NSString *)password withUUID:(NSString *)uuid;
-- (NSMutableDictionary *)passwordDict;
-- (NSString *)passwordWithUUID:(NSString *)uuid;
-- (NSData *)passwordDataWithUUID:(NSString *)uuid;
-- (void)clearPasswords;
+- (void)storeBindedDevice:(BLEDevice *)device;
+- (void)removeBindedDevice;
+- (PIDBindDevice *)bindedDevice;
+- (NSData *)passwordDataWithPassword:(NSString *)password;
 
 @end
 

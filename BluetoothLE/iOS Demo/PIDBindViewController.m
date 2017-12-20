@@ -8,10 +8,10 @@
 
 #import "PIDBindViewController.h"
 #import <BluetoothLE/BluetoothLE.h>
-#import "PIDLockViewController.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 #import "PIDMacro.h"
 #import "BLEData.h"
-#import <SVProgressHUD/SVProgressHUD.h>
+#import "PIDStatusViewController.h"
 
 @interface PIDBindViewController ()
 
@@ -28,7 +28,6 @@
 - (void)viewTap;
 - (void)connectClick;
 - (void)cancleClick;
-- (void)prepareBlueTooth;
 
 @end
 
@@ -38,7 +37,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self commonInit];
-    [self prepareBlueTooth];
 }
 
 - (void)commonInit
@@ -64,17 +62,17 @@
 
 - (void)connectClick
 {
-    BLEDevice *device = [BLE shared].currentDevice;
     NSString *password = self.passwordTextField.text;
     BLEData *bleData = [BLEData new];
     
     [[BLE shared] whenReceiveData:^(NSData *data) {
         if ([data isEqualToData:bleData.bindSuccessData]) {
             [SVProgressHUD showSuccessWithStatus:@"绑定成功"];
-            [bleData storePassword:password withUUID:device.peripheral.identifier.UUIDString];
-            PIDLockViewController *lockVC = [[PIDLockViewController alloc] init];
-            UINavigationController *lockNC = [[UINavigationController alloc] initWithRootViewController:lockVC];
-            [self presentViewController:lockNC animated:YES completion:nil];
+            [BLE shared].currentDevice.password = password;
+            [bleData storeBindedDevice:[BLE shared].currentDevice];
+            PIDStatusViewController *statusVC = [[PIDStatusViewController alloc] init];
+            UINavigationController *statusNC = [[UINavigationController alloc] initWithRootViewController:statusVC];
+            [self presentViewController:statusNC animated:YES completion:nil];
         } else if ([data isEqualToData:bleData.bindFailureData]) {
             [SVProgressHUD showErrorWithStatus:@"绑定失败"];
             self.passwordTextField.text = @"";
@@ -82,7 +80,7 @@
     }];
     if (password.length > 0) {
         NSMutableData *unlockData = [[NSMutableData alloc] init];
-        [unlockData appendData:bleData.unlockData];
+        [unlockData appendData:bleData.bindData];
         [unlockData appendData:[password dataUsingEncoding:NSUTF8StringEncoding]];
         NSLog(@"密码：%@，密码数据:%@ 解锁数据:%@",password, [password dataUsingEncoding:NSUTF8StringEncoding], unlockData);
         [[BLE shared] send:unlockData];
@@ -92,19 +90,6 @@
 - (void)cancleClick
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)prepareBlueTooth
-{
-    [[BLE shared] whenConnectSuccess:^{
-        NSLog(@"连接成功");
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.navigationController pushViewController:[PIDLockViewController new] animated:YES];
-        });
-    }];
-    [[BLE shared] whenConnectFailure:^{
-        NSLog(@"连接失败");
-    }];
 }
 
 #pragma mark - getter
