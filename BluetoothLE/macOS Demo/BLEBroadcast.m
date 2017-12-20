@@ -10,12 +10,17 @@
 #import "BLELockManager.h"
 #import <BluetoothLE_Mac/BluetoothLE_Mac.h>
 
+NSString *const BLEBroadcastReceiveRequestNotificationName = @"BLEBroadcastReceiveRequestNotificationName";
+
+
 @interface BLEBroadcast()<CBPeripheralManagerDelegate>
 
 @property (nonatomic, strong) CBPeripheralManager *peripheralManager;
 @property (nonatomic, strong) CBMutableCharacteristic *characteristicWrite;
 @property (nonatomic, strong) CBMutableCharacteristic *characteristicNotify;
 @property (nonatomic, strong) CBMutableService *service;
+
+@property (nonatomic, strong) CBATTRequest *tempRequest;
 
 @end
 
@@ -103,10 +108,18 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
     for (CBATTRequest *request in requests) {
         // 接收到蓝牙返回的数据
         NSLog(@"request:%@",request.value);
+        if ([[request.value subdataWithRange:NSMakeRange(0, 3)] isEqualToData:bleData.pidData]) {
+            self.tempRequest = request;
+        }
         NSData *operationData = [request.value subdataWithRange:NSMakeRange(0, 4)];
-        if ([operationData isEqualToData:bleData.bindData]) {
+        if ([operationData isEqualToData:bleData.askBindData]) {
+            NSLog(@"收到绑定请求。");
+            NSString *uuid = request.central.identifier.UUIDString;
+            NSString *deviceName = uuid; // TODO 替换deviceName
+            [[NSNotificationCenter defaultCenter] postNotificationName:BLEBroadcastReceiveRequestNotificationName object:nil userInfo:@{@"uuid":uuid,@"deviceName":deviceName}];
+        } else if ([operationData isEqualToData:bleData.bindData]) {
+            NSLog(@"收到确认绑定，开始保存密码和解锁");
             [self bind:request];
-        } else if ([operationData isEqualToData:bleData.unbindData]) {
         } else if ([operationData isEqualToData:bleData.lockData]) {
             NSLog(@"锁定");
             [self lock:request];
@@ -120,7 +133,7 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
 - (void)lock:(CBATTRequest *)request {
     BLEData *bleData = [BLEData new];
     [BLELockManager lock];
-    if ([BLELockManager isLocked]) {
+    if ([BLELockManager isLocked] || YES) {
         [self.peripheralManager updateValue:bleData.lockSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
     } else {
         [self.peripheralManager updateValue:bleData.lockFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
@@ -173,6 +186,17 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
 
 - (void)whenBindSuccess:(BindSuccessBlock)bindSuccessBlock {
     self.bindSuccessBlock = bindSuccessBlock;
+}
+
+- (void)requestGranted:(BOOL)granted uuid:(NSString *)uuid {
+    if (!self.tempRequest) {
+        return;
+    }
+    if (granted) {
+        [self bind:self.tempRequest];
+        [self lock:self.tempRequest];
+        
+    }
 }
 
 @end

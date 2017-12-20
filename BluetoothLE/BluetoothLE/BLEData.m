@@ -20,11 +20,13 @@ NSString * const PIDDEFAULTDEVICE = @"PIDDEFAULTDEVICE";
 
 - (instancetype)init {
     if (self = [super init]) {
+        Byte pidByte[4]   = {0x50, 0x49, 0x44};
         Byte bindByte[4]   = {0x50, 0x49, 0x44, 0x00};
         Byte unbindByte[4] = {0x50, 0x49, 0x44, 0x01};
         Byte lockByte[4]   = {0x50, 0x49, 0x44, 0x02};
         Byte unlockByte[4] = {0x50, 0x49, 0x44, 0x03};
         Byte clearPasswordByte[4] = {0x50, 0x49, 0x44, 0x04};
+        Byte askBindByte[4]   = {0x50, 0x49, 0x44, 0x05};
         
         Byte bindSuccessByte[5]   = {0x50, 0x49, 0x44, 0x00, 0x00};
         Byte unbindSuccessByte[5] = {0x50, 0x49, 0x44, 0x01, 0x00};
@@ -38,11 +40,13 @@ NSString * const PIDDEFAULTDEVICE = @"PIDDEFAULTDEVICE";
         Byte unlockFailureByte[5] = {0x50, 0x49, 0x44, 0x03, 0x01};
         Byte clearPasswordFailureByte[5] = {0x50, 0x49, 0x44, 0x04, 0x01};
         
+        self.pidData = [NSData dataWithBytes:pidByte length:3];
         self.bindData    = [NSData dataWithBytes:bindByte length:4];
         self.unbindData  = [NSData dataWithBytes:unbindByte length:4];
         self.lockData    = [NSData dataWithBytes:lockByte length:4];
         self.unlockData  = [NSData dataWithBytes:unlockByte length:4];
         self.clearPasswordData = [NSData dataWithBytes:clearPasswordByte length:4];
+        self.askBindData = [NSData dataWithBytes:askBindByte length:4];
         
         self.bindSuccessData    = [NSData dataWithBytes:bindSuccessByte length:5];
         self.unbindSuccessData  = [NSData dataWithBytes:unbindSuccessByte length:5];

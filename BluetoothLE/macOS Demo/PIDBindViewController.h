@@ -10,4 +10,6 @@
 
 @interface PIDBindViewController : NSViewController
 
+- (void)updateDeviceName:(NSString *)deviceName uuid:(NSString *)uuid;
+
 @end
