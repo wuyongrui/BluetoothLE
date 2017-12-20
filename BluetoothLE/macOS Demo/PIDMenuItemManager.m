@@ -48,7 +48,8 @@
         [self.quitMenuItem setTarget:self];
         
         _item = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-        [_item setImage:[NSImage imageNamed:@"icon_menu"]];
+        [_item setImage:[NSImage imageNamed:@"statusBar_icon"]];
+        [_item setAlternateImage:[NSImage imageNamed:@"statusBar_icon"]];
         [self.item setHighlightMode:YES];
         [self.item setEnabled:YES];
         self.item.menu = [[NSMenu alloc] initWithTitle:@"menu"];
