@@ -8,8 +8,17 @@
 
 #import "PIDBindViewController.h"
 #import "BLEBroadcast.h"
+#import "PIDMenuItemManager.h"
 
 @interface PIDBindViewController()
+
+@property (weak) IBOutlet NSTextField *titleTextField;
+
+@property (weak) IBOutlet NSButton *agreeButton;
+@property (weak) IBOutlet NSButton *disagreeButton;
+
+@property (nonatomic, copy) NSString *uuid;
+@property (nonatomic, copy) NSString *deviceName;
 
 @end
 
@@ -21,6 +30,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.titleTextField.stringValue = @"SCAN...";
+    self.agreeButton.hidden = YES;
+    self.disagreeButton.hidden = YES;
+    
     [[BLEBroadcast shared] stopAdvertising];
     [[BLEBroadcast shared] startUnbindAdvertising];
 }
@@ -29,6 +42,24 @@
     [super viewWillDisappear];
     [[BLEBroadcast shared] stopAdvertising];
     [[BLEBroadcast shared] startBindedAdvertising];
+}
+
+- (void)updateDeviceName:(NSString *)deviceName uuid:(NSString *)uuid {
+    self.titleTextField.stringValue = deviceName;
+    self.deviceName = deviceName;
+    self.uuid = uuid;
+    self.agreeButton.hidden = NO;
+    self.disagreeButton.hidden = NO;
+}
+
+- (IBAction)agreeAction:(id)sender {
+    [[BLEBroadcast shared] requestGranted:YES uuid:self.uuid];
+    [[PIDMenuItemManager sharedManager] updateDeviceName:self.deviceName];
+    [self.view.window close];
+}
+
+- (IBAction)disagreeAction:(id)sender {
+    [[BLEBroadcast shared] requestGranted:NO uuid:self.uuid];
 }
 
 @end

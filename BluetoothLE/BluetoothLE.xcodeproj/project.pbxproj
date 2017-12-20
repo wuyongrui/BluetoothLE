@@ -58,6 +58,7 @@
 		81A18B141EEE444A00BA8293 /* BluetoothLE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81A18AC51EEE42AC00BA8293 /* BluetoothLE.framework */; };
 		C2DB3CCD10348E3B7E857F2D /* libPods-iOS Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE1B5B72613FAA639A179AE5 /* libPods-iOS Demo.a */; };
 		C304B8861FE8A69A00ABEB37 /* PIDMenuItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C304B8851FE8A69A00ABEB37 /* PIDMenuItemManager.m */; };
+		C304B8FD1FEA8D7600ABEB37 /* PIDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = C304B8FB1FEA8D7600ABEB37 /* PIDWindow.m */; };
 		C32A71851FE7DCA900409036 /* PIDBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32A71841FE7DCA900409036 /* PIDBindViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +132,8 @@
 		BE1B5B72613FAA639A179AE5 /* libPods-iOS Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iOS Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C304B8841FE8A69A00ABEB37 /* PIDMenuItemManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIDMenuItemManager.h; sourceTree = "<group>"; };
 		C304B8851FE8A69A00ABEB37 /* PIDMenuItemManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIDMenuItemManager.m; sourceTree = "<group>"; };
+		C304B8FA1FEA8D7600ABEB37 /* PIDWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIDWindow.h; sourceTree = "<group>"; };
+		C304B8FB1FEA8D7600ABEB37 /* PIDWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PIDWindow.m; sourceTree = "<group>"; };
 		C32A71831FE7DCA900409036 /* PIDBindViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIDBindViewController.h; sourceTree = "<group>"; };
 		C32A71841FE7DCA900409036 /* PIDBindViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIDBindViewController.m; sourceTree = "<group>"; };
 		F601F3DBD4CB3F4D3D31910D /* Pods-iOS Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOS Demo/Pods-iOS Demo.release.xcconfig"; sourceTree = "<group>"; };
@@ -278,8 +281,8 @@
 		81A18B011EEE436600BA8293 /* macOS Demo */ = {
 			isa = PBXGroup;
 			children = (
+				C304B8EF1FEA89A200ABEB37 /* Bind */,
 				C304B8871FE8A7DA00ABEB37 /* Utils */,
-				C32A71821FE7DC9100409036 /* Scan */,
 				C32A717E1FE7D74A00409036 /* MenuItem */,
 				81A18B021EEE436600BA8293 /* AppDelegate.h */,
 				81A18B031EEE436600BA8293 /* AppDelegate.m */,
@@ -310,6 +313,17 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
+		C304B8EF1FEA89A200ABEB37 /* Bind */ = {
+			isa = PBXGroup;
+			children = (
+				C304B8FA1FEA8D7600ABEB37 /* PIDWindow.h */,
+				C304B8FB1FEA8D7600ABEB37 /* PIDWindow.m */,
+				C32A71831FE7DCA900409036 /* PIDBindViewController.h */,
+				C32A71841FE7DCA900409036 /* PIDBindViewController.m */,
+			);
+			name = Bind;
+			sourceTree = "<group>";
+		};
 		C32A717E1FE7D74A00409036 /* MenuItem */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,15 +331,6 @@
 				C304B8851FE8A69A00ABEB37 /* PIDMenuItemManager.m */,
 			);
 			name = MenuItem;
-			sourceTree = "<group>";
-		};
-		C32A71821FE7DC9100409036 /* Scan */ = {
-			isa = PBXGroup;
-			children = (
-				C32A71831FE7DCA900409036 /* PIDBindViewController.h */,
-				C32A71841FE7DCA900409036 /* PIDBindViewController.m */,
-			);
-			name = Scan;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -559,7 +564,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CAAAE2F157C926F8F30F727E /* [CP] Embed Pods Frameworks */ = {
@@ -633,6 +638,7 @@
 				C32A71851FE7DCA900409036 /* PIDBindViewController.m in Sources */,
 				81A18B041EEE436600BA8293 /* AppDelegate.m in Sources */,
 				C304B8861FE8A69A00ABEB37 /* PIDMenuItemManager.m in Sources */,
+				C304B8FD1FEA8D7600ABEB37 /* PIDWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

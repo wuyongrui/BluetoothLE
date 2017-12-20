@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
+extern NSString *const BLEBroadcastReceiveRequestNotificationName;
+
 typedef void(^AddServiceBlock)(void);
 typedef void(^BindSuccessBlock)(void);
 
@@ -33,5 +35,10 @@ typedef void(^BindSuccessBlock)(void);
 
 - (void)whenAddService:(AddServiceBlock)addServiceBlock;
 - (void)whenBindSuccess:(BindSuccessBlock)bindSuccessBlock;
+
+/**
+ 是否同意请求
+ */
+- (void)requestGranted:(BOOL)granted uuid:(NSString *)uuid;
 
 @end
