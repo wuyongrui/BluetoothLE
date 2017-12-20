@@ -93,7 +93,7 @@
             for (CBCharacteristic *characteristic in service.characteristics) {
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"BB00"]]) {
                     [BLE shared].characteristicWrite = characteristic;
-                    [[BLE shared] send:bleData.lockData];
+                    [[BLE shared] send:bleData.askBindData];
                 } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"BB11"]]) {
                     [[BLE shared].currentDevice.peripheral setNotifyValue:YES forCharacteristic:characteristic];
                 }
@@ -103,9 +103,6 @@
             if ([data isEqualToData:bleData.lockSuccessData]) {
                 [BLE shared].currentDevice.isLocked = YES;
                 [self presentBindVC];
-            } else if ([data isEqualToData:bleData.lockFailureData]) {
-                [BLE shared].currentDevice.isLocked = NO;
-                [[BLE shared] send:bleData.lockData];
             }
         }];
     }

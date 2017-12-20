@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -662,8 +663,8 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController storyboardIdentifier="ScanWindowController" id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                <windowController storyboardIdentifier="PIDBindWindowController" id="B8D-0N-5wS" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA" customClass="PIDWindow">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
@@ -696,12 +697,42 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XsN-n9-cfF">
+                                <rect key="frame" x="54" y="77" width="372" height="32"/>
+                                <buttonCell key="cell" type="push" title="同意.(同意后Mac将自动锁定，请从手机端进入解锁流程)" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KxK-Dv-fLY">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="agreeAction:" target="XfG-lQ-9wD" id="kyP-01-SPa"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XDB-Qa-14L">
+                                <rect key="frame" x="207" y="33" width="67" height="32"/>
+                                <buttonCell key="cell" type="push" title="取消" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Mc3-Jv-CKo">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="disagreeAction:" target="XfG-lQ-9wD" id="2Ec-Cl-3pv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="XsN-n9-cfF" firstAttribute="top" secondItem="6GJ-HN-uSY" secondAttribute="bottom" constant="22" id="B08-dy-aMl"/>
+                            <constraint firstItem="XDB-Qa-14L" firstAttribute="top" secondItem="XsN-n9-cfF" secondAttribute="bottom" constant="23" id="GWb-Xb-LN3"/>
                             <constraint firstItem="6GJ-HN-uSY" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="I6o-Rm-Mu7"/>
                             <constraint firstItem="6GJ-HN-uSY" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="f2t-av-DSq"/>
+                            <constraint firstItem="XDB-Qa-14L" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="qwA-mf-Dyl"/>
+                            <constraint firstItem="XsN-n9-cfF" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="xh3-fu-0ZA"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="agreeButton" destination="XsN-n9-cfF" id="tpJ-ca-hfN"/>
+                        <outlet property="disagreeButton" destination="XDB-Qa-14L" id="lWL-gm-JNB"/>
+                        <outlet property="loadingLabel" destination="6GJ-HN-uSY" id="aVn-cg-bO7"/>
+                        <outlet property="titleTextField" destination="6GJ-HN-uSY" id="mDk-Yp-P5Y"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

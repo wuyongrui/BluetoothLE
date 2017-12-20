@@ -17,6 +17,8 @@ extern NSString * const PIDBINDED;
 
 @interface BLEData : NSObject
 
+@property (nonatomic, strong) NSData *pidData;
+@property (nonatomic, strong) NSData *askBindData;
 @property (nonatomic, strong) NSData *bindData;
 @property (nonatomic, strong) NSData *unbindData;
 @property (nonatomic, strong) NSData *lockData;

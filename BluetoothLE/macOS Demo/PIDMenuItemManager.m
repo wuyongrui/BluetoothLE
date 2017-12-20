@@ -12,21 +12,28 @@
 #import "BLEBroadcast.h"
 #import "BLELockManager.h"
 #import "BLEData.h"
+#import "PIDBindViewController.h"
 
 @interface PIDMenuItemManager()
 
 @property (nonatomic, strong) NSStatusItem *item;
-@property (nonatomic, strong) NSWindowController *scanWindowController;
+@property (nonatomic, strong) NSWindowController *bindWindowController;
+@property (nonatomic, strong) PIDBindViewController *bindViewController;
 
 @property (nonatomic, copy) NSString *bindedDeviceName;
 
 @property (nonatomic, strong) NSMenuItem *bindMenuItem;
+@property (nonatomic, strong) NSMenuItem *unbindMenuItem;
 @property (nonatomic, strong) NSMenuItem *lockMenuItem;
 @property (nonatomic, strong) NSMenuItem *quitMenuItem;
 
 @end
 
 @implementation PIDMenuItemManager
+
+- (void)dealloc {
+    
+}
 
 + (instancetype)sharedManager {
     static dispatch_once_t onceToken;
@@ -42,6 +49,8 @@
     if (self) {
         self.bindMenuItem = [[NSMenuItem alloc] initWithTitle:@"绑定" action:@selector(bindAction:) keyEquivalent:@""];
         [self.bindMenuItem setTarget:self];
+        self.unbindMenuItem = [[NSMenuItem alloc] initWithTitle:@"解绑" action:@selector(unbindAction:) keyEquivalent:@""];
+        [self.unbindMenuItem setTarget:self];
         self.lockMenuItem = [[NSMenuItem alloc] initWithTitle:@"锁定" action:@selector(lockAction:) keyEquivalent:@""];
         [self.lockMenuItem setTarget:self];
         self.quitMenuItem = [[NSMenuItem alloc] initWithTitle:@"退出" action:@selector(quitAction:) keyEquivalent:@"q"];
@@ -61,24 +70,37 @@
         [[BLEBroadcast shared] whenBindSuccess:^{
             [self refresh];
         }];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestingBind:) name:BLEBroadcastReceiveRequestNotificationName object:nil];
     }
     return self;
 }
 
+- (void)requestingBind:(NSNotification *)notification {
+    NSString *uuid = notification.userInfo[@"uuid"];
+    NSString *deviceName = notification.userInfo[@"deviceName"];
+    [self.bindViewController updateDeviceName:uuid uuid:uuid];
+}
+
 - (void)refresh {
     [self.item.menu removeAllItems];
-    [self.item.menu addItem:self.bindMenuItem];
+    PIDBindDevice *bindedDevice = [[BLEData new] bindedDevice];
+    if (self.bindedDeviceName && bindedDevice) {
+        [self.item.menu addItem:self.unbindMenuItem];
+    } else {
+        [self.item.menu addItem:self.bindMenuItem];
+    }
     [self.item.menu addItem:self.lockMenuItem];
     [self.item.menu addItem:self.quitMenuItem];
     
-    PIDBindDevice *bindedDevice = [[BLEData new] bindedDevice];
-    self.bindMenuItem.title = bindedDevice ? @"取消绑定" : @"绑定";
+//    self.bindMenuItem.title = bindedDevice ? @"取消绑定" : @"绑定";
 }
 
 #pragma mark - Public
 
 - (void)updateDeviceName:(NSString *)deviceName {
     self.bindedDeviceName = deviceName;
+    [self refresh];
 }
 
 #pragma mark - delegate
@@ -92,15 +114,21 @@
 #pragma mark - action
 
 - (void)bindAction:(NSMenuItem *)item {
-    if ([item.title isEqualToString:@"绑定"]) {
-        NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
-        NSWindowController *scanWindowController = [storyboard instantiateControllerWithIdentifier:@"ScanWindowController"];
-        [scanWindowController showWindow:self];
-        self.scanWindowController = scanWindowController;
-    } else {
-        // 取消绑定
-        [[BLEData new] removeBindedDevice];
-    }
+    [self showBindViewController];
+}
+
+- (void)showBindViewController {
+    NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
+    NSWindowController *bindWindowController = [storyboard instantiateControllerWithIdentifier:@"PIDBindWindowController"];
+    [bindWindowController showWindow:self];
+    self.bindWindowController = bindWindowController;
+    self.bindViewController = bindWindowController.contentViewController;
+}
+
+- (void)unbindAction:(NSMenuItem *)item {
+    [[BLEData new] removeBindedDevice];
+    self.bindedDeviceName = nil;
+    [self refresh];
 }
 
 - (void)lockAction:(NSMenuItem *)item {
