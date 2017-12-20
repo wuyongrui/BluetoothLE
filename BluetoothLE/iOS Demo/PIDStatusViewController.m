@@ -180,6 +180,7 @@
         _distanceLabel.font = [UIFont systemFontOfSize:35];
         _distanceLabel.textAlignment = NSTextAlignmentCenter;
         _distanceLabel.textColor = [UIColor colorWithWhite:1 alpha:0.9];
+        _distanceLabel.text = @"";//占位
     }
     return _distanceLabel;
 }
