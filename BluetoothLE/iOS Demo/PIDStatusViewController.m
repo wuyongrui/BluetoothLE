@@ -151,6 +151,18 @@
     [[BLE shared] send:bleData.lockData];
 }
 
+- (void)unbinding
+{
+    BLEData *bleData = [BLEData new];
+    [bleData removeBindedDevice];
+    [[BLE shared] whenReceiveData:^(NSData *data) {
+        if ([data isEqualToData:bleData.unbindSuccessData]) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }];
+    [[BLE shared] send:bleData.unbindData];
+}
+
 #pragma mark - getter
 
 - (UIImageView *)backgroundImageView
@@ -186,6 +198,7 @@
     if(!_statusButton){
         _statusButton = [UIButton new];
         [_statusButton setImage:[UIImage imageNamed:@"status_btn"] forState:UIControlStateNormal];
+        [_statusButton addTarget:self action:@selector(unbinding) forControlEvents:UIControlEventTouchUpInside];
     }
     return _statusButton;
 }

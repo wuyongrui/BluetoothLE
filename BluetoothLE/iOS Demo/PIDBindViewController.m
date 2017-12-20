@@ -71,8 +71,7 @@
             [BLE shared].currentDevice.password = password;
             [bleData storeBindedDevice:[BLE shared].currentDevice];
             PIDStatusViewController *statusVC = [[PIDStatusViewController alloc] init];
-            UINavigationController *statusNC = [[UINavigationController alloc] initWithRootViewController:statusVC];
-            [self presentViewController:statusNC animated:YES completion:nil];
+            [self.navigationController setViewControllers:@[statusVC] animated:YES];
         } else if ([data isEqualToData:bleData.bindFailureData]) {
             [SVProgressHUD showErrorWithStatus:@"绑定失败"];
             self.passwordTextField.text = @"";

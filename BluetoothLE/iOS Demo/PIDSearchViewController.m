@@ -36,7 +36,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self commonInit];
-    [self prepareBlueTooth];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -44,6 +43,12 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
     [self startLoading];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self prepareBlueTooth];
 }
 
 - (void)commonInit
