@@ -13,11 +13,13 @@ extern NSString *const BLEBroadcastReceiveRequestNotificationName;
 
 typedef void(^AddServiceBlock)(void);
 typedef void(^BindSuccessBlock)(void);
+typedef void(^ReceiveRequstDataBlock)(NSData *data);
 
 @interface BLEBroadcast : NSObject
 
 @property (nonatomic, copy) AddServiceBlock addServiceBlock;
 @property (nonatomic, copy) BindSuccessBlock bindSuccessBlock;
+@property (nonatomic, copy) ReceiveRequstDataBlock receiveDataBlock;
 
 + (BLEBroadcast *)shared;
 
@@ -35,6 +37,8 @@ typedef void(^BindSuccessBlock)(void);
 
 - (void)whenAddService:(AddServiceBlock)addServiceBlock;
 - (void)whenBindSuccess:(BindSuccessBlock)bindSuccessBlock;
+- (void)whenReceiveRequestData:(ReceiveRequstDataBlock)receiveDataBlock;
+
 
 /**
  是否同意请求

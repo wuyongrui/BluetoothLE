@@ -25,7 +25,6 @@
 - (instancetype)init {
     if (self = [super init]) {
         _MTU = 20;
-        _deviceDict = [[NSMutableDictionary alloc] init];
         _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];//创建CBCentralManager对象
     }
     return self;
@@ -37,6 +36,21 @@
     // 设置 NO 表示不发现重复设备
     NSDictionary *optionDic = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBCentralManagerScanOptionAllowDuplicatesKey];
     [_centralManager scanForPeripheralsWithServices:nil options:optionDic];//将第一个参数设置为nil，Central Manager就会开始寻找所有的服务。
+    _deviceDict = [[NSMutableDictionary alloc] init];
+}
+
+- (void)emptyBlock {
+    self.connectSuccessBlock = nil;
+    self.connectFailureBlock = nil;
+    self.findBindedBluetoothBlock = nil;
+    self.findUnbindBluetoothAllBlock = nil;
+    self.updateServiceBlock = nil;
+    self.unconnectBlock = nil;
+    self.updateRSSIBlock = nil;
+    self.sendProgressBlock = nil;
+    self.sendFailureBlock = nil;
+    self.sendSuccessBlock = nil;
+    self.receiveDataBlock = nil;
 }
 
 - (void)connect:(BLEDevice *)device {

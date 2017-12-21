@@ -125,6 +125,10 @@
             self.isEnableSend = YES;
             [BLE shared].currentDevice.isLocked = NO;
             [self lock];
+        } else if ([data isEqualToData:bleData.unbindData]) {
+            [self didUnbind];
+        } else if ([data isEqualToData:bleData.unbindSuccessData]) {
+            [self didUnbind];
         }
     }];
 }
@@ -136,7 +140,6 @@
     [unlockData appendData:bleData.unlockData];
     [unlockData appendData:[password dataUsingEncoding:NSUTF8StringEncoding]];
     if (self.isEnableSend) {
-        
         self.isEnableSend = NO;
     }
     [[BLE shared] send:unlockData];
@@ -145,22 +148,23 @@
 - (void)lock {
     BLEData *bleData = [BLEData new];
     if (self.isEnableSend) {
-        
         self.isEnableSend = NO;
     }
     [[BLE shared] send:bleData.lockData];
 }
 
-- (void)unbinding
+- (void)unbind
 {
     BLEData *bleData = [BLEData new];
-    [bleData removeBindedDevice];
-    [[BLE shared] whenReceiveData:^(NSData *data) {
-        if ([data isEqualToData:bleData.unbindSuccessData]) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-    }];
     [[BLE shared] send:bleData.unbindData];
+}
+
+- (void)didUnbind {
+    BLEData *bleData = [BLEData new];
+    [bleData removeBindedDevice];
+    [[BLE shared] unconnect];
+    [[BLE shared] emptyBlock];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - getter
@@ -199,7 +203,7 @@
     if(!_statusButton){
         _statusButton = [UIButton new];
         [_statusButton setImage:[UIImage imageNamed:@"status_btn"] forState:UIControlStateNormal];
-        [_statusButton addTarget:self action:@selector(unbinding) forControlEvents:UIControlEventTouchUpInside];
+        [_statusButton addTarget:self action:@selector(unbind) forControlEvents:UIControlEventTouchUpInside];
     }
     return _statusButton;
 }

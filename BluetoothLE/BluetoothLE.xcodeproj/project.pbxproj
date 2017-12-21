@@ -37,6 +37,7 @@
 		314A4DB51FEA4C61001EF921 /* PIDBindDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 314A4DB21FEA4C61001EF921 /* PIDBindDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		314A4DB61FEA4C61001EF921 /* PIDBindDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 314A4DB31FEA4C61001EF921 /* PIDBindDevice.m */; };
 		314A4DB71FEA4C61001EF921 /* PIDBindDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 314A4DB31FEA4C61001EF921 /* PIDBindDevice.m */; };
+		319E5A351FEBCFB000F44489 /* PIDMotionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 319E5A331FEBCFAF00F44489 /* PIDMotionManager.m */; };
 		80DDD66D1FE559AC0047B189 /* BluetoothLE_Mac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311C09951FE361870054E828 /* BluetoothLE_Mac.framework */; };
 		80DDD6781FE567670047B189 /* BLELockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DDD6771FE567670047B189 /* BLELockManager.m */; };
 		80DDD67B1FE568740047B189 /* BLEBroadcast.m in Sources */ = {isa = PBXBuildFile; fileRef = 80DDD67A1FE568740047B189 /* BLEBroadcast.m */; };
@@ -101,6 +102,8 @@
 		314A4DAD1FEA432B001EF921 /* NSObject+AutoEncode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AutoEncode.m"; sourceTree = "<group>"; };
 		314A4DB21FEA4C61001EF921 /* PIDBindDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PIDBindDevice.h; sourceTree = "<group>"; };
 		314A4DB31FEA4C61001EF921 /* PIDBindDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PIDBindDevice.m; sourceTree = "<group>"; };
+		319E5A331FEBCFAF00F44489 /* PIDMotionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PIDMotionManager.m; sourceTree = "<group>"; };
+		319E5A341FEBCFB000F44489 /* PIDMotionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIDMotionManager.h; sourceTree = "<group>"; };
 		80DDD6761FE567670047B189 /* BLELockManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLELockManager.h; sourceTree = "<group>"; };
 		80DDD6771FE567670047B189 /* BLELockManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLELockManager.m; sourceTree = "<group>"; };
 		80DDD6791FE568740047B189 /* BLEBroadcast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEBroadcast.h; sourceTree = "<group>"; };
@@ -263,6 +266,8 @@
 				81A18AEE1EEE434B00BA8293 /* PIDLockViewController.m */,
 				0032DAFB1FE967DD00370334 /* PIDStatusViewController.h */,
 				0032DAFC1FE967DD00370334 /* PIDStatusViewController.m */,
+				319E5A341FEBCFB000F44489 /* PIDMotionManager.h */,
+				319E5A331FEBCFAF00F44489 /* PIDMotionManager.m */,
 				81A18AF31EEE434B00BA8293 /* Assets.xcassets */,
 				81A18AF81EEE434B00BA8293 /* Info.plist */,
 				81A18AE71EEE434B00BA8293 /* Supporting Files */,
@@ -621,6 +626,7 @@
 			files = (
 				0032DAFA1FE6C90100370334 /* PIDBindViewController.m in Sources */,
 				0038B4041FE6B39D00BDD321 /* PIDSearchViewController.m in Sources */,
+				319E5A351FEBCFB000F44489 /* PIDMotionManager.m in Sources */,
 				81A18AEF1EEE434B00BA8293 /* PIDLockViewController.m in Sources */,
 				81A18AEC1EEE434B00BA8293 /* AppDelegate.m in Sources */,
 				0032DAFD1FE967DD00370334 /* PIDStatusViewController.m in Sources */,

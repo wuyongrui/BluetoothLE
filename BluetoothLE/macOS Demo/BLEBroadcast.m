@@ -110,6 +110,9 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
         NSLog(@"request:%@",request.value);
         if ([[request.value subdataWithRange:NSMakeRange(0, 3)] isEqualToData:bleData.pidData]) {
             self.tempRequest = request;
+            if (self.receiveDataBlock) {
+                self.receiveDataBlock(request.value);
+            }
         }
         NSData *operationData = [request.value subdataWithRange:NSMakeRange(0, 4)];
         if ([operationData isEqualToData:bleData.askBindData]) {
@@ -120,6 +123,8 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
         } else if ([operationData isEqualToData:bleData.bindData]) {
             NSLog(@"收到确认绑定，开始保存密码和解锁");
             [self bind:request];
+        } else if ([operationData isEqualToData:bleData.unbindData]) {
+            [self unbind:request];
         } else if ([operationData isEqualToData:bleData.lockData]) {
             NSLog(@"锁定");
             [self lock:request];
@@ -174,6 +179,12 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
     }
 }
 
+- (void)unbind:(CBATTRequest *)request {
+    BLEData *bleData = [BLEData new];
+    [bleData removeBindedDevice];
+    [self.peripheralManager updateValue:bleData.unbindSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
+}
+
 - (void)send:(NSData *)data {
     if (self.peripheralManager && self.characteristicNotify) {
         [self.peripheralManager updateValue:data forCharacteristic:self.characteristicNotify onSubscribedCentrals:self.characteristicNotify.subscribedCentrals];
@@ -186,6 +197,10 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
 
 - (void)whenBindSuccess:(BindSuccessBlock)bindSuccessBlock {
     self.bindSuccessBlock = bindSuccessBlock;
+}
+
+- (void)whenReceiveRequestData:(ReceiveRequstDataBlock)receiveDataBlock {
+    self.receiveDataBlock = receiveDataBlock;
 }
 
 - (void)requestGranted:(BOOL)granted uuid:(NSString *)uuid {

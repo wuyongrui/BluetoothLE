@@ -70,6 +70,14 @@
         [[BLEBroadcast shared] whenBindSuccess:^{
             [self refresh];
         }];
+        BLEData *bleData = [BLEData new];
+        [[BLEBroadcast shared] whenReceiveRequestData:^(NSData *data) {
+            if ([data isEqualToData:bleData.unbindFailureData]) {
+                [[BLEBroadcast shared] send:bleData.unbindData];
+            } else if ([data isEqualToData:bleData.unbindData]) {
+                [self realUnbind];
+            }
+        }];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestingBind:) name:BLEBroadcastReceiveRequestNotificationName object:nil];
     }
@@ -79,7 +87,7 @@
 - (void)requestingBind:(NSNotification *)notification {
     NSString *uuid = notification.userInfo[@"uuid"];
     NSString *deviceName = notification.userInfo[@"deviceName"];
-    [self.bindViewController updateDeviceName:uuid uuid:uuid];
+    [self.bindViewController updateDeviceName:deviceName uuid:uuid];
 }
 
 - (void)refresh {
@@ -126,7 +134,14 @@
 }
 
 - (void)unbindAction:(NSMenuItem *)item {
-    [[BLEData new] removeBindedDevice];
+    BLEData *bleData = [BLEData new];
+    [[BLEBroadcast shared] send:bleData.unbindData];
+    [self realUnbind];
+}
+
+- (void)realUnbind {
+    BLEData *bleData = [BLEData new];
+    [bleData removeBindedDevice];
     self.bindedDeviceName = nil;
     [self refresh];
 }

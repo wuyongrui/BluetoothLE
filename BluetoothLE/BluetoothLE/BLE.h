@@ -58,11 +58,9 @@ typedef void(^UnconnectBlock)(void);
 @property(assign,nonatomic,readwrite) BOOL isSendFinish;
 
 + (BLE *)shared;
-/**
- *  扫描蓝牙
- */
-- (void)scan;
 
+- (void)emptyBlock;
+- (void)scan;
 - (void)stopScan;
 
 /**

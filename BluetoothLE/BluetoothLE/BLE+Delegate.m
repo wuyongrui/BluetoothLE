@@ -30,6 +30,8 @@
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI {
+    NSString *localName = advertisementData[CBAdvertisementDataLocalNameKey];
+    NSLog(@"name:%@ localName:%@", peripheral.name, localName);
     if (RSSI.floatValue < 0) {
         NSString *localName = advertisementData[CBAdvertisementDataLocalNameKey];
         NSString *uuid = [peripheral.identifier UUIDString];
