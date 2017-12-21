@@ -38,11 +38,6 @@
     else                                return @0;
 }
 
-- (void)setIsLocked:(BOOL)isLocked {
-    _isLocked = isLocked;
-    NSLog(@"锁定状态:%@",@(isLocked));
-}
-
 + (BLEDevice *)deviceWithPeripheral:(CBPeripheral *)peripheral
                   advertisementData:(NSDictionary<NSString *,id> *)advertisementData
                                RSSI:(NSNumber *)RSSI {

@@ -129,6 +129,12 @@
             [self didUnbind];
         } else if ([data isEqualToData:bleData.unbindSuccessData]) {
             [self didUnbind];
+        } else if ([data isEqualToData:bleData.unconnectData]) {
+            [[BLE shared] unconnect];
+            [[BLE shared] emptyBlock];
+            [self prepareBluetooth];
+            self.distanceLabel.text = @"";
+            self.nameLabel.text = @"已断开";
         }
     }];
 }
@@ -164,7 +170,7 @@
     [bleData removeBindedDevice];
     [[BLE shared] unconnect];
     [[BLE shared] emptyBlock];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - getter

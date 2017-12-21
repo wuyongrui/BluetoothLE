@@ -27,6 +27,7 @@ NSString * const PIDDEFAULTDEVICE = @"PIDDEFAULTDEVICE";
         Byte unlockByte[4] = {0x50, 0x49, 0x44, 0x03};
         Byte clearPasswordByte[4] = {0x50, 0x49, 0x44, 0x04};
         Byte askBindByte[4]   = {0x50, 0x49, 0x44, 0x05};
+        Byte unconnectByte[4]   = {0x50, 0x49, 0x44, 0x06};
         
         Byte bindSuccessByte[5]   = {0x50, 0x49, 0x44, 0x00, 0x00};
         Byte unbindSuccessByte[5] = {0x50, 0x49, 0x44, 0x01, 0x00};
@@ -47,6 +48,7 @@ NSString * const PIDDEFAULTDEVICE = @"PIDDEFAULTDEVICE";
         self.unlockData  = [NSData dataWithBytes:unlockByte length:4];
         self.clearPasswordData = [NSData dataWithBytes:clearPasswordByte length:4];
         self.askBindData = [NSData dataWithBytes:askBindByte length:4];
+        self.unconnectData = [NSData dataWithBytes:unconnectByte length:4];
         
         self.bindSuccessData    = [NSData dataWithBytes:bindSuccessByte length:5];
         self.unbindSuccessData  = [NSData dataWithBytes:unbindSuccessByte length:5];

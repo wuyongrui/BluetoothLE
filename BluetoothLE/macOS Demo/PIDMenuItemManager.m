@@ -80,6 +80,10 @@
         }];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestingBind:) name:BLEBroadcastReceiveRequestNotificationName object:nil];
+        BLEDevice *bindDevice = [[BLEData new] bindedDevice];
+        if (bindDevice) {
+            [self updateDeviceName:bindDevice.UUID];
+        }
     }
     return self;
 }
@@ -151,6 +155,7 @@
 }
 
 - (void)quitAction:(NSMenuItem *)item {
+    [[BLEBroadcast shared] send:[BLEData new].unconnectData];
     [NSApp performSelector:@selector(terminate:) withObject:nil afterDelay:0.0];
 }
 

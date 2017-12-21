@@ -101,13 +101,11 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveWriteRequests:(NSArray<CBATTRequest *> *)requests
 {
-    NSLog(@"requests:%@",requests);
-    
     BLEData *bleData = [BLEData new];
     
     for (CBATTRequest *request in requests) {
         // 接收到蓝牙返回的数据
-        NSLog(@"request:%@",request.value);
+        NSLog(@"移动端请求数据:%@",request.value);
         if ([[request.value subdataWithRange:NSMakeRange(0, 3)] isEqualToData:bleData.pidData]) {
             self.tempRequest = request;
             if (self.receiveDataBlock) {
@@ -116,20 +114,16 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
         }
         NSData *operationData = [request.value subdataWithRange:NSMakeRange(0, 4)];
         if ([operationData isEqualToData:bleData.askBindData]) {
-            NSLog(@"收到绑定请求。");
             NSString *uuid = request.central.identifier.UUIDString;
             NSString *deviceName = uuid; // TODO 替换deviceName
             [[NSNotificationCenter defaultCenter] postNotificationName:BLEBroadcastReceiveRequestNotificationName object:nil userInfo:@{@"uuid":uuid,@"deviceName":deviceName}];
         } else if ([operationData isEqualToData:bleData.bindData]) {
-            NSLog(@"收到确认绑定，开始保存密码和解锁");
             [self bind:request];
         } else if ([operationData isEqualToData:bleData.unbindData]) {
             [self unbind:request];
         } else if ([operationData isEqualToData:bleData.lockData]) {
-            NSLog(@"锁定");
             [self lock:request];
         } else if ([operationData isEqualToData:bleData.unlockData]) {
-//            NSLog(@"解锁");
             [self unlock:request];
         }
     }
