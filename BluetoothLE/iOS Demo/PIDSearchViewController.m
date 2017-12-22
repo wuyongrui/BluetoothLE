@@ -75,7 +75,9 @@
     BLEDevice *defaultDevice = [bleData bindedDevice];
     if (defaultDevice) {
         PIDStatusViewController *statusVC = [[PIDStatusViewController alloc] init];
-        [self.navigationController pushViewController:statusVC animated:YES];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:statusVC];
+        nav.navigationBarHidden = YES;
+        [self.navigationController presentViewController:nav animated:YES completion:nil];
     } else {
         // 本地没有保存密码，进入绑定模式
         [[BLE shared] scan];
