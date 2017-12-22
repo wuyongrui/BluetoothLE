@@ -75,7 +75,9 @@
     BLEDevice *defaultDevice = [bleData bindedDevice];
     if (defaultDevice) {
         PIDStatusViewController *statusVC = [[PIDStatusViewController alloc] init];
-        [self.navigationController pushViewController:statusVC animated:YES];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:statusVC];
+        nav.navigationBarHidden = YES;
+        [self.navigationController presentViewController:nav animated:YES completion:nil];
     } else {
         // 本地没有保存密码，进入绑定模式
         [[BLE shared] scan];
@@ -100,6 +102,7 @@
             }
         }];
         [[BLE shared] whenReceiveData:^(NSData *data) {
+            NSLog(@"lockdata:%@",data);
             if ([data isEqualToData:bleData.lockSuccessData]) {
                 [BLE shared].currentDevice.isLocked = YES;
                 [[BLE shared] send:[BLEData new].lightScreenData];
@@ -111,6 +114,7 @@
 
 - (void)presentBindVC
 {
+    NSLog(@"presentBindVC");
     PIDBindViewController *bindVC = [[PIDBindViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:bindVC];
     nav.navigationBarHidden = YES;

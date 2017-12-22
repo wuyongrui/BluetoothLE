@@ -174,7 +174,7 @@
     [bleData removeBindedDevice];
     [[BLE shared] unconnect];
     [[BLE shared] emptyBlock];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - getter
