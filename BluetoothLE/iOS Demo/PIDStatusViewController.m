@@ -163,6 +163,9 @@
 {
     BLEData *bleData = [BLEData new];
     [[BLE shared] send:bleData.unbindData];
+    if (![BLE shared].currentDevice) {
+        [self didUnbind];
+    }
 }
 
 - (void)didUnbind {
