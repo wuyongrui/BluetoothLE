@@ -16,6 +16,7 @@
 
 @property (weak) IBOutlet NSButton *agreeButton;
 @property (weak) IBOutlet NSButton *disagreeButton;
+@property (weak) IBOutlet NSTextField *tipTextField;
 
 @property (nonatomic, copy) NSString *uuid;
 @property (nonatomic, copy) NSString *deviceName;
@@ -30,9 +31,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.titleTextField.stringValue = @"SCAN...";
     self.agreeButton.hidden = YES;
     self.disagreeButton.hidden = YES;
+    self.tipTextField.hidden = YES;
     
     [[BLEBroadcast shared] stopAdvertising];
     [[BLEBroadcast shared] startUnbindAdvertising];
@@ -45,11 +46,13 @@
 }
 
 - (void)updateDeviceName:(NSString *)deviceName uuid:(NSString *)uuid {
-    self.titleTextField.stringValue = deviceName;
     self.deviceName = deviceName;
     self.uuid = uuid;
+    self.titleTextField.stringValue = [NSString stringWithFormat:@"收到手机设备:[%@]的绑定请求",deviceName];
+    self.titleTextField.stringValue = deviceName;
     self.agreeButton.hidden = NO;
     self.disagreeButton.hidden = NO;
+    self.tipTextField.hidden = NO;
 }
 
 - (IBAction)agreeAction:(id)sender {
@@ -60,6 +63,7 @@
 
 - (IBAction)disagreeAction:(id)sender {
     [[BLEBroadcast shared] requestGranted:NO uuid:self.uuid];
+    [[PIDMenuItemManager sharedManager] updateDeviceName:nil]; // 绑定失败
 }
 
 @end

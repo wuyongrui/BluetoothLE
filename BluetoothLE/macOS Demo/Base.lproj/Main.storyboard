@@ -690,16 +690,16 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6GJ-HN-uSY">
-                                <rect key="frame" x="215" y="127" width="51" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="SCAN..." id="EBn-LF-Hcq">
+                                <rect key="frame" x="159" y="177" width="162" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="等待手机端发起绑定请求..." id="EBn-LF-Hcq">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XsN-n9-cfF">
-                                <rect key="frame" x="54" y="77" width="372" height="32"/>
-                                <buttonCell key="cell" type="push" title="同意.(同意后Mac将自动锁定，请从手机端进入解锁流程)" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KxK-Dv-fLY">
+                                <rect key="frame" x="155" y="127" width="67" height="32"/>
+                                <buttonCell key="cell" type="push" title="同意" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KxK-Dv-fLY">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="13" name=".PingFangSC-Regular"/>
                                 </buttonCell>
@@ -708,7 +708,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XDB-Qa-14L">
-                                <rect key="frame" x="207" y="33" width="67" height="32"/>
+                                <rect key="frame" x="258" y="127" width="67" height="32"/>
                                 <buttonCell key="cell" type="push" title="取消" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Mc3-Jv-CKo">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="13" name=".PingFangSC-Regular"/>
@@ -717,20 +717,32 @@
                                     <action selector="disagreeAction:" target="XfG-lQ-9wD" id="2Ec-Cl-3pv"/>
                                 </connections>
                             </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ez0-ak-aZx">
+                                <rect key="frame" x="159" y="89" width="240" height="28"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="LI9-Xi-CVt">
+                                    <font key="font" metaFont="system" size="11"/>
+                                    <string key="title">Tips:同意绑定请求后，Mac将自动锁定，
+请从手机端输入密码解锁Mac，完成绑定流程。</string>
+                                    <color key="textColor" name="windowFrameColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="ez0-ak-aZx" firstAttribute="top" secondItem="XsN-n9-cfF" secondAttribute="bottom" constant="17" id="6HY-ju-w2b"/>
+                            <constraint firstItem="ez0-ak-aZx" firstAttribute="leading" secondItem="XsN-n9-cfF" secondAttribute="leading" id="74Z-66-pnv"/>
                             <constraint firstItem="XsN-n9-cfF" firstAttribute="top" secondItem="6GJ-HN-uSY" secondAttribute="bottom" constant="22" id="B08-dy-aMl"/>
-                            <constraint firstItem="XDB-Qa-14L" firstAttribute="top" secondItem="XsN-n9-cfF" secondAttribute="bottom" constant="23" id="GWb-Xb-LN3"/>
-                            <constraint firstItem="6GJ-HN-uSY" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="I6o-Rm-Mu7"/>
+                            <constraint firstItem="6GJ-HN-uSY" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" constant="-50" id="I6o-Rm-Mu7"/>
+                            <constraint firstItem="XDB-Qa-14L" firstAttribute="top" secondItem="XsN-n9-cfF" secondAttribute="top" id="Lie-KD-Dzx"/>
+                            <constraint firstItem="XDB-Qa-14L" firstAttribute="trailing" secondItem="6GJ-HN-uSY" secondAttribute="trailing" id="SvZ-U6-hd2"/>
                             <constraint firstItem="6GJ-HN-uSY" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="f2t-av-DSq"/>
-                            <constraint firstItem="XDB-Qa-14L" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="qwA-mf-Dyl"/>
-                            <constraint firstItem="XsN-n9-cfF" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="xh3-fu-0ZA"/>
+                            <constraint firstItem="XsN-n9-cfF" firstAttribute="leading" secondItem="6GJ-HN-uSY" secondAttribute="leading" id="kCc-dI-DDq"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="agreeButton" destination="XsN-n9-cfF" id="tpJ-ca-hfN"/>
                         <outlet property="disagreeButton" destination="XDB-Qa-14L" id="lWL-gm-JNB"/>
-                        <outlet property="loadingLabel" destination="6GJ-HN-uSY" id="aVn-cg-bO7"/>
+                        <outlet property="tipTextField" destination="ez0-ak-aZx" id="uHS-T3-ny1"/>
                         <outlet property="titleTextField" destination="6GJ-HN-uSY" id="mDk-Yp-P5Y"/>
                     </connections>
                 </viewController>
