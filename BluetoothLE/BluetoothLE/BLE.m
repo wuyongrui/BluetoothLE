@@ -9,7 +9,6 @@
 #import "BLE+Delegate.h"
 #import "BLE+SendData.h"
 
-
 @implementation BLE
 
 + (BLE *)shared

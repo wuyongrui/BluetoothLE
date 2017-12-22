@@ -13,5 +13,6 @@
 + (BOOL)isLocked;
 + (void)lock;
 + (void)unlock:(NSString *)password;
++ (void)lightScreen;
 
 @end

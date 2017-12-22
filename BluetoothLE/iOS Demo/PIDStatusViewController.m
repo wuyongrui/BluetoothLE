@@ -148,6 +148,7 @@
     if (self.isEnableSend) {
         self.isEnableSend = NO;
     }
+    [[BLE shared] send:bleData.lightScreenData];
     [[BLE shared] send:unlockData];
 }
 

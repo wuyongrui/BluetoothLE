@@ -81,6 +81,18 @@
     sleep(1);
 }
 
++ (void)lightScreen {
+    if (![self isLocked]) return;
+    io_registry_entry_t r = IORegistryEntryFromPath(kIOMasterPortDefault, "IOService:/IOResources/IODisplayWrangler");
+    if (r) {
+        IORegistryEntrySetCFProperty(r, CFSTR("IORequestIdle"), kCFBooleanFalse);
+        IOObjectRelease(r);
+    }
+    NSString *s = @"tell application \"System Events\" to keystroke return";
+    NSAppleScript *script = [[NSAppleScript alloc] initWithSource:s];
+    [script executeAndReturnError:nil];
+}
+
 #pragma mark - private
 
 + (NSInteger)getScreensaverDelay

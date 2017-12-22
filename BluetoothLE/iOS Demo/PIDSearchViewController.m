@@ -102,6 +102,7 @@
         [[BLE shared] whenReceiveData:^(NSData *data) {
             if ([data isEqualToData:bleData.lockSuccessData]) {
                 [BLE shared].currentDevice.isLocked = YES;
+                [[BLE shared] send:[BLEData new].lightScreenData];
                 [self presentBindVC];
             }
         }];

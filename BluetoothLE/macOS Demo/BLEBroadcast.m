@@ -124,6 +124,8 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
             [self lock:request];
         } else if ([operationData isEqualToData:bleData.unlockData]) {
             [self unlock:request];
+        } else if ([operationData isEqualToData:bleData.lightScreenData]) {
+            [BLELockManager lightScreen];
         }
     }
 }
@@ -131,9 +133,13 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
 - (void)lock:(CBATTRequest *)request {
     BLEData *bleData = [BLEData new];
     [BLELockManager lock];
-    if ([BLELockManager isLocked]) {
+    BOOL isLocked = [BLELockManager isLocked];
+    NSLog(@"isLocked:%@",@(isLocked));
+    if (YES) {
+        NSLog(@"锁定成功··");
         [self.peripheralManager updateValue:bleData.lockSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
     } else {
+        NSLog(@"锁定失败··");
         [self.peripheralManager updateValue:bleData.lockFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
     }
 }
@@ -160,14 +166,12 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
         if (self.bindSuccessBlock) {
             self.bindSuccessBlock();
         }
-        NSLog(@"绑定成功");
         [self.peripheralManager updateValue:bleData.bindSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
         PIDBindDevice *bindedDevice = [[BLEDevice alloc] init];
         bindedDevice.UUID = request.central.identifier.UUIDString;
         bindedDevice.password = password;
         [bleData storeBindedDevice:bindedDevice];
     } else {
-        NSLog(@"绑定失败");
         [self.peripheralManager updateValue:bleData.bindFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
     }
 }
@@ -203,7 +207,6 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
     if (granted) {
         [self bind:self.tempRequest];
         [self lock:self.tempRequest];
-        
     }
 }
 
