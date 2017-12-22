@@ -73,7 +73,7 @@
             PIDStatusViewController *statusVC = [[PIDStatusViewController alloc] init];
             [self.navigationController setViewControllers:@[statusVC] animated:YES];
         } else if ([data isEqualToData:bleData.bindFailureData]) {
-            [SVProgressHUD showErrorWithStatus:@"绑定失败"];
+            [SVProgressHUD showErrorWithStatus:@"密码错误"];
             self.passwordTextField.text = @"";
         }
     }];

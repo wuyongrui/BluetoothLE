@@ -81,14 +81,17 @@
                 [self realUnbind];
             }
         }];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestingBind:) name:BLEBroadcastReceiveRequestNotificationName object:nil];
         BLEDevice *bindDevice = [[BLEData new] bindedDevice];
         if (bindDevice) {
             [self updateDeviceName:bindDevice.UUID];
         }
+        [self addNotifications];
     }
     return self;
+}
+
+- (void)addNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestingBind:) name:BLEBroadcastReceiveRequestNotificationName object:nil];
 }
 
 - (void)requestingBind:(NSNotification *)notification {
@@ -107,8 +110,6 @@
     }
     [self.item.menu addItem:self.lockMenuItem];
     [self.item.menu addItem:self.quitMenuItem];
-    
-//    self.bindMenuItem.title = bindedDevice ? @"取消绑定" : @"绑定";
 }
 
 #pragma mark - Public

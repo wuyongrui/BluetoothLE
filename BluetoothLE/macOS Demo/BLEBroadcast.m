@@ -12,7 +12,6 @@
 
 NSString *const BLEBroadcastReceiveRequestNotificationName = @"BLEBroadcastReceiveRequestNotificationName";
 
-
 @interface BLEBroadcast()<CBPeripheralManagerDelegate>
 
 @property (nonatomic, strong) CBPeripheralManager *peripheralManager;
@@ -132,7 +131,7 @@ static NSString * const kCharacteristicNotifyUUID = @"BB11";
 - (void)lock:(CBATTRequest *)request {
     BLEData *bleData = [BLEData new];
     [BLELockManager lock];
-    if ([BLELockManager isLocked] || YES) {
+    if ([BLELockManager isLocked]) {
         [self.peripheralManager updateValue:bleData.lockSuccessData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
     } else {
         [self.peripheralManager updateValue:bleData.lockFailureData forCharacteristic:self.characteristicNotify onSubscribedCentrals:@[request.central]];
