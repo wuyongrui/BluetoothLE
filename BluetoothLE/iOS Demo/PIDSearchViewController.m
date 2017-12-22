@@ -102,6 +102,7 @@
             }
         }];
         [[BLE shared] whenReceiveData:^(NSData *data) {
+            NSLog(@"lockdata:%@",data);
             if ([data isEqualToData:bleData.lockSuccessData]) {
                 [BLE shared].currentDevice.isLocked = YES;
                 [self presentBindVC];
@@ -112,6 +113,7 @@
 
 - (void)presentBindVC
 {
+    NSLog(@"presentBindVC");
     PIDBindViewController *bindVC = [[PIDBindViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:bindVC];
     nav.navigationBarHidden = YES;
