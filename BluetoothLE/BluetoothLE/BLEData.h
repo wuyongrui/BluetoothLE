@@ -25,6 +25,7 @@ extern NSString * const PIDBINDED;
 @property (nonatomic, strong) NSData *unlockData;
 @property (nonatomic, strong) NSData *clearPasswordData;
 @property (nonatomic, strong) NSData *unconnectData;
+@property (nonatomic, strong) NSData *lightScreenData;
 
 @property (nonatomic, strong) NSData *bindSuccessData;
 @property (nonatomic, strong) NSData *bindFailureData;
