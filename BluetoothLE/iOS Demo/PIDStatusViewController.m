@@ -20,6 +20,10 @@
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, assign) BOOL isEnableSend;
 @property (nonatomic, strong) NSMutableArray *RSSIs;
+@property (nonatomic, strong) NSMutableArray *leaveRSSIs;
+//@property (nonatomic, strong) NSDate *startTime;
+//@property (nonatomic, strong) NSDate *endTime;
+//@property (nonatomic, strong) NSMutableArray *usingTimes;
 
 - (void)commonInit;
 - (void)prepareBluetooth;
@@ -30,8 +34,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.RSSIs = @[].mutableCopy;
+    
+    self.RSSIs = [[NSMutableArray alloc] init];
+    self.leaveRSSIs = [[NSMutableArray alloc] init];
+//    self.usingTimes = [[NSMutableArray alloc] init];
     self.isEnableSend = YES;
     [self commonInit];
     [self prepareBluetooth];
@@ -54,7 +60,8 @@
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.distanceLabel.mas_bottom).offset(PIDRealHeight(55));
         make.centerX.equalTo(self.view);
-    }];    [self.view addSubview:self.statusButton];
+    }];
+    [self.view addSubview:self.statusButton];
     [self.statusButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(PIDRealHeight(-40));
         make.centerX.equalTo(self.view);
@@ -114,6 +121,7 @@
             [BLE shared].currentDevice.isLocked = NO;
 //            [SVProgressHUD showSuccessWithStatus:@"解锁成功"];
         } else if ([data isEqualToData:bleData.unlockFailureData]) {
+//            [self logEndTime];
             self.isEnableSend = YES;
             [BLE shared].currentDevice.isLocked = YES;
             [self unlock];
@@ -153,12 +161,32 @@
 }
 
 - (void)lock {
-    BLEData *bleData = [BLEData new];
+   BLEData *bleData = [BLEData new];
     if (self.isEnableSend) {
         self.isEnableSend = NO;
     }
     [[BLE shared] send:bleData.lockData];
 }
+
+//- (void)logStartTime {
+//    self.startTime = [NSDate new];
+//}
+//
+//- (void)logEndTime {
+//    if (self.startTime) {
+//        self.endTime = [NSDate new];
+//        NSTimeInterval interval = [self.endTime timeIntervalSinceDate:self.startTime];
+//        [self.usingTimes addObject:@(interval)];
+//        if (self.usingTimes.count == 10) {
+//            NSString *cachePatch = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
+//            NSString *uuid = [NSUUID UUID].UUIDString;
+//            NSString *filePath = [cachePatch stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",uuid]];
+//            [self.usingTimes writeToFile:filePath atomically:YES];
+//            [self.usingTimes removeAllObjects];
+//        }
+//    }
+//    self.startTime = nil;
+//}
 
 - (void)unbind
 {
@@ -218,18 +246,55 @@
     return _statusButton;
 }
 
-- (float)averageRSSI:(NSNumber *)RSSI {
+- (float)averageOfSaved {
+    double RSSISum = 0;
+    for (BLERSSI *bleRSSI in self.RSSIs) {
+        RSSISum += bleRSSI.RSSI.floatValue;
+    }
+    float average = RSSISum/self.RSSIs.count;
+    return average;
+}
+
+- (void)removeTimeoutRSSI {
+    [self.leaveRSSIs enumerateObjectsUsingBlock:^(BLERSSI *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.isTimeout) {
+            [self.leaveRSSIs removeObject:obj];
+            NSLog(@"剔除超时异常值");
+        }
+    }];
+}
+
+- (void)appendRealtimeRSSI:(BLERSSI *)bleRSSI {
     if (self.RSSIs.count == 5) {
         [self.RSSIs removeObjectAtIndex:0];
     }
-    [self.RSSIs addObject:RSSI];
-    double RSSISum = 0;
-    for (NSNumber *RSSI in self.RSSIs) {
-        RSSISum += RSSI.floatValue;
+    [self.RSSIs addObject:bleRSSI];
+}
+
+- (float)averageRSSI:(NSNumber *)RSSI {
+    
+    float averageSaved = [self averageOfSaved];
+    BLERSSI *bleRSSI = [[BLERSSI alloc] init];
+    bleRSSI.RSSI = RSSI;
+    if (RSSI.floatValue < averageSaved*1.3) {
+        [self.leaveRSSIs addObject:bleRSSI];
     }
-    float distance = [BLEDevice distanceWithRSSI:RSSI].floatValue;
-    NSLog(@"平均RSSI:%.1f RSSI:%.1f distance:%@", RSSISum/self.RSSIs.count, RSSI.floatValue, @(distance));
-    return RSSISum/self.RSSIs.count;
+    [self removeTimeoutRSSI];
+    if (self.leaveRSSIs.count > 3) {
+        if (self.RSSIs.count > 3) {
+            [self.RSSIs removeObjectsInRange:NSMakeRange(0, 3)];
+        }
+        for (BLERSSI *bleRSSI in self.leaveRSSIs) {
+            NSLog(@"加入一个 RSSI*1.3 的值:%.1f",bleRSSI.RSSI.floatValue);
+        }
+        [self.RSSIs addObjectsFromArray:self.leaveRSSIs];
+        [self.leaveRSSIs removeAllObjects];
+    } else {
+        [self appendRealtimeRSSI:bleRSSI];
+    }
+    float averageNew = [self averageOfSaved];
+    NSLog(@"平均RSSI:%.1f RSSI:%.1f", averageNew, RSSI.floatValue);
+    return averageNew;
 }
 
 @end

@@ -118,7 +118,6 @@
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-    NSLog(@"didUpdateValueForCharacteristic:%@", characteristic);
     if (self.receiveDataBlock) {
         self.receiveDataBlock(characteristic.value);
     }
