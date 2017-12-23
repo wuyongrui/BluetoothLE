@@ -52,7 +52,7 @@
     }];
     [self.view addSubview:self.nameLabel];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.distanceLabel.mas_bottom).offset(PIDRealHeight(55));
+        make.top.equalTo(self.distanceLabel.mas_bottom).offset(PIDRealHeight(58));
         make.centerX.equalTo(self.view);
     }];    [self.view addSubview:self.statusButton];
     [self.statusButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -91,9 +91,10 @@
     }];
     [[BLE shared] whenUpdateRSSI:^(NSNumber *RSSI) {
         float average = [self averageRSSI:RSSI];
+        NSString *rssi = @"/RSSI";
         NSString *str =  [NSString stringWithFormat:@"%.1f /RSSI", average];
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:str];
-        [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:22] range:NSMakeRange(str.length - 3, 3)];
+        [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:22] range:NSMakeRange(str.length - rssi.length, rssi.length)];
         self.distanceLabel.attributedText = attr;
         
         if (average > PIDLOCKRSSI) {
@@ -133,7 +134,7 @@
             [[BLE shared] unconnect];
             [[BLE shared] emptyBlock];
             [self prepareBluetooth];
-            self.distanceLabel.text = @"";
+            self.distanceLabel.text = @" ";
             self.nameLabel.text = @"已断开";
         }
     }];
@@ -191,7 +192,7 @@
 - (UILabel *)distanceLabel{
     if(!_distanceLabel){
         _distanceLabel = [UILabel new];
-        _distanceLabel.font = [UIFont systemFontOfSize:35];
+        _distanceLabel.font = [UIFont systemFontOfSize:PIDRealWidth(34)];
         _distanceLabel.textAlignment = NSTextAlignmentCenter;
         _distanceLabel.textColor = [UIColor colorWithWhite:1 alpha:0.9];
         _distanceLabel.text = @"";//占位
@@ -202,7 +203,7 @@
 - (UILabel *)nameLabel{
     if(!_nameLabel){
         _nameLabel = [UILabel new];
-        _nameLabel.font = [UIFont systemFontOfSize:22];
+        _nameLabel.font = [UIFont systemFontOfSize:PIDRealWidth(22)];
         _nameLabel.textAlignment = NSTextAlignmentCenter;
         _nameLabel.textColor = [UIColor colorWithWhite:1 alpha:0.7];
     }
