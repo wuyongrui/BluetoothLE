@@ -24,7 +24,7 @@
         locked = [o boolValue];
     }
     CFRelease(CGSessionCurrentDictionary);
-    
+    sleep(0.5);
     return locked;
 }
 
