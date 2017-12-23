@@ -84,10 +84,15 @@
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-    if (self.unconnectBlock) {
-        self.unconnectBlock();
+    if (self.isUserUnconnect) {
+        if (self.unconnectBlock) {
+            self.unconnectBlock();
+        }
+        self.currentDevice = nil;
+        self.isUserUnconnect = NO;
+    } else {
+        [self connect:self.currentDevice];
     }
-    self.currentDevice = nil;
 }
 
 //连接外设失败

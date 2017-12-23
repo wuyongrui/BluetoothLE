@@ -67,6 +67,7 @@
 - (void)unconnect {
     
     if (_currentDevice.peripheral) {
+        self.isUserUnconnect = YES;
         [self.centralManager cancelPeripheralConnection:_currentDevice.peripheral];
     }
 }
