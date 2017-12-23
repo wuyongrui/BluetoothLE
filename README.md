@@ -72,3 +72,16 @@ An easy using SDK for CoreBluetooth
 
 ```
 
+
+
+###测试数据
+
+我们测试了五十组数据，并得到如下结果：
+
+![](https://i.imgur.com/HlyKexU.png)
+
+![](https://i.imgur.com/qRZMYHU.png)
+
+![](https://i.imgur.com/O4afajN.png)
+
+[图表对比工程地址](https://github.com/wuyongrui/PIDCharts)
