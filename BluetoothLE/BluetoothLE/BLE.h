@@ -56,6 +56,7 @@ typedef void(^UnconnectBlock)(void);
 @property(assign,nonatomic,readwrite) NSInteger MTU;
 @property(assign,nonatomic,readwrite) NSInteger dataOffset;
 @property(assign,nonatomic,readwrite) BOOL isSendFinish;
+@property(assign,nonatomic,readwrite) BOOL isUserUnconnect;
 
 + (BLE *)shared;
 
