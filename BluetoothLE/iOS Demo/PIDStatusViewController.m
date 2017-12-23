@@ -220,10 +220,10 @@
 - (UILabel *)distanceLabel{
     if(!_distanceLabel){
         _distanceLabel = [UILabel new];
-        _distanceLabel.font = [UIFont systemFontOfSize:PIDRealWidth(34)];
+        _distanceLabel.font = [UIFont systemFontOfSize:PIDRealWidth(32)];
         _distanceLabel.textAlignment = NSTextAlignmentCenter;
         _distanceLabel.textColor = [UIColor colorWithWhite:1 alpha:0.9];
-        _distanceLabel.text = @"";//占位
+        _distanceLabel.text = @" ";//占位
     }
     return _distanceLabel;
 }
